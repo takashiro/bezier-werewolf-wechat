@@ -1,0 +1,8 @@
+/**app.wxss**/
+
+.container {
+    min-height: 100vh;
+    background: #090408 no-repeat;
+    background-size: 100% auto;
+}
+@import 'style/background.wxss';
