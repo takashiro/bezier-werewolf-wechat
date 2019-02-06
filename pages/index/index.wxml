@@ -1,3 +1,14 @@
-<!--index.wxml-->
+<import src="../global.wxml" />
 <view class="container">
+	<template is="header" />
+	<view class="lobby">
+		<view class="creator">
+			<button>创建房间</button>
+		</view>
+		<view class="entrance">
+			<input type="number" placeholder="房间号" auto-focus confirm-type="go" />
+			<button>进入房间</button>
+		</view>
+	</view>
+	<template is="footer" />
 </view>
