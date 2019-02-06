@@ -1,0 +1,8 @@
+<template name="role-icon">
+    <view class="role">
+        <view class="icon">
+            <image src="/style/role/{{key}}.png" />
+        </view>
+        <text>{{name}}</text>
+    </view>
+</template>
