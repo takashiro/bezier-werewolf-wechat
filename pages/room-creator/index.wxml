@@ -1,0 +1,15 @@
+<import src="../global.wxml" />
+
+<view class="container">
+    <template is="header" />
+	<view class="team-selector" wx:for="{{selectors}}" wx:key="team">
+		<text class="header">{{item.team.name}}</text>
+		<view class="role-list" wx:for="{{item.groups}}" wx:key="team">
+			<RoleButton wx:for="{{item}}" wx:key="role" role="{{item.role.value}}" name="{{item.name}}" icon="{{item.role.key}}" selected="{{item.selected}}" bindnumberchange="handleRoleChange" />
+		</view>
+	</view>
+	<view class="button-area">
+		<button bindtap="createRoom">创建房间</button>
+	</view>
+    <template is="footer" />
+</view>

@@ -1,0 +1,15 @@
+
+view.header {
+	margin-bottom: 85px;
+}
+
+view.team-selector {
+	color: white;
+	margin: 20px 10px;
+}
+
+view.team-selector text.header {
+	text-align: center;
+	display: block;
+	margin: 25px 0;
+}

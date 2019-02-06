@@ -6,4 +6,10 @@ Page({
     data: {},
 
     onLoad: function() {},
+
+	createRoom: function() {
+		wx.redirectTo({
+			url: '../room-creator/index',
+		});
+	},
 })

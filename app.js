@@ -1,5 +1,7 @@
 //app.js
 App({
     onLaunch: function() {},
-    globalData: {}
+    globalData: {
+		serverUrl: 'https://onuw.takashiro.cn/api/'
+	}
 })
