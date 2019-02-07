@@ -1,6 +1,6 @@
 view.role {
     width: 64px;
-    height: 64px;
+    height: 90px;
     font-size: 11pt;
     margin: 0 7px;
 }
@@ -25,4 +25,10 @@ view.role view.icon image {
     position: absolute;
 	top: 0;
 	left: 0;
+}
+
+view.role text {
+	color: white;
+	text-align: center;
+	display: block;
 }

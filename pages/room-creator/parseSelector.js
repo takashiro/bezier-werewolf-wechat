@@ -60,7 +60,7 @@ function parseSelector(config) {
 				continue;
 			}
 			const selected = config.indexOf(role) >= 0;
-			roles.push({...role, selected: true});
+			roles.push({...role, selected});
 		}
 
 		const teamConfig = {

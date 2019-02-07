@@ -63,12 +63,26 @@ Page({
 				}
 
 				const room = res.data;
-				console.log(room);
+				wx.setStorage({
+					key: 'room',
+					data: room,
+					success: function() {
+						wx.redirectTo({
+							url: '../room/index?id=' + room.id,
+						});
+					},
+					fail: function() {
+						wx.showToast({
+							title: '您的存储空间不足，请删除小程序后重试。',
+							icon: 'none',
+						});
+					},
+				});
 			},
 			fail: function(res) {
 				wx.hideLoading();
 				wx.showToast({
-					title: '网络状况不佳，请重试。',
+					title: '您的网络环境故障，请确认设备可联网。',
 					icon: 'none',
 				});
 			},

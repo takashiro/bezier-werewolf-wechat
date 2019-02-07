@@ -1,0 +1,6 @@
+<import src="role-icon.wxml" />
+<template name="role-list">
+    <view class="role-list">
+        <template is="role-icon" data="{{...item}}" wx:for="{{roles}}" wx:key="{{item.id}}" />
+    </view>
+</template>

@@ -4,22 +4,15 @@ import Team from '../game/Team';
 class TeamItem {
 
 	constructor(team, name) {
-		this.team = team;
+		this.key = team.key;
+		this.value = team.value;
 		this.name = name;
 
 		TeamItem[this.key] = this;
 	}
 
-	get key() {
-		return this.team.key;
-	}
-
-	get value() {
-		return this.team.value;
-	}
-
 	toNum() {
-		return this.team.value;
+		return this.value;
 	}
 
 	static fromNum(num) {

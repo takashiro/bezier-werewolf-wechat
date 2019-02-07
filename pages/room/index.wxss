@@ -1,0 +1,29 @@
+
+view.header {
+	padding-bottom: 0;
+	margin-bottom: 0;
+}
+
+view.room-info {
+	color: white;
+	text-align: center;
+	text-shadow: black 1px 1px 2px;
+	line-height: 3em;
+	height: 3em;
+	font-size: 12pt;
+}
+
+view.team text.header {
+	color: white;
+	text-align: center;
+	display: block;
+	margin: 20px 0;
+	font-size: 15pt;
+	text-shadow: black 1px 1px 2px;
+}
+
+@import '../role-icon.wxss';
+
+view.role-list view.role {
+	display: inline-block;
+}

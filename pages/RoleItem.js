@@ -4,7 +4,9 @@ import Role from '../game/Role';
 class RoleItem {
 
 	constructor(role, name, prompt, skill) {
-		this.role = role;
+		this.key = role.key;
+		this.value = role.value;
+		this.team = role.team;
 		this.name = name;
 		this.prompt = prompt;
 		this.skill = skill;
@@ -12,20 +14,8 @@ class RoleItem {
 		RoleItem[this.key] = this;
 	}
 
-	get key() {
-		return this.role.key;
-	}
-
-	get value() {
-		return this.role.value;
-	}
-
-	get team() {
-		return this.role.team;
-	}
-
 	toNum() {
-		return this.role.value;
+		return this.value;
 	}
 
 	static fromNum(num) {
