@@ -27,3 +27,9 @@ view.box text.header {
 view.role-list view.role {
 	display: inline-block;
 }
+
+view.message {
+	display: block;
+	text-align: center;
+	margin: 100px 0;
+}

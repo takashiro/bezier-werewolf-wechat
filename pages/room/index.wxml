@@ -4,10 +4,10 @@
 <view class="container">
 	<template is="header" />
 		<view class="room-info">
-			<text wx:if="{{id}}">房间号 {{id}}</text>
+			<text wx:if="{{id > 0}}">房间号 {{id}}</text>
 		</view>
 		<block wx:if="{{id === -1}}">
-			<view class="message">房间已经不存在。</view>
+			<view class="message">房间已失效</view>
 		</block>
 		<block wx:else>
 			<view class="box team" wx:for="{{teams}}" wx:key="key">
