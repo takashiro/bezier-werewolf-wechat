@@ -9,9 +9,11 @@ function prepareRoom(data) {
 	const id = parseInt(data.id, 10);
 	const key = data.key;
 	const teams = [];
+	let playerNum = 0;
 
 	const teamMap = new Map;
 	if (data.roles && data.roles instanceof Array) {
+		playerNum = data.roles.length - 3;
 		for (const roleEnum of data.roles) {
 			const role = Role.fromNum(roleEnum);
 			const team = Team.fromNum(role.team.value);
@@ -28,7 +30,12 @@ function prepareRoom(data) {
 		team.roles.sort();
 	}
 
-	return {id, key, teams};
+	return {
+		id,
+		key,
+		playerNum,
+		teams,
+	};
 }
 
 Page({
@@ -37,6 +44,7 @@ Page({
 		id: 0,
 		key: "",
 		teams: [],
+		playerNum: 0,
 	},
 
 	onLoad: function (options) {

@@ -1,0 +1,12 @@
+
+.desc {
+	margin: 10px 20px 40px 20px;
+	font-size: 11pt;
+	display: block;
+}
+
+.header {
+	font-size: 11pt;
+	margin: 15px 0;
+	display: block;
+}

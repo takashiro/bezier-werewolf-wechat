@@ -17,5 +17,13 @@
         <view class="card-bg">
 			<image class="role" src="/style/role/{{role.key}}.png" />
         </view>
+		<Board
+			roomId="{{roomId}}"
+			roomKey="{{roomKey}}"
+			playerNum="{{playerNum}}"
+			seat="{{seat}}"
+			seatKey="{{seatKey}}"
+			role="{{role}}"
+		/>
     </block>
 </view>

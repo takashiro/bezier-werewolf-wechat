@@ -77,12 +77,17 @@ Component({
 			type: String,
 			value: '',
 		},
+		playerNum: {
+			type: Number,
+			value: 0,
+		}
 	},
 
 	data: {
 		state: 'prepare', // "prepare", "init", "loading", "loaded"
 		role: 0,
 		seat: 0,
+		seatKey: 0,
 	},
 
 	ready: function () {
@@ -109,6 +114,7 @@ Component({
 			this.setData({
 				state: 'loaded',
 				seat: my.seat,
+				seatKey: my.seatKey,
 				role: role,
 			});
 		},

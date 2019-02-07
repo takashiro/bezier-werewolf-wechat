@@ -2,6 +2,7 @@
 
 view.container {
     min-height: 100vh;
+	color: white;
     background: #090408 no-repeat;
     background-size: 100% auto;
 }
@@ -36,4 +37,9 @@ view.footer text {
 
 view.button-area {
 	margin: 0 18vw;
+}
+
+input,
+button {
+	color: rgb(32, 32, 32);
 }

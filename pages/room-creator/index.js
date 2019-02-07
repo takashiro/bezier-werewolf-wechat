@@ -24,7 +24,7 @@ Page({
 	},
 
 	handleRoleChange: function (e) {
-		const role = Role.fromNum(e.detail.role);
+		const role = Role.fromNum(e.detail.key);
 		const selected = e.detail.value > 0;
 		if (selected) {
 			roleConfig.push(role);

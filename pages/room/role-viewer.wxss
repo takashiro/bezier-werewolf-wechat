@@ -41,11 +41,12 @@ view.role-viewer image.role {
 }
 
 .card-bg {
-	width: 180px;
+	width: 160px;
 	height: 200px;
 	overflow: hidden;
 	margin: auto;
 	background-size: 180px 200px;
+	background-position: -10px 0;
 	position: relative;
 }
 
@@ -53,7 +54,7 @@ view.role-viewer image.role {
 	text-align: center;
 	position: absolute;
 	top: 0;
-	left: -10px;
+	left: -20px;
 }
 
 @import '/style/card-bg.wxss';

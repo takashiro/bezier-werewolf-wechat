@@ -1,13 +1,13 @@
 Component({
 
 	properties: {
-		role: {
+		key: {
 			type: Number,
 			value: 0,
 		},
 		icon: {
 			type: String,
-			value: 'werewolf',
+			value: 'Werewolf',
 		},
 		name: {
 			type: String,
@@ -27,7 +27,7 @@ Component({
 			let selected = !this.data.selected;
 			this.setData({ selected: selected });
 			this.triggerEvent('numberchange', {
-				role: this.data.role,
+				key: this.data.key,
 				value: selected ? 1 : 0,
 			});
 		},

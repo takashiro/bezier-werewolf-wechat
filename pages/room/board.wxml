@@ -1,0 +1,29 @@
+<text class="desc">{{role.desc}}</text>
+
+<view class="box">
+	<text class="header">在场玩家</text>
+	<view class="player-list">
+		<RoleButton wx:for="{{players}}" wx:key="seat"
+			key="{{item.seat}}"
+			icon="{{item.role.key}}"
+			name="{{item.seat}}号"
+			bindnumberchange="selectPlayer"
+		/>
+	</view>
+</view>
+
+<view class="box">
+	<text class="header">未使用的身份牌</text>
+	<view class="card-list">
+		<RoleButton wx:for="{{centerCards}}" wx:key="index"
+			key="{{item.index}}"
+			icon="{{item.role.key}}"
+			name=""
+			bindnumberchange="selectCenterCard"
+		/>
+	</view>
+</view>
+
+<view class="button-area">
+	<button wx:if="{{state === 'skill' && role.skill}}" bindtap="invokeSkill">{{role.skill}}</button>
+</view>

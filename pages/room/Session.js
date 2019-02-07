@@ -19,6 +19,7 @@ class Session {
 		this.seatKey = 0;
 		this.seat = 0;
 		this.role = 0;
+		this.vision = null;
 	}
 
 	save() {
@@ -29,11 +30,15 @@ class Session {
 			session = {};
 			sessions.push(session);
 		}
+
+		session.roomKey = this.roomKey;
 		session.expiry = this.expiry;
+
 		session.seat = this.seat;
 		session.seatKey = this.seatKey;
 		session.role = this.role;
-		session.roomKey = this.roomKey;
+		session.vision = this.vision;
+
 		writeSessions(sessions);
 	}
 
@@ -44,6 +49,7 @@ class Session {
 			this.seat = session.seat;
 			this.seatKey = session.seatKey;
 			this.role = session.role;
+			this.vision = session.vision;
 		} else {
 			this.seatKey = Math.floor(Math.random() * 0xFFFFFFFF);
 		}

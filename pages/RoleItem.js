@@ -3,12 +3,12 @@ import Role from '../game/Role';
 
 class RoleItem {
 
-	constructor(role, name, prompt, skill) {
+	constructor(role, name, desc, skill) {
 		this.key = role.key;
 		this.value = role.value;
 		this.team = role.team;
 		this.name = name;
-		this.prompt = prompt;
+		this.desc = desc;
 		this.skill = skill;
 
 		RoleItem[this.key] = this;
@@ -52,7 +52,8 @@ RoleItem.enums = [
 	),
 	new RoleItem(
 		Role.Minion, '爪牙',
-		'你目睹了狼人的行动，决定暗中帮助他们，借狼人之手报复村庄。',
+		'你目睹了狼人的行动，决定暗中帮助他们，借狼人之手报复村庄。现在你可以查看狼人到底是谁。',
+		'暗中观察',
 	),
 	new RoleItem(
 		Role.Troublemaker, '捣蛋鬼',

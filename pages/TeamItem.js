@@ -3,10 +3,11 @@ import Team from '../game/Team';
 
 class TeamItem {
 
-	constructor(team, name) {
+	constructor(team, name, goal) {
 		this.key = team.key;
 		this.value = team.value;
 		this.name = name;
+		this.goal = goal;
 
 		TeamItem[this.key] = this;
 	}

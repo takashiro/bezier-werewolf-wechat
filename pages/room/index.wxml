@@ -14,7 +14,7 @@
 				<text class="header">{{item.team.name}}</text>
 				<template is="role-list" data="{{roles: item.roles}}" />
 			</view>
-			<RoleViewer roomId="{{id}}" roomKey="{{key}}" />
+			<RoleViewer roomId="{{id}}" roomKey="{{key}}" playerNum="{{playerNum}}" />
 		</block>
 	<template is="footer" />
 </view>
