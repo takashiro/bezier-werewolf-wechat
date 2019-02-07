@@ -10,10 +10,11 @@
 			<view class="message">房间已经不存在。</view>
 		</block>
 		<block wx:else>
-			<view class="team" wx:for="{{teams}}" wx:key="key">
+			<view class="box team" wx:for="{{teams}}" wx:key="key">
 				<text class="header">{{item.team.name}}</text>
 				<template is="role-list" data="{{roles: item.roles}}" />
 			</view>
+			<RoleViewer roomId="{{id}}" roomKey="{{key}}" />
 		</block>
 	<template is="footer" />
 </view>

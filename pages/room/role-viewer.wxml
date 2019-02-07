@@ -1,0 +1,21 @@
+<import src="../role-list.wxml" />
+
+<view class="box role-viewer {{state}}">
+    <text class="header">你的身份</text>
+    <block wx:if="{{state === 'prepare'}}">
+        <text>加载中……</text>
+    </block>
+    <block wx:if="{{state === 'init'}}">
+        <input type="number" placeholder="座位号" bindinput="updateSeat" />
+        <button bindtap="fetchRole">查看身份</button>
+    </block>
+    <block wx:elif="{{state === 'loading'}}">
+        <text>你的身份是……</text>
+    </block>
+    <block wx:elif="{{state === 'loaded'}}">
+        <text class="identity">{{seat}}号位 {{role.name}}</text>
+        <view class="card-bg">
+			<image class="role" src="/style/role/{{role.key}}.png" />
+        </view>
+    </block>
+</view>

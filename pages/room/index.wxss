@@ -13,7 +13,7 @@ view.room-info {
 	font-size: 12pt;
 }
 
-view.team text.header {
+view.box text.header {
 	color: white;
 	text-align: center;
 	display: block;

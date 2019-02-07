@@ -7,6 +7,7 @@ const serverUrl = app.globalData.serverUrl;
 
 function prepareRoom(data) {
 	const id = parseInt(data.id, 10);
+	const key = data.key;
 	const teams = [];
 
 	const teamMap = new Map;
@@ -27,13 +28,14 @@ function prepareRoom(data) {
 		team.roles.sort();
 	}
 
-	return {id, teams};
+	return {id, key, teams};
 }
 
 Page({
 
 	data: {
 		id: 0,
+		key: "",
 		teams: [],
 	},
 
