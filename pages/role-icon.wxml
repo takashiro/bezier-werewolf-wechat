@@ -1,6 +1,6 @@
 <template name="role-icon">
     <view class="role">
-        <view class="icon">
+        <view class="icon card-bg">
             <image src="/style/role/{{key}}.png" />
         </view>
         <text>{{name}}</text>
