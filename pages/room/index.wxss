@@ -33,3 +33,13 @@ view.message {
 	text-align: center;
 	margin: 100px 0;
 }
+
+.button-area {
+	text-align: center;
+}
+
+.button-area button {
+	width: auto;
+	display: inline-block;
+	padding: 0 2em;
+}

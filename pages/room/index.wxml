@@ -8,6 +8,9 @@
 		</view>
 		<block wx:if="{{id === -1}}">
 			<view class="message">房间已失效</view>
+			<view class="button-area">
+				<button bindtap="goToLobby">返回</button>
+			</view>
 		</block>
 		<block wx:else>
 			<view class="box team" wx:for="{{teams}}" wx:key="key">

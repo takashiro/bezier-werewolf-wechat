@@ -73,6 +73,12 @@ Page({
 		}
 	},
 
+	goToLobby: function () {
+		wx.redirectTo({
+			url: '../index/index',
+		});
+	},
+
 	onShareAppMessage: function () {
 		return {
 			title: '一夜终极狼人房间 ' + this.data.id,
