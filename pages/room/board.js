@@ -11,8 +11,8 @@ const input = {
 	centerCards: new Set,
 };
 
-function CenterCard(index) {
-	this.index = index;
+function CenterCard(pos) {
+	this.pos = pos;
 	this.role = Role.Unknown;
 }
 
@@ -80,15 +80,15 @@ function showVision(vision) {
 	if (vision.cards && vision.cards instanceof Array) {
 		const centerCards = this.data.centerCards;
 		for (const source of vision.cards) {
-			const card = centerCards[source.index];
+			const card = centerCards[source.pos];
 			if (card) {
-				card.role = role.fromNum(source.role);
+				card.role = Role.fromNum(source.role);
 			}
 		}
 		this.setData({centerCards});
 	}
 
-	this.setData({state: 'lynch'});
+	goToLynch.call(this);
 }
 
 function invokeSkill() {
@@ -119,7 +119,7 @@ function invokeSkill() {
 
 		wx.request({
 			method: 'POST',
-			url: `${serverUrl}skill?id=${this.data.roomId}&seat=${this.data.seat}&seatKey=${this.data.seatKey}`,
+			url: serverUrl + 'skill?' + this.getAuth(),
 			data: encodeSkillTarget(res),
 			success: res => {
 				wx.hideLoading();
@@ -156,6 +156,87 @@ function invokeSkill() {
 	}
 }
 
+function wakeUp() {
+	const session = new Session(this.data.roomKey);
+	session.restore();
+	session.vision = {};
+	session.save();
+
+	goToLynch.call(this);
+}
+
+function goToLynch() {
+	this.setData({ state: 'countdown' });
+	let countdown = this.data.countdown;
+	if (countdown <= 0) {
+		this.setData({ state: 'lynch' });
+	} else {
+		countdown--;
+		this.setData({countdown});
+		setTimeout(goToLynch.bind(this), 1000);
+	}
+}
+
+function submitLynch() {
+	if (input.players.size < 1) {
+		return wx.showToast({
+			title: '请选择1名玩家',
+			icon: 'none',
+		});
+	} else if (input.players.size > 1) {
+		return wx.showToast({
+			title: '只能投票给1名玩家',
+			icon: 'none',
+		});
+	}
+
+	const players = Array.from(input.players);
+	wx.showLoading({ title: '投票中……' });
+	wx.request({
+		method: 'POST',
+		url: serverUrl + 'lynch?' + this.getAuth(),
+		data: {target: players[0]},
+		success: res => {
+			wx.hideLoading();
+			if (res.statusCode === 200 || res.statusCode === 409) {
+				wx.showToast({title: '投票成功'});
+				this.setData({state: 'end'});
+				showLynch.call(this);
+			} else if (res.statusCode === 404) {
+				wx.showToast({title: '房间已失效', icon: 'none'});
+			} else {
+				wx.showToast({title: '投票失败。' + res.data});
+			}
+		},
+		fail: () => {
+			wx.hideLoading();
+			wx.showToast({title: '网络连接失败，请确认设备可联网。'});
+		}
+	});
+}
+
+function showLynch() {
+	wx.showLoading();
+	wx.request({
+		method: 'GET',
+		url: serverUrl + 'lynch?id=' + this.data.roomId,
+		success: res => {
+			wx.hideLoading();
+			const vision = res.data;
+			// TODO: do not need to update vision for each time
+			if (vision.players.some(player => player.role) || vision.cards.some(card => card.role)) {
+				showVision.call(this);
+			}
+			const votes = vision.players.map(player => ({from: player.seat, to: player.target}));
+			this.setData({votes});
+		},
+		fail: () => {
+			wx.hideLoading();
+			wx.showToast({title: '网络故障，请确认设备可联网。'});
+		},
+	});
+}
+
 Component({
 
 	properties: {
@@ -186,9 +267,11 @@ Component({
 	},
 
 	data: {
-		state: "skill", // skill, lynch, end
+		state: "skill", // skill, countdown, lynch, end
 		centerCards: [],
 		players: [],
+		votes: [],
+		countdown: 10,
 	},
 
 	ready() {
@@ -202,11 +285,23 @@ Component({
 		}
 
 		this.setData({centerCards, players});
+
+		const session = new Session(this.data.roomKey);
+		session.restore();
+		if (session.vision) {
+			showVision.call(this, session.vision);
+		}
 	},
 
 	methods: {
+		getAuth() {
+			return 'id=' + this.data.roomId + '&seat=' + this.data.seat + '&seatKey=' + this.data.seatKey;
+		},
+
 		selectPlayer,
 		selectCenterCard,
 		invokeSkill,
+		wakeUp,
+		submitLynch,
 	}
 })

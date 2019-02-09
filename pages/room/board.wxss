@@ -10,3 +10,8 @@
 	margin: 15px 0;
 	display: block;
 }
+
+.button-area.lynch button {
+	color: white;
+	background: rgb(43, 84, 85);
+}

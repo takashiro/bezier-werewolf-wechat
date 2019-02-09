@@ -15,8 +15,8 @@
 <view class="box">
 	<text class="header">未使用的身份牌</text>
 	<view class="card-list">
-		<RoleButton wx:for="{{centerCards}}" wx:key="index"
-			key="{{item.index}}"
+		<RoleButton wx:for="{{centerCards}}" wx:key="pos"
+			key="{{item.pos}}"
 			icon="{{item.role.key}}"
 			name=""
 			bindnumberchange="selectCenterCard"
@@ -24,6 +24,17 @@
 	</view>
 </view>
 
-<view class="button-area">
-	<button wx:if="{{state === 'skill' && role.skill}}" bindtap="invokeSkill">{{role.skill}}</button>
+<view class="button-area {{state}}">
+	<block wx:if="{{state === 'skill'}}">
+		<button wx:if="{{role.skill}}" bindtap="invokeSkill">{{role.skill}}</button>
+		<button wx:else bindtap="wakeUp">起床</button>
+	</block>
+	<text wx:elif="{{state === 'countdown'}}">{{countdown}}</text>
+	<button wx:elif="{{state === 'lynch'}}" bindtap="submitLynch">公投</button>
+</view>
+
+<view class="votes" wx:if="{{state === 'end'}}">
+	<text wx:for="{{votes}}" wx:key="from">
+		{{item.from}}号投{{item.to}}号
+	</text>
 </view>

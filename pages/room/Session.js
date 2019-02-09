@@ -20,6 +20,7 @@ class Session {
 		this.seat = 0;
 		this.role = 0;
 		this.vision = null;
+		this.lynchTarget = 0;
 	}
 
 	save() {
@@ -31,13 +32,9 @@ class Session {
 			sessions.push(session);
 		}
 
-		session.roomKey = this.roomKey;
-		session.expiry = this.expiry;
-
-		session.seat = this.seat;
-		session.seatKey = this.seatKey;
-		session.role = this.role;
-		session.vision = this.vision;
+		for (let prop of this) {
+			session[prop] = this[prop];
+		}
 
 		writeSessions(sessions);
 	}
@@ -46,10 +43,9 @@ class Session {
 		const sessions = readSessions();
 		const session = sessions.find(session => session.roomKey === this.roomKey);
 		if (session) {
-			this.seat = session.seat;
-			this.seatKey = session.seatKey;
-			this.role = session.role;
-			this.vision = session.vision;
+			for (const key in session) {
+				this[key] = session[key];
+			}
 		} else {
 			this.seatKey = Math.floor(Math.random() * 0xFFFFFFFF);
 		}
