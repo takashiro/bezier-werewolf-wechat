@@ -1,6 +1,5 @@
-
 import Role from '../RoleItem';
-import SkillValidator from './skill-validator';
+import SkillList from './skill-list';
 import Session from './Session';
 
 const app = getApp();
@@ -11,6 +10,8 @@ const input = {
 	centerCards: new Set,
 };
 
+/**
+ * Data Structures */
 function CenterCard(pos) {
 	this.pos = pos;
 	this.role = Role.Unknown;
@@ -74,7 +75,7 @@ function showVision(vision) {
 				player.role = Role.fromNum(source.role);
 			}
 		}
-		this.setData({players});
+		this.setData({ players });
 	}
 
 	if (vision.cards && vision.cards instanceof Array) {
@@ -85,32 +86,32 @@ function showVision(vision) {
 				card.role = Role.fromNum(source.role);
 			}
 		}
-		this.setData({centerCards});
+		this.setData({ centerCards });
 	}
-
-	goToLynch.call(this);
 }
 
 function invokeSkill() {
-	const validator = SkillValidator[this.data.role.value];
-	if (!validator) {
+	const skill = SkillList[this.data.role.value];
+	if (!skill) {
 		return;
 	}
 
-	const res = validator(input);
+	skill.setInput(input);
+	const res = skill.validate(input);
 	if (!res) {
-		return;
-	} else if (typeof res === 'string') {
+		const message = skill.getMessage();
 		return wx.showToast({
-			title: res,
+			title: message || '技能目标非法',
 			icon: 'none',
 		});
 	}
 
+	const actionLog = skill.getActionLog();
+
 	const session = new Session(this.data.roomKey);
-	session.restore();
 	if (session.vision) {
 		showVision.call(this, session.vision);
+		goToLynch.call(this);
 
 	} else {
 		wx.showLoading({
@@ -139,13 +140,18 @@ function invokeSkill() {
 				wx.showToast('技能已生效');
 
 				const vision = res.data;
+				if (!session.actionLog) {
+					session.actionLog = actionLog;
+				}
 				session.vision = vision;
 				session.save();
 
+				this.setData({ actionLog });
 				showVision.call(this, vision);
+				goToLynch.call(this);
 			},
 
-			fail: function () {
+			fail: function() {
 				wx.hideLoading();
 				wx.showToast({
 					title: '网络请求失败，请确认设备可联网。',
@@ -158,7 +164,6 @@ function invokeSkill() {
 
 function wakeUp() {
 	const session = new Session(this.data.roomKey);
-	session.restore();
 	session.vision = {};
 	session.save();
 
@@ -166,13 +171,15 @@ function wakeUp() {
 }
 
 function goToLynch() {
-	this.setData({ state: 'countdown' });
+	this.setData({
+		state: 'countdown'
+	});
 	let countdown = this.data.countdown;
 	if (countdown <= 0) {
 		this.setData({ state: 'lynch' });
 	} else {
 		countdown--;
-		this.setData({countdown});
+		this.setData({ countdown });
 		setTimeout(goToLynch.bind(this), 1000);
 	}
 }
@@ -191,26 +198,47 @@ function submitLynch() {
 	}
 
 	const players = Array.from(input.players);
-	wx.showLoading({ title: '投票中……' });
+	const lynchTarget = players[0];
+	wx.showLoading({
+		title: '投票中……'
+	});
 	wx.request({
 		method: 'POST',
 		url: serverUrl + 'lynch?' + this.getAuth(),
-		data: {target: players[0]},
+		data: {
+			target: lynchTarget,
+		},
 		success: res => {
 			wx.hideLoading();
 			if (res.statusCode === 200 || res.statusCode === 409) {
-				wx.showToast({title: '投票成功'});
-				this.setData({state: 'end'});
+				wx.showToast({
+					title: '投票成功'
+				});
+
+				const session = new Session(this.data.roomKey);
+				session.lynchTarget = lynchTarget;
+				session.save();
+
+				this.setData({ state: 'end', lynchTarget });
 				showLynch.call(this);
+
 			} else if (res.statusCode === 404) {
-				wx.showToast({title: '房间已失效', icon: 'none'});
+				wx.showToast({
+					title: '房间已失效',
+					icon: 'none'
+				});
 			} else {
-				wx.showToast({title: '投票失败。' + res.data});
+				wx.showToast({
+					title: '投票失败。' + res.data
+				});
 			}
 		},
 		fail: () => {
 			wx.hideLoading();
-			wx.showToast({title: '网络连接失败，请确认设备可联网。'});
+			wx.showToast({
+				title: '网络连接失败，请确认设备可联网。',
+				icon: 'none',
+			});
 		}
 	});
 }
@@ -222,17 +250,49 @@ function showLynch() {
 		url: serverUrl + 'lynch?id=' + this.data.roomId,
 		success: res => {
 			wx.hideLoading();
+
+			if (res.statusCode === 404) {
+				return wx.showToast({
+					title: '房间已失效。',
+					icon: 'none'
+				});
+			}
+
 			const vision = res.data;
 			// TODO: do not need to update vision for each time
 			if (vision.players.some(player => player.role) || vision.cards.some(card => card.role)) {
-				showVision.call(this);
+				showVision.call(this, vision);
 			}
-			const votes = vision.players.map(player => ({from: player.seat, to: player.target}));
-			this.setData({votes});
+			
+			const voteLog = new Map;
+			for (const player of vision.players) {
+				let vote = voteLog.get(player.target);
+				if (!vote) {
+					vote = [];
+					voteLog.set(player.target, vote);
+				}
+				vote.push(player.seat);
+			}
+			
+			let votes = [];
+			for (const [target, sources] of voteLog) {
+				const num = sources.length;
+				votes.push({
+					key: target + '-' + num,
+					target,
+					num,
+					sources,
+				});
+			}
+
+			this.setData({ votes });
 		},
 		fail: () => {
 			wx.hideLoading();
-			wx.showToast({title: '网络故障，请确认设备可联网。'});
+			wx.showToast({
+				title: '网络故障，请确认设备可联网。',
+				icon: 'none',
+			});
 		},
 	});
 }
@@ -270,6 +330,8 @@ Component({
 		state: "skill", // skill, countdown, lynch, end
 		centerCards: [],
 		players: [],
+		actionLog: '',
+		lynchTarget: 0,
 		votes: [],
 		countdown: 10,
 	},
@@ -284,13 +346,29 @@ Component({
 			players[i] = new Player(i + 1);
 		}
 
-		this.setData({centerCards, players});
+		this.setData({
+			centerCards,
+			players
+		});
 
 		const session = new Session(this.data.roomKey);
-		session.restore();
+		let state = 'skill';
+		if (session.actionLog) {
+			this.setData({ actionLog: session.actionLog });
+			state = 'lynch';
+		}
 		if (session.vision) {
 			showVision.call(this, session.vision);
+			state = 'lynch';
 		}
+		if (session.lynchTarget) {
+			this.setData({ lynchTarget: session.lynchTarget });
+			if (state === 'lynch') {
+				state = 'end';
+			}
+		}
+
+		this.setData({ state });
 	},
 
 	methods: {
@@ -303,5 +381,6 @@ Component({
 		invokeSkill,
 		wakeUp,
 		submitLynch,
+		showLynch,
 	}
 })

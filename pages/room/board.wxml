@@ -24,17 +24,27 @@
 	</view>
 </view>
 
+<view class="action-log" wx:if="{{actionLog}}">
+	<text>{{actionLog}}</text>
+</view>
+
 <view class="button-area {{state}}">
 	<block wx:if="{{state === 'skill'}}">
 		<button wx:if="{{role.skill}}" bindtap="invokeSkill">{{role.skill}}</button>
 		<button wx:else bindtap="wakeUp">起床</button>
 	</block>
-	<text wx:elif="{{state === 'countdown'}}">{{countdown}}</text>
+	<text wx:elif="{{state === 'countdown'}}">公投倒计时：{{countdown}}</text>
 	<button wx:elif="{{state === 'lynch'}}" bindtap="submitLynch">公投</button>
 </view>
 
-<view class="votes" wx:if="{{state === 'end'}}">
-	<text wx:for="{{votes}}" wx:key="from">
-		{{item.from}}号投{{item.to}}号
-	</text>
+<view class="box votes" wx:if="{{state === 'end'}}">
+	<text class="header">投票结果</text>
+	<text wx:if="{{lynchTarget}}">你投给{{lynchTarget}}号</text>
+	<ul class="vote-list">
+		<li wx:for="{{votes}}" wx:key="key">
+			{{item.target}}号（{{item.num}}票）←
+			<text class="source" wx:for="{{item.sources}}" wx:key="*this">{{item}}号</text>
+		</li>
+	</ul>
+	<button bindtap="showLynch">刷新</button>
 </view>

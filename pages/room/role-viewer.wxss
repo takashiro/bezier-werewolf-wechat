@@ -10,6 +10,14 @@ view.role-viewer text.header {
 	margin: 20px;
 }
 
+.box {
+	font-size: 12pt;
+}
+
+.box .header {
+	font-size: 15pt;
+}
+
 view.role-viewer input,
 view.role-viewer button {
 	background: white;

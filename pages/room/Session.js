@@ -19,8 +19,11 @@ class Session {
 		this.seatKey = 0;
 		this.seat = 0;
 		this.role = 0;
+		this.actionLog = null;
 		this.vision = null;
 		this.lynchTarget = 0;
+
+		this.restore();
 	}
 
 	save() {
@@ -32,7 +35,7 @@ class Session {
 			sessions.push(session);
 		}
 
-		for (let prop of this) {
+		for (const prop in this) {
 			session[prop] = this[prop];
 		}
 
