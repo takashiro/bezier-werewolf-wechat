@@ -11,7 +11,6 @@ const input = {
 
 function fetchRole() {
 	const session = new Session(this.data.roomKey);
-	session.restore();
 
 	if (session.role || session.seat) {
 		return;
@@ -92,7 +91,6 @@ Component({
 
 	ready: function () {
 		const session = new Session(this.data.roomKey);
-		session.restore();
 
 		if (session.role && session.seat) {
 			this.showRole(session);

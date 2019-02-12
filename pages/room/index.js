@@ -73,7 +73,7 @@ Page({
 		}
 	},
 
-	goToLobby: function () {
+	goBack: function () {
 		wx.redirectTo({
 			url: '../index/index',
 		});

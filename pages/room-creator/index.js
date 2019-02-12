@@ -88,4 +88,10 @@ Page({
 			},
 		});
 	},
+
+	goBack() {
+		wx.redirectTo({
+			url: '../index/index',
+		});
+	},
 })

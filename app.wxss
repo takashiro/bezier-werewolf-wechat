@@ -36,7 +36,14 @@ view.footer text {
 }
 
 view.button-area {
-	margin: 0 18vw;
+	margin: 0 10px;
+	text-align: center;
+}
+
+view.button-area button {
+	width: 7em;
+	display: inline-block;
+	margin: 0 1em;
 }
 
 input,

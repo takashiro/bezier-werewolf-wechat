@@ -19,5 +19,9 @@
 			</view>
 			<RoleViewer roomId="{{id}}" roomKey="{{key}}" playerNum="{{playerNum}}" />
 		</block>
+		<view class="button-area">
+			<button bindtap="goBack">返回</button>
+			<button open-type="share">邀请好友</button>
+		</view>
 	<template is="footer" />
 </view>

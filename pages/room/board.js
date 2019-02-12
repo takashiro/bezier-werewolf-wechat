@@ -6,8 +6,8 @@ const app = getApp();
 const serverUrl = app.globalData.serverUrl;
 
 const input = {
-	players: new Set,
-	centerCards: new Set,
+	players: null,
+	centerCards: null,
 };
 
 /**
@@ -263,7 +263,7 @@ function showLynch() {
 			if (vision.players.some(player => player.role) || vision.cards.some(card => card.role)) {
 				showVision.call(this, vision);
 			}
-			
+
 			const voteLog = new Map;
 			for (const player of vision.players) {
 				let vote = voteLog.get(player.target);
@@ -273,7 +273,7 @@ function showLynch() {
 				}
 				vote.push(player.seat);
 			}
-			
+
 			let votes = [];
 			for (const [target, sources] of voteLog) {
 				const num = sources.length;
@@ -337,6 +337,9 @@ Component({
 	},
 
 	ready() {
+		input.centerCards = new Set;
+		input.players = new Set;
+
 		let centerCards = new Array(3);
 		for (let i = 0; i < 3; i++) {
 			centerCards[i] = new CenterCard(i);
