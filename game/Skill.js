@@ -2,25 +2,22 @@
 class Skill {
 
 	constructor() {
-		this.input = null;
 	}
 
-	setInput(input) {
-		this.input = input;
+	selectCard(all, target, selected) {
+		target.selected = selected;
+		return true;
 	}
 
-	validate() {
+	selectPlayer(all, target, selected) {
+		target.selected = selected;
+		return true;
 	}
 
-	getPlayers() {
-		return (this.input && this.input.players) || new Set;
+	validate(players, cards) {
 	}
 
-	getCards() {
-		return (this.input && this.input.centerCards) || new Set;
-	}
-
-	getActionLog() {
+	getActionLog(players, cards) {
 		return '';
 	}
 

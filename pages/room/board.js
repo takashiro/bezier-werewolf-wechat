@@ -1,14 +1,30 @@
 import Role from '../RoleItem';
+import Skill from '../../game/Skill';
 import SkillList from '../../game/skills/index';
 import Session from './Session';
 
 const app = getApp();
 const serverUrl = app.globalData.serverUrl;
 
-const input = {
-	players: null,
-	centerCards: null,
-};
+class LynchSkill extends Skill {
+
+	selectCard() {}
+
+	selectPlayer(all, target, selected) {
+		if (selected) {
+			for (const player of all) {
+				player.selected = false;
+			}
+			target.selected = true;
+		} else {
+			target.selected = false;
+		}
+		return true;
+	}
+
+}
+
+const lynchSkill = new LynchSkill;
 
 /**
  * Data Structures */
@@ -22,55 +38,66 @@ function Player(seat) {
 	this.role = Role.Unknown;
 }
 
+function getSkill() {
+	if (this.data.state === 'skill') {
+		const skill = SkillList[this.data.role.value];
+		return skill;
+	} else if (this.data.state === 'lynch') {
+		return lynchSkill;
+	}
+}
+
 function selectPlayer(e) {
+	const skill = getSkill.call(this);
+	if (!skill) {
+		return;
+	}
+
 	const seat = e.detail.key;
 	const selected = !!e.detail.value;
-	if (selected) {
-		input.players.add(seat);
-	} else {
-		input.players.delete(seat);
-	}
 
 	const players = this.data.players;
 	const player = players[seat - 1];
-	player.selected = selected;
-	this.setData({ players });
+	if (skill.selectPlayer(players, player, selected)) {
+		this.setData({ players });
+	}
 }
 
 function selectCenterCard(e) {
-	const index = e.detail.key;
-	const selected = !!e.detail.value;
-	if (selected) {
-		input.centerCards.add(index);
-	} else {
-		input.centerCards.delete(index);
+	const skill = getSkill.call(this);
+	if (!skill) {
+		return;
 	}
+
+	const pos = e.detail.key;
+	const selected = !!e.detail.value;
 
 	const centerCards = this.data.centerCards;
-	const card = centerCards[index];
-	card.selected = selected;
-	this.setData({ centerCards });
+	const card = centerCards[pos];
+	if (skill.selectCard(centerCards, card, selected)) {
+		this.setData({ centerCards });
+	}
 }
 
-function encodeSkillTarget(input) {
+function getInput() {
+	const players = this.data.players.filter(player => player.selected);
+	const cards = this.data.centerCards.filter(card => card.selected);
+	return {cards, players};
+}
+
+function encodeSkillTarget(players, cards) {
 	const data = {};
 
-	if (input.players) {
-		if (input.players.size > 1) {
-			data.players = Array.from(input.players);
-		} else if (input.players.size === 1) {
-			const players = Array.from(input.players);
-			data.player = players[0];
-		}
+	if (players.length > 1) {
+		data.players = players.map(player => player.seat);
+	} else if (players.length == 1) {
+		data.player = players[0].seat;
 	}
 
-	if (input.centerCards) {
-		if (input.centerCards.size > 1) {
-			data.cards = Array.from(input.centerCards);
-		} else if (input.centerCards.size === 1) {
-			const cards = Array.from(input.centerCards);
-			data.card = cards[0];
-		}
+	if (cards.length > 1) {
+		data.cards = cards.map(card => card.pos);
+	} else if (cards.length == 1) {
+		data.card = cards[0].pos;
 	}
 
 	return data;
@@ -101,13 +128,11 @@ function showVision(vision) {
 }
 
 function resetBoard() {
-	input.players.clear();
 	const players = this.data.players;
 	for (const player of players) {
 		player.selected = false;
 	}
 
-	input.centerCards.clear();
 	const centerCards = this.data.centerCards;
 	for (const card of centerCards) {
 		card.selected = false;
@@ -122,9 +147,8 @@ function invokeSkill() {
 		return;
 	}
 
-	skill.setInput(input);
-	const res = skill.validate(input);
-	if (!res) {
+	const {players, cards} = getInput.call(this);
+	if (!skill.validate(players, cards)) {
 		const message = skill.getMessage();
 		return wx.showToast({
 			title: message || '技能目标非法',
@@ -132,8 +156,8 @@ function invokeSkill() {
 		});
 	}
 
-	const skillTarget = encodeSkillTarget(res);
-	const actionLog = skill.getActionLog();
+	const skillTarget = encodeSkillTarget(players, cards);
+	const actionLog = skill.getActionLog(players, cards);
 
 	resetBoard.call(this);
 
@@ -214,20 +238,20 @@ function goToLynch() {
 }
 
 function submitLynch() {
-	if (input.players.size < 1) {
+	const {players} = getInput.call(this);
+	if (players.length < 1) {
 		return wx.showToast({
 			title: '请选择1名玩家',
 			icon: 'none',
 		});
-	} else if (input.players.size > 1) {
+	} else if (players.length > 1) {
 		return wx.showToast({
 			title: '只能投票给1名玩家',
 			icon: 'none',
 		});
 	}
 
-	const players = Array.from(input.players);
-	const lynchTarget = players[0];
+	const lynchTarget = players[0].seat;
 	wx.showLoading({
 		title: '投票中……'
 	});
@@ -367,9 +391,6 @@ Component({
 	},
 
 	ready() {
-		input.centerCards = new Set;
-		input.players = new Set;
-
 		let centerCards = new Array(3);
 		for (let i = 0; i < 3; i++) {
 			centerCards[i] = new CenterCard(i);

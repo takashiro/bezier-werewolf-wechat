@@ -4,8 +4,12 @@ import Skill from '../Skill';
 class TargetlessSkill extends Skill {
 
 	validate() {
-		return {};
+		return true;
 	}
+
+	selectCard() {}
+
+	selectPlayer() {}
 
 };
 

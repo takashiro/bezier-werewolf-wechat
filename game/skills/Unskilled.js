@@ -7,6 +7,10 @@ class Unskilled extends Skill {
 		this.message = '你什么都不知道';
 	}
 
+	selectCard() { }
+
+	selectPlayer() { }
+
 };
 
 export default Unskilled;

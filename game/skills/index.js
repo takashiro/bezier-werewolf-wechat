@@ -1,7 +1,9 @@
 
 import Unskilled from './Unskilled';
 import TargetlessSkill from './TargetlessSkill';
-import ExchangeSkill from './ExchangeSkill';
+import SinglePlayerSkill from './SinglePlayerSkill';
+import MultiPlayerSkill from './MultiPlayerSkill';
+import SingleCardSkill from './SingleCardSkill';
 import SeerSkill from './SeerSkill';
 
 const skills = [
@@ -24,13 +26,13 @@ const skills = [
 	new TargetlessSkill,
 
 	// Troublemaker
-	new ExchangeSkill(2, 0),
+	new MultiPlayerSkill(2),
 
 	// Robber
-	new ExchangeSkill(1, 0),
+	new SinglePlayerSkill,
 
 	// Drunk
-	new ExchangeSkill(0, 1),
+	new SingleCardSkill,
 ];
 
 export default skills;
