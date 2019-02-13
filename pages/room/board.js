@@ -30,6 +30,11 @@ function selectPlayer(e) {
 	} else {
 		input.players.delete(seat);
 	}
+
+	const players = this.data.players;
+	const player = players[seat - 1];
+	player.selected = selected;
+	this.setData({ players });
 }
 
 function selectCenterCard(e) {
@@ -40,6 +45,11 @@ function selectCenterCard(e) {
 	} else {
 		input.centerCards.delete(index);
 	}
+
+	const centerCards = this.data.centerCards;
+	const card = centerCards[index];
+	card.selected = selected;
+	this.setData({ centerCards });
 }
 
 function encodeSkillTarget(input) {

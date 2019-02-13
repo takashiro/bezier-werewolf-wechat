@@ -7,6 +7,7 @@
 			key="{{item.seat}}"
 			icon="{{item.role.key}}"
 			name="{{item.seat}}号"
+			selected="{{item.selected}}"
 			bindnumberchange="selectPlayer"
 		/>
 	</view>
@@ -19,6 +20,7 @@
 			key="{{item.pos}}"
 			icon="{{item.role.key}}"
 			name=""
+			selected="{{item.selected}}"
 			bindnumberchange="selectCenterCard"
 		/>
 	</view>
