@@ -13,7 +13,7 @@ const defaultConfig = [
 	Role.Tanner,
 ];
 
-const roleConfig = [...defaultConfig];
+let roleConfig = [...defaultConfig];
 
 function createRoom(roles) {
 	wx.request({
@@ -71,9 +71,10 @@ Page({
 		wx.getStorage({
 			key: 'roleConfig',
 			success: res => {
-				const roleConfig = res.data && res.data instanceof Array && res.data.map(role => Role.fromNum(role));
-				if (roleConfig) {
-					const selectors = parseSelector(roleConfig);
+				const savedConfig = res.data && res.data instanceof Array && res.data.map(role => Role.fromNum(role));
+				if (savedConfig) {
+					roleConfig = savedConfig;
+					const selectors = parseSelector(savedConfig);
 					this.setData({ selectors });
 				}
 			},
