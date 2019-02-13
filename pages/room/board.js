@@ -1,5 +1,5 @@
 import Role from '../RoleItem';
-import SkillList from './skill-list';
+import SkillList from '../../game/skills/index';
 import Session from './Session';
 
 const app = getApp();
