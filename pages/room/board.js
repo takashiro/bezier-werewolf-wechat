@@ -100,6 +100,22 @@ function showVision(vision) {
 	}
 }
 
+function resetBoard() {
+	input.players.clear();
+	const players = this.data.players;
+	for (const player of players) {
+		player.selected = false;
+	}
+
+	input.centerCards.clear();
+	const centerCards = this.data.centerCards;
+	for (const card of centerCards) {
+		card.selected = false;
+	}
+
+	this.setData({ centerCards, players });
+}
+
 function invokeSkill() {
 	const skill = SkillList[this.data.role.value];
 	if (!skill) {
@@ -116,7 +132,10 @@ function invokeSkill() {
 		});
 	}
 
+	const skillTarget = encodeSkillTarget(res);
 	const actionLog = skill.getActionLog();
+
+	resetBoard.call(this);
 
 	const session = new Session(this.data.roomKey);
 	if (session.vision) {
@@ -131,7 +150,7 @@ function invokeSkill() {
 		wx.request({
 			method: 'POST',
 			url: serverUrl + 'skill?' + this.getAuth(),
-			data: encodeSkillTarget(res),
+			data: skillTarget,
 			success: res => {
 				wx.hideLoading();
 
@@ -219,6 +238,7 @@ function submitLynch() {
 			target: lynchTarget,
 		},
 		success: res => {
+			resetBoard.call(this);
 			wx.hideLoading();
 			if (res.statusCode === 200 || res.statusCode === 409) {
 				wx.showToast({
