@@ -9,6 +9,19 @@ const input = {
 	seat: 0,
 };
 
+function restoreState() {
+	let state = 'init';
+	if (this.data.roomKey) {
+		const session = new Session(this.data.roomKey);
+
+		if (session.role && session.seat) {
+			state = 'loaded';
+			this.showRole(session);
+		}
+	}
+	this.setData({ state });
+}
+
 function fetchRole() {
 	const session = new Session(this.data.roomKey);
 
@@ -75,6 +88,7 @@ Component({
 		roomKey: {
 			type: String,
 			value: '',
+			observer: restoreState,
 		},
 		playerNum: {
 			type: Number,
@@ -87,16 +101,6 @@ Component({
 		role: 0,
 		seat: 0,
 		seatKey: 0,
-	},
-
-	ready: function () {
-		const session = new Session(this.data.roomKey);
-
-		if (session.role && session.seat) {
-			this.showRole(session);
-		} else {
-			this.setData({ state: 'init' });
-		}
 	},
 
 	/**
