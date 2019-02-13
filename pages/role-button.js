@@ -25,7 +25,6 @@ Component({
 	methods: {
 		handleTap: function () {
 			let selected = !this.data.selected;
-			this.setData({ selected: selected });
 			this.triggerEvent('numberchange', {
 				key: this.data.key,
 				value: selected ? 1 : 0,

@@ -63,6 +63,16 @@ function parseSelector(config) {
 			roles.push({...role, selected});
 		}
 
+		basic.forEach(function (role, index) {
+			role.index = index;
+		});
+
+		roles.forEach(function (role, index) {
+			role.index = index;
+		});
+
+		basic.index = 0;
+		roles.index = 1;
 		const teamConfig = {
 			team: s.team,
 			groups: [basic, roles],
@@ -70,6 +80,9 @@ function parseSelector(config) {
 		selectors.push(teamConfig);
 	}
 
+	selectors.forEach(function (selector, index) {
+		selector.index = index;
+	});
 	return selectors;
 }
 

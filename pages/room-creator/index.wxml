@@ -2,10 +2,10 @@
 
 <view class="container">
     <template is="header" />
-	<view class="team-selector" wx:for="{{selectors}}" wx:key="team">
+	<view class="team-selector" wx:for="{{selectors}}" wx:key="index">
 		<text class="header">{{item.team.name}}</text>
-		<view class="role-list" wx:for="{{item.groups}}" wx:key="team">
-			<RoleButton wx:for="{{item}}" wx:key="role"
+		<view class="role-list" wx:for="{{item.groups}}" wx:key="index">
+			<RoleButton wx:for="{{item}}" wx:key="index"
 				name="{{item.name}}"
 				icon="{{item.key}}"
 				key="{{item.value}}"
