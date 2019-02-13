@@ -39,8 +39,15 @@ function fetchRole() {
 		},
 		success: res => {
 			if (res.statusCode === 404) {
+				let message = '未知404错误';
+				if (res.data === 'The room does not exist') {
+					message = '房间已失效，请重新创建房间。';
+				} else if (res.data === 'The seat does not exist') {
+					message = '无效座位号，请输入 1 ~ ' + this.data.playerNum;
+					this.setData({state: 'init'});
+				}
 				return wx.showToast({
-					title: '房间已失效，请重新创建房间。',
+					title: message,
 					icon: 'none',
 				});
 			} else if (res.statusCode === 409) {
