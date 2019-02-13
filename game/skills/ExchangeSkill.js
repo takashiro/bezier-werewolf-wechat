@@ -30,23 +30,19 @@ class ExchangeSkill extends Skill {
 	}
 
 	getActionLog() {
-		switch (this.action) {
-			case Action.Exchange: {
-				const texts = [];
-				if (this.input) {
-					if (this.input.players && this.input.players.size > 0) {
-						for (const seat of this.input.players) {
-							texts.push(seat + '号');
-						}
-					} else if (this.input.centerCards && this.input.centerCards.size > 0) {
-						for (const pos of this.input.centerCards) {
-							texts.push(`第${pos + 1}张牌`);
-						}
-					}
+		const texts = [];
+		if (this.input) {
+			if (this.input.players && this.input.players.size > 0) {
+				for (const seat of this.input.players) {
+					texts.push(seat + '号');
 				}
-				return texts.length > 0 ? '你交换了' + texts.join('和') : null;
+			} else if (this.input.centerCards && this.input.centerCards.size > 0) {
+				for (const pos of this.input.centerCards) {
+					texts.push(`第${pos + 1}张牌`);
+				}
 			}
 		}
+		return texts.length > 0 ? '你交换了' + texts.join('和') : null;
 	}
 
 }
