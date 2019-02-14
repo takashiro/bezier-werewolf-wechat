@@ -313,33 +313,37 @@ function showLynch() {
 			}
 
 			const vision = res.data;
-			// TODO: do not need to update vision for each time
-			if (vision.players.some(player => player.role) || vision.cards.some(card => card.role)) {
+			if (vision.players && vision.cards) {
 				showVision.call(this, vision);
-			}
 
-			const voteLog = new Map;
-			for (const player of vision.players) {
-				let vote = voteLog.get(player.target);
-				if (!vote) {
-					vote = [];
-					voteLog.set(player.target, vote);
+				const voteLog = new Map;
+				for (const player of vision.players) {
+					let vote = voteLog.get(player.target);
+					if (!vote) {
+						vote = [];
+						voteLog.set(player.target, vote);
+					}
+					vote.push(player.seat);
 				}
-				vote.push(player.seat);
-			}
 
-			let votes = [];
-			for (const [target, sources] of voteLog) {
-				const num = sources.length;
-				votes.push({
-					key: target + '-' + num,
-					target,
-					num,
-					sources,
+				let votes = [];
+				for (const [target, sources] of voteLog) {
+					const num = sources.length;
+					votes.push({
+						key: target + '-' + num,
+						target,
+						num,
+						sources,
+					});
+				}
+
+				this.setData({ votes });
+			} else if (vision.progress && vision.limit) {
+				this.setData({
+					voteProgress: vision.progress,
+					voteLimit: vision.limit,
 				});
 			}
-
-			this.setData({ votes });
 		},
 		fail: () => {
 			wx.hideLoading();
@@ -388,6 +392,8 @@ Component({
 		lynchTarget: 0,
 		votes: [],
 		countdown: 10,
+		voteProgress: 0,
+		voteLimit: 0,
 	},
 
 	ready() {
