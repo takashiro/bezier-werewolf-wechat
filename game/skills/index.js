@@ -36,6 +36,9 @@ const skills = [
 
 	// Mason
 	new TargetlessSkill,
+
+	// Hunter
+	new Unskilled,
 ];
 
 export default skills;
