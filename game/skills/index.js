@@ -33,6 +33,9 @@ const skills = [
 
 	// Drunk
 	new SingleCardSkill,
+
+	// Mason
+	new TargetlessSkill,
 ];
 
 export default skills;

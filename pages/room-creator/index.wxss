@@ -13,3 +13,7 @@ view.team-selector text.header {
 	display: block;
 	margin: 25px 0;
 }
+
+view.role-list {
+	display: block;
+}

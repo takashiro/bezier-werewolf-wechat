@@ -18,6 +18,10 @@ const selectorConfig = [
 			{
 				role: Role.Villager,
 				maxNum: 3,
+			},
+			{
+				role: Role.Mason,
+				maxNum: 2,
 			}
 		],
 	},
@@ -31,8 +35,8 @@ const selectorConfig = [
 function parseSelector(config) {
 	const selectors = [];
 	for (const s of selectorConfig) {
-		const basic = [];
-		for (const b of s.basic) {
+		const basics = s.basic.map(function (b, index) {
+			const basic = [];
 			let selected = 0;
 			for (const role of config) {
 				if (role === b.role) {
@@ -49,7 +53,14 @@ function parseSelector(config) {
 			while (unselected--) {
 				basic.push({ ...b.role, selected: false });
 			}
-		}
+
+			basic.forEach(function (role, index) {
+				role.index = index;
+			});
+
+			basic.index = index;
+			return basic;
+		});
 
 		const roles = [];
 		for (const role of Role.enums) {
@@ -63,19 +74,14 @@ function parseSelector(config) {
 			roles.push({...role, selected});
 		}
 
-		basic.forEach(function (role, index) {
-			role.index = index;
-		});
-
 		roles.forEach(function (role, index) {
 			role.index = index;
 		});
 
-		basic.index = 0;
-		roles.index = 1;
+		roles.index = basics.length;
 		const teamConfig = {
 			team: s.team,
-			groups: [basic, roles],
+			groups: [...basics, roles],
 		};
 		selectors.push(teamConfig);
 	}
