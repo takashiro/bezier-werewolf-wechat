@@ -1,6 +1,7 @@
 
 import Role from '../RoleItem';
 import Team from '../TeamItem';
+import Session from './Session';
 
 const app = getApp();
 const serverUrl = app.globalData.serverUrl;
@@ -48,8 +49,29 @@ Page({
 	},
 
 	onLoad: function (options) {
+		if (options.key) {
+			const session = new Session(options.key);
+			if (session.roomId) {
+				this.setData({
+					id: session.roomId,
+					key: session.roomKey,
+					teams: session.teams,
+					playerNum: playerNum,
+				});
+				return;
+			}
+		}
+
 		const successFn = res => {
-			this.setData(prepareRoom(res.data));
+			const room = prepareRoom(res.data);
+
+			const session = new Session(room.key);
+			session.roomId = room.id;
+			session.teams = room.teams;
+			session.playerNum = room.playerNum;
+			session.save();
+
+			this.setData(room);
 		};
 
 		const failFn = () => {
@@ -80,9 +102,10 @@ Page({
 	},
 
 	onShareAppMessage: function () {
+		const key = encodeURIComponent(this.data.key);
 		return {
 			title: '一夜终极狼人房间 ' + this.data.id,
-			path: '/pages/room/index?id=' + this.data.id,
+			path: '/pages/room/index?id=' + this.data.id + '&key=' + key,
 		};
 	}
 

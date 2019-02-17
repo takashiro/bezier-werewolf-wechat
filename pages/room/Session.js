@@ -16,6 +16,10 @@ class Session {
 
 	constructor(roomKey) {
 		this.roomKey = roomKey;
+		this.roomId = 0;
+		this.teams = null;
+		this.playerNum = null;
+
 		this.seatKey = 0;
 		this.seat = 0;
 		this.role = 0;

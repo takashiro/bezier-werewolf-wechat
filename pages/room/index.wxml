@@ -12,6 +12,7 @@
 				<button bindtap="goToLobby">返回</button>
 			</view>
 		</block>
+		<view wx:elif="{{id === 0}}" class="message">加载中……</view>
 		<block wx:else>
 			<view class="box team" wx:for="{{teams}}" wx:key="key">
 				<text class="header">{{item.team.name}}</text>
