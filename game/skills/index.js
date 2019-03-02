@@ -5,6 +5,7 @@ import SinglePlayerSkill from './SinglePlayerSkill';
 import MultiPlayerSkill from './MultiPlayerSkill';
 import SingleCardSkill from './SingleCardSkill';
 import SeerSkill from './SeerSkill';
+import WitchSkill from './WitchSkill';
 
 const skills = [
 	// Unknown
@@ -39,6 +40,9 @@ const skills = [
 
 	// Hunter
 	new Unskilled,
+
+	// Witch
+	new WitchSkill,
 ];
 
 export default skills;
