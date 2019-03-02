@@ -56,17 +56,20 @@ Page({
 		if (options.key) {
 			const session = new Session(options.key);
 			if (session.roomId) {
-				this.setData({
+				return this.setData({
 					id: session.roomId,
 					key: session.roomKey,
 					teams: session.teams,
 					playerNum: session.playerNum,
 				});
-				return;
 			}
 		}
 
 		const successFn = res => {
+			if (res.statusCode !== 200) {
+				return this.setData({ id: -1 });
+			}
+
 			const room = prepareRoom(res.data);
 
 			const session = new Session(room.key);
