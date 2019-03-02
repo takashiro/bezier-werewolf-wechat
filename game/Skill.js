@@ -2,6 +2,13 @@
 class Skill {
 
 	constructor() {
+		this.state = 0;
+		this.stateNum = 1;
+		this.logs = [];
+	}
+
+	isUsed() {
+		return this.state >= this.stateNum;
 	}
 
 	selectCard(all, target, selected) {
@@ -17,8 +24,16 @@ class Skill {
 	validate(players, cards) {
 	}
 
-	getActionLog(players, cards) {
-		return '';
+	invoke(players, cards) {
+		this.state++;
+		this.addLog(players, cards);
+	}
+
+	addLog(players, cards) {
+	}
+
+	getLogs() {
+		return this.logs;
 	}
 
 	getMessage() {

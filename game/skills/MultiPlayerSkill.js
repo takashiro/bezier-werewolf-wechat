@@ -33,9 +33,9 @@ class MultiPlayerSkill extends Skill {
 		}
 	}
 
-	getActionLog(players, cards) {
+	addLog(players, cards) {
 		const texts = players.map(player => player.seat + '号');
-		return texts.length > 0 ? '你选择了' + texts.join('和') : '';
+		this.logs.push(texts.length > 0 ? '你选择了' + texts.join('和') : '');
 	}
 
 }

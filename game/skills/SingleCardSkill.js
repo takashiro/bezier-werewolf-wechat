@@ -25,8 +25,8 @@ class SingleCardSkill extends Skill {
 		}
 	}
 
-	getActionLog(players, cards) {
-		return `你选择了第${cards[0].pos + 1}张牌`;
+	addLog(players, cards) {
+		this.logs.push(`你选择了第${cards[0].pos + 1}张牌`);
 	}
 
 }

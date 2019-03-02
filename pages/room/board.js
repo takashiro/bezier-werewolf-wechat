@@ -157,62 +157,59 @@ function invokeSkill() {
 	}
 
 	const skillTarget = encodeSkillTarget(players, cards);
-	const actionLog = skill.getActionLog(players, cards);
-
 	resetBoard.call(this);
 
-	const session = new Session(this.data.roomKey);
-	if (session.vision) {
-		showVision.call(this, session.vision);
-		goToLynch.call(this);
+	wx.showLoading({
+		title: '加载中...',
+	});
 
-	} else {
-		wx.showLoading({
-			title: '加载中...',
-		});
+	wx.request({
+		method: 'POST',
+		url: serverUrl + 'skill?' + this.getAuth(),
+		data: skillTarget,
+		success: res => {
+			wx.hideLoading();
 
-		wx.request({
-			method: 'POST',
-			url: serverUrl + 'skill?' + this.getAuth(),
-			data: skillTarget,
-			success: res => {
-				wx.hideLoading();
-
-				if (res.statusCode === 404) {
-					return wx.showToast({
-						title: '房间已失效，请退出。',
-						icon: 'none',
-					});
-				} else if (res.statusCode !== 200) {
-					return wx.showToast({
-						title: '技能发动失败。Error: ' + res.data,
-						icon: 'none',
-					});
-				}
-
-				wx.showToast('技能已生效');
-
-				const vision = res.data;
-				if (!session.actionLog) {
-					session.actionLog = actionLog;
-				}
-				session.vision = vision;
-				session.save();
-
-				this.setData({ actionLog });
-				showVision.call(this, vision);
-				goToLynch.call(this);
-			},
-
-			fail: function() {
-				wx.hideLoading();
-				wx.showToast({
-					title: '网络请求失败，请确认设备可联网。',
+			if (res.statusCode === 404) {
+				return wx.showToast({
+					title: '房间已失效，请退出。',
 					icon: 'none',
 				});
-			},
-		});
-	}
+			} else if (res.statusCode !== 200) {
+				return wx.showToast({
+					title: '技能发动失败。Error: ' + res.data,
+					icon: 'none',
+				});
+			}
+
+			wx.showToast('技能已生效');
+
+			skill.invoke(players, cards);
+			const actionLog = skill.getLogs();
+
+			const vision = res.data;
+
+			const session = new Session(this.data.roomKey);
+			session.actionLog = actionLog;
+			session.vision = vision;
+			session.save();
+
+			this.setData({ actionLog });
+			showVision.call(this, vision);
+
+			if (skill.isUsed()) {
+				goToLynch.call(this);
+			}
+		},
+
+		fail: function() {
+			wx.hideLoading();
+			wx.showToast({
+				title: '网络请求失败，请确认设备可联网。',
+				icon: 'none',
+			});
+		},
+	});
 }
 
 function wakeUp() {

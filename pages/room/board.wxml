@@ -27,7 +27,7 @@
 </view>
 
 <view class="action-log" wx:if="{{actionLog}}">
-	<text>{{actionLog}}</text>
+	<text wx:for="{{actionLog}}" wx:key="*this">{{item}}</text>
 </view>
 
 <view class="button-area {{state}}">

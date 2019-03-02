@@ -25,6 +25,10 @@
 	background: rgb(43, 84, 85);
 }
 
+.action-log text {
+	display: block;
+}
+
 .vote-detail {
 	display: block;
 }
