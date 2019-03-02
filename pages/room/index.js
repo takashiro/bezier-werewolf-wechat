@@ -31,6 +31,10 @@ function prepareRoom(data) {
 		team.roles.sort();
 	}
 
+	teams.sort(function (team1, team2) {
+		return team1.team.value > team2.team.value;
+	});
+
 	return {
 		id,
 		key,
@@ -56,7 +60,7 @@ Page({
 					id: session.roomId,
 					key: session.roomKey,
 					teams: session.teams,
-					playerNum: playerNum,
+					playerNum: session.playerNum,
 				});
 				return;
 			}
