@@ -2,47 +2,47 @@
 import Unskilled from './Unskilled';
 import TargetlessSkill from './TargetlessSkill';
 import SinglePlayerSkill from './SinglePlayerSkill';
-import MultiPlayerSkill from './MultiPlayerSkill';
+import TwoPlayerSkill from './TwoPlayerSkill';
 import SingleCardSkill from './SingleCardSkill';
 import SeerSkill from './SeerSkill';
 import WitchSkill from './WitchSkill';
 
 const skills = [
 	// Unknown
-	new Unskilled,
+	Unskilled,
 
 	// Werewolf
-	new TargetlessSkill,
+	TargetlessSkill,
 
 	// Villager
-	new Unskilled,
+	Unskilled,
 
 	// Seer
-	new SeerSkill,
+	SeerSkill,
 
 	// Tanner
-	new Unskilled,
+	Unskilled,
 
 	// Minion
-	new TargetlessSkill,
+	TargetlessSkill,
 
 	// Troublemaker
-	new MultiPlayerSkill(2),
+	TwoPlayerSkill,
 
 	// Robber
-	new SinglePlayerSkill,
+	SinglePlayerSkill,
 
 	// Drunk
-	new SingleCardSkill,
+	SingleCardSkill,
 
 	// Mason
-	new TargetlessSkill,
+	TargetlessSkill,
 
 	// Hunter
-	new Unskilled,
+	Unskilled,
 
 	// Witch
-	new WitchSkill,
+	WitchSkill,
 ];
 
 export default skills;

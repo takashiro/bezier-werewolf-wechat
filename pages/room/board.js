@@ -24,7 +24,10 @@ class LynchSkill extends Skill {
 
 }
 
-const lynchSkill = new LynchSkill;
+const board = {
+	roleSkill: null,
+	lynchSkill: new LynchSkill,
+};
 
 /**
  * Data Structures */
@@ -40,10 +43,9 @@ function Player(seat) {
 
 function getSkill() {
 	if (this.data.state === 'skill') {
-		const skill = SkillList[this.data.role.value];
-		return skill;
+		return board.roleSkill;
 	} else if (this.data.state === 'lynch') {
-		return lynchSkill;
+		return board.lynchSkill;
 	}
 }
 
@@ -142,7 +144,7 @@ function resetBoard() {
 }
 
 function invokeSkill() {
-	const skill = SkillList[this.data.role.value];
+	const skill = getSkill.call(this);
 	if (!skill) {
 		return;
 	}
@@ -194,7 +196,10 @@ function invokeSkill() {
 			session.vision = vision;
 			session.save();
 
-			this.setData({ actionLog });
+			this.setData({
+				actionLog,
+				skillState: skill.state,
+			});
 			showVision.call(this, vision);
 
 			if (skill.isUsed()) {
@@ -385,6 +390,7 @@ Component({
 		state: "skill", // skill, countdown, lynch, end
 		centerCards: [],
 		players: [],
+		skillState: 0,
 		actionLog: '',
 		lynchTarget: 0,
 		votes: [],
@@ -394,6 +400,11 @@ Component({
 	},
 
 	ready() {
+		const RoleSkill = SkillList[this.data.role.value];
+		if (RoleSkill) {
+			board.roleSkill = new RoleSkill;
+		}
+
 		let centerCards = new Array(3);
 		for (let i = 0; i < 3; i++) {
 			centerCards[i] = new CenterCard(i);

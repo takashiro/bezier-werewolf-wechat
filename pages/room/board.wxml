@@ -32,7 +32,7 @@
 
 <view class="button-area {{state}}">
 	<block wx:if="{{state === 'skill'}}">
-		<button wx:if="{{role.skill}}" bindtap="invokeSkill">{{role.skill}}</button>
+		<button wx:if="{{role.skill}}" bindtap="invokeSkill">{{role.skill[skillState]}}</button>
 		<button wx:else bindtap="wakeUp">起床</button>
 	</block>
 	<text wx:elif="{{state === 'countdown'}}">公投倒计时：{{countdown}}</text>
