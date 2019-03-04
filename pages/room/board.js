@@ -194,6 +194,7 @@ function invokeSkill() {
 			const session = new Session(this.data.roomKey);
 			session.actionLog = actionLog;
 			session.vision = vision;
+			session.skillState = skill.state;
 			session.save();
 
 			this.setData({
@@ -420,20 +421,25 @@ Component({
 		});
 
 		const session = new Session(this.data.roomKey);
+		if (board.roleSkill) {
+			board.roleSkill.state = session.skillState;
+		}
+
 		let state = 'skill';
 		if (session.actionLog) {
 			this.setData({ actionLog: session.actionLog });
-			state = 'lynch';
 		}
 		if (session.vision) {
 			showVision.call(this, session.vision);
+		}
+		if (board.roleSkill.isUsed()) {
 			state = 'lynch';
+		} else {
+			this.setData({ skillState: board.roleSkill.state });
 		}
 		if (session.lynchTarget) {
 			this.setData({ lynchTarget: session.lynchTarget });
-			if (state === 'lynch') {
-				state = 'end';
-			}
+			state = 'end';
 		}
 
 		this.setData({ state });

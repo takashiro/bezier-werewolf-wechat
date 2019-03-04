@@ -23,6 +23,7 @@ class Session {
 		this.seatKey = 0;
 		this.seat = 0;
 		this.role = 0;
+		this.skillState = 0;
 		this.actionLog = null;
 		this.vision = null;
 		this.lynchTarget = 0;
