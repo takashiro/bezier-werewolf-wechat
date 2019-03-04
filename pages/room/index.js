@@ -28,7 +28,9 @@ function prepareRoom(data) {
 		}
 	}
 	for (const team of teams) {
-		team.roles.sort();
+		team.roles.sort(function (role1, role2) {
+			return role1.value > role2.value;
+		});
 	}
 
 	teams.sort(function (team1, team2) {
