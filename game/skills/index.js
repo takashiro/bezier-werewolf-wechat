@@ -6,6 +6,7 @@ import TwoPlayerSkill from './TwoPlayerSkill';
 import SingleCardSkill from './SingleCardSkill';
 import SeerSkill from './SeerSkill';
 import WitchSkill from './WitchSkill';
+import AlphaWolfSkill from './AlphaWolfSkill';
 
 const skills = [
 	// Unknown
@@ -43,6 +44,9 @@ const skills = [
 
 	// Witch
 	WitchSkill,
+
+	// Alpha Wolf
+	AlphaWolfSkill,
 ];
 
 export default skills;
