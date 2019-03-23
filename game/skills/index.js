@@ -47,6 +47,9 @@ const skills = [
 
 	// Alpha Wolf
 	AlphaWolfSkill,
+
+	// Dream Wolf
+	Unskilled,
 ];
 
 export default skills;
