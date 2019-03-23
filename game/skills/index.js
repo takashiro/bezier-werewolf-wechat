@@ -57,6 +57,9 @@ const skills = [
 
 	// Mystic Wolf
 	MysticWolfSkill,
+
+	// Paranormal Investigator
+	TwoPlayerSkill,
 ];
 
 export default skills;
