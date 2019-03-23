@@ -92,7 +92,6 @@ RoleItem.enums = [
 	new RoleItem(
 		Role.DreamWolf, '狼外婆',
 		'狼崽子们又在密谋着什么行动了。年迈的你一早起来发现他们都不见了踪影，叹了口气前往村庄。白天下狼人们已经变回人形。你现在需要确认自己的身份，找到队友获得胜利。',
-		['起床'],
 	),
 	new RoleItem(
 		Role.Prince, '王子',
