@@ -50,6 +50,9 @@ const skills = [
 
 	// Dream Wolf
 	Unskilled,
+
+	// Prince
+	Unskilled,
 ];
 
 export default skills;
