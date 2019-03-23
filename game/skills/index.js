@@ -7,6 +7,7 @@ import SingleCardSkill from './SingleCardSkill';
 import SeerSkill from './SeerSkill';
 import WitchSkill from './WitchSkill';
 import AlphaWolfSkill from './AlphaWolfSkill';
+import MysticWolfSkill from './MysticWolfSkill';
 
 const skills = [
 	// Unknown
@@ -53,6 +54,9 @@ const skills = [
 
 	// Prince
 	Unskilled,
+
+	// Mystic Wolf
+	MysticWolfSkill,
 ];
 
 export default skills;
