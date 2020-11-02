@@ -4,6 +4,7 @@
   "description": "WeChat Miniprogram of One Night Ultimate Werewolf",
   "main": "app.js",
   "scripts": {
+    "build": "tsc",
     "test": "npm run lint"
   },
   "repository": {
@@ -22,6 +23,8 @@
   },
   "homepage": "https://github.com/takashiro/bezier-werewolf-wechat#readme",
   "devDependencies": {
+    "@types/node": "^14.14.6",
+    "@types/wechat-miniprogram": "^3.1.0",
     "typescript": "^4.0.5"
   }
 }

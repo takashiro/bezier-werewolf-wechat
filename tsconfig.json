@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "CommonJS",
+    "target": "ES5",
+    "removeComments": true,
+    "downlevelIteration": true,
+    "sourceMap": true,
+    "lib": [
+      "ES2019"
+    ],
+    "types": [
+      "@types/wechat-miniprogram"
+    ]
+  },
+  "include": [
+    "./**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
