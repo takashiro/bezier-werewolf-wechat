@@ -1,0 +1,27 @@
+{
+  "name": "@bezier/werewolf-wechat",
+  "version": "0.1.6",
+  "description": "WeChat Miniprogram of One Night Ultimate Werewolf",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takashiro/bezier-werewolf-wechat.git"
+  },
+  "keywords": [
+    "werewolf",
+    "board",
+    "game"
+  ],
+  "author": "Kazuichi Takashiro",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/takashiro/bezier-werewolf-wechat/issues"
+  },
+  "homepage": "https://github.com/takashiro/bezier-werewolf-wechat#readme",
+  "devDependencies": {
+    "typescript": "^4.0.5"
+  }
+}
