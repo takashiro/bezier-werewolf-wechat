@@ -50,6 +50,8 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": false,
     "compileHotReLoad": false,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -57,7 +59,10 @@
     },
     "useIsolateContext": true,
     "useCompilerModule": false,
-    "userConfirmedUseCompilerModuleSwitch": true
+    "userConfirmedUseCompilerModuleSwitch": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},

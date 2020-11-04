@@ -1,13 +1,12 @@
 {
 	"pages": [
-		"pages/index/index",
-		"pages/room-creator/index",
-		"pages/room/index"
+		"gui/index"
 	],
 	"window": {
 		"backgroundTextStyle": "light",
 		"navigationBarBackgroundColor": "#fff",
 		"navigationBarTitleText": "一夜终极狼人",
 		"navigationBarTextStyle": "black"
-	}
+	},
+	"sitemapLocation": "sitemap.json"
 }

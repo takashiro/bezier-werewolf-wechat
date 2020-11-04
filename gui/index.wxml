@@ -1,4 +1,4 @@
-<import src="../global.wxml" />
+<import src="./global.wxml" />
 <view class="container">
 	<template is="header" />
 	<view class="lobby">
