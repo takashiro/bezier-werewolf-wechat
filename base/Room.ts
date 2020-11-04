@@ -36,6 +36,13 @@ export default class Room {
 		this.config = config;
 	}
 
+	async delete(): Promise<void> {
+		await Promise.all([
+			this.deleteConfig(),
+			this.deleteSession(),
+		]);
+	}
+
 	fetchConfig(): Promise<number> {
 		return new Promise((resolve, reject) => {
 			client.get({
