@@ -46,7 +46,24 @@ view.button-area button {
 	margin: 0 1em;
 }
 
-input,
-button {
+button,
+input {
+	border-radius: 6px;
+	text-align: center;
+	height: 2.5em;
+	line-height: 2.5em;
+	box-sizing: content-box;
+	padding: 0;
+}
+
+input[type="text"],
+input[type="number"] {
 	color: rgb(32, 32, 32);
+	background: rgba(255, 255, 255, 0.85);
+}
+
+button {
+	color: white;
+	background: rgb(126, 158, 9);
+	box-shadow: 1px 1px 3px yellowgreen;
 }
