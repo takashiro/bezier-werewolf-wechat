@@ -8,7 +8,7 @@ view.team-selector {
 	margin: 20px 10px;
 }
 
-view.team-selector text.header {
+view.team-selector .header {
 	text-align: center;
 	display: block;
 	margin: 25px 0;
@@ -16,4 +16,8 @@ view.team-selector text.header {
 
 view.role-list {
 	display: block;
+}
+
+view.role-list roleicon {
+	display: inline-block;
 }

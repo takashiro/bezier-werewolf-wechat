@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "TeamLabel": "../component/TeamLabel",
+    "RoleIcon": "../component/RoleIcon",
+    "RoleSelector": "./RoleSelector"
+  }
+}

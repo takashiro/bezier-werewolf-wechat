@@ -1,0 +1,8 @@
+<RoleIcon
+	wx:for="{{icons}}"
+	wx:key="key"
+	role="{{role}}"
+	selected="{{item < num}}"
+	selectable="true"
+	bindnumberchange="handleChange"
+/>

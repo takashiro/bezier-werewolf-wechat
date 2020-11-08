@@ -1,0 +1,29 @@
+<view class="container">
+	<include src="../header.wxml" />
+	<view class="team-selector" wx:for="{{selectors}}" wx:key="index">
+		<TeamLabel class="header" team="{{item.team}}" />
+		<view class="role-list">
+			<block wx:for="{{item.selections}}" wx:key="index" wx:for-item="sel">
+				<RoleSelector
+					wx:if="{{sel.maxNum > 1}}"
+					role="{{sel.role}}"
+					num="{{sel.num}}"
+					maxNum="{{sel.maxNum}}"
+					bindnumberchange="handleRoleChange"
+				/>
+				<RoleIcon
+					wx:elif="{{sel.maxNum === 1}}"
+					role="{{sel.role}}"
+					selected="{{sel.num > 0}}"
+					selectable="true"
+					bindnumberchange="handleRoleChange"
+				/>
+			</block>
+		</view>
+	</view>
+	<view class="button-area">
+		<button bindtap="goBack">返回</button>
+		<button bindtap="createRoom">创建房间</button>
+	</view>
+	<include src="../footer.wxml" />
+</view>
