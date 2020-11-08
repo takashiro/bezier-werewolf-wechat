@@ -1,6 +1,5 @@
-<import src="./global.wxml" />
 <view class="container">
-	<template is="header" />
+	<include src="header.wxml" />
 	<view class="lobby">
 		<view class="creator">
 			<button bindtap="createRoom">创建房间</button>
@@ -10,5 +9,5 @@
 			<button bindtap="enterRoom">进入房间</button>
 		</view>
 	</view>
-	<template is="footer" />
+	<include is="footer.wxml" />
 </view>
