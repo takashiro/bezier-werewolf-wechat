@@ -1,6 +1,6 @@
 {
 	"component": true,
 	"usingComponents": {
-		"RoleIcon": "../component/RoleIcon"
+		"RoleIcon": "../common/RoleIcon"
 	}
 }
