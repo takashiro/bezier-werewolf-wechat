@@ -1,4 +1,4 @@
-import RoleItem from './RoleItem';
+import RoleItem from '../../base/RoleItem';
 
 Component({
 	properties: {

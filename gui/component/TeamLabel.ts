@@ -1,4 +1,4 @@
-import TeamItem from './TeamItem';
+import TeamItem from '../../base/TeamItem';
 
 Component({
 	properties: {
