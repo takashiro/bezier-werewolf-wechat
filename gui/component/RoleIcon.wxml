@@ -1,6 +1,6 @@
 <view class="role {{selected ? 'selected' : ''}}" bindtap="handleTap">
 	<view class="icon card-bg">
-			<image src="/style/role/{{key}}.png" />
+			<image src="/style/role/{{key}}.png" wx:if="{{key}}" />
 	</view>
 	<text>{{name}}</text>
 </view>
