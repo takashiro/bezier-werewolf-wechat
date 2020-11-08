@@ -1,4 +1,0 @@
-<import src="./role-icon.wxml" />
-<view class="role-button {{selected ? 'selected' : ''}}" bindtap="handleTap">
-	<template is="role-icon" data="{{key: icon, name: name}}" />
-</view>

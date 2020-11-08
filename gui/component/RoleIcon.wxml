@@ -1,0 +1,6 @@
+<view class="role {{selected ? 'selected' : ''}}" bindtap="handleTap">
+	<view class="icon card-bg">
+			<image src="/style/role/{{key}}.png" />
+	</view>
+	<text>{{name}}</text>
+</view>
