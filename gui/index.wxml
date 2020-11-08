@@ -9,5 +9,5 @@
 			<button bindtap="enterRoom">进入房间</button>
 		</view>
 	</view>
-	<include is="footer.wxml" />
+	<include src="footer.wxml" />
 </view>

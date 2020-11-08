@@ -34,7 +34,7 @@
   },
   "setting": {
     "urlCheck": true,
-    "es6": false,
+    "es6": true,
     "enhance": false,
     "postcss": true,
     "preloadBackgroundData": false,
