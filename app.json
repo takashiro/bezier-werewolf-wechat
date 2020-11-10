@@ -1,7 +1,8 @@
 {
 	"pages": [
 		"gui/index",
-		"gui/room-creator/index"
+		"gui/room-creator/index",
+		"gui/room/index"
 	],
 	"window": {
 		"backgroundTextStyle": "light",

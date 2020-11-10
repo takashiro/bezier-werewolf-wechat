@@ -13,7 +13,7 @@ view.room-info {
 	font-size: 12pt;
 }
 
-view.box text.header {
+view.box .header {
 	color: white;
 	text-align: center;
 	display: block;
@@ -22,9 +22,7 @@ view.box text.header {
 	text-shadow: black 1px 1px 2px;
 }
 
-@import '../role-icon.wxss';
-
-view.role-list view.role {
+view.team roleicon {
 	display: inline-block;
 }
 
