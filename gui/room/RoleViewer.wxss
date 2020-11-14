@@ -1,0 +1,19 @@
+.header {
+	margin: 20px 0;
+	text-align: center;
+	display: block;
+}
+
+input {
+	width: 10em;
+	display: block;
+	margin: 8px auto;
+}
+
+input,
+button {
+	width: 6em;
+	margin: 12px auto;
+	font-size: 11pt;
+	box-sizing: content-box;
+}

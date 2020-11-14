@@ -1,0 +1,8 @@
+<text class="header">你的身份</text>
+<block wx:if="{{seat <= 0}}">
+	<input type="number" bindinput="updateSeat" />
+	<button bindtap="takeSeat">查看身份</button>
+</block>
+<block wx:else>
+	<RoleCard role="{{role}}" seat="{{seat}}" />
+</block>
