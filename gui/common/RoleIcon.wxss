@@ -13,12 +13,20 @@
 	position: relative;
 }
 
-.role .icon image {
-	width: 64px;
-	height: 64px;
+.role .icon .content {
+	width: 70px;
+	height: 70px;
+	position: absolute;
+	top: -3px;
+	left: -3px;
+}
+
+.role .icon .background {
+	width: 76px;
+	height: 76px;
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: -6px;
 }
 
 .role text {
@@ -32,9 +40,5 @@
 }
 
 .icon {
-	background-size: 76px auto;
-	background-position: -6px 0;
 	border: rgb(79, 80, 71) 1px solid;
 }
-
-@import '/style/card-bg.wxss';
