@@ -1,0 +1,7 @@
+<view class="role-card">
+	<text class="role-name">{{seat}}号位 {{name}}</text>
+	<view class="role-image">
+		<image class="background" src="/style/card-bg.png" />
+		<image class="content" src="/style/role/{{key}}.png" wx:if="{{key}}" />
+	</view>
+</view>
