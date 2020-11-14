@@ -67,7 +67,7 @@ export default class Lobby {
 		const statusCode = await room.fetchConfig();
 		if (statusCode === 200) {
 			this.setCurrentRoom(room);
-			await room.saveConfig();
+			await this.saveRoom(room);
 		}
 		return statusCode;
 	}
@@ -79,7 +79,7 @@ export default class Lobby {
 	}
 
 	async saveRoom(room: Room): Promise<void> {
-		this.expiryMap[room.getId()] = new Date().getUTCMilliseconds();
+		this.expiryMap[room.getId()] = new Date().getUTCMilliseconds() + 3600 * 1000;
 		await room.saveConfig();
 		await this.saveExpiryMap();
 	}

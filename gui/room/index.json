@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "TeamLabel": "../common/TeamLabel",
-    "RoleIcon": "../common/RoleIcon"
+    "RoleIcon": "../common/RoleIcon",
+    "RoleViewer": "./RoleViewer"
   }
 }

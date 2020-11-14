@@ -1,16 +1,19 @@
 import {
-	Player as PlayerProfile,
+	Player,
 	Room as RoomConfig,
 } from '@bezier/werewolf-core';
 
+import randstr from '../util/randstr';
+
 import { client } from './Client';
+import RequestError from './RequestError';
 
 export default class Room {
 	protected readonly id: number;
 
 	protected config?: RoomConfig;
 
-	protected profile?: PlayerProfile;
+	protected profile?: Player;
 
 	constructor(id: number) {
 		this.id = id;
@@ -39,7 +42,8 @@ export default class Room {
 	async delete(): Promise<void> {
 		await Promise.all([
 			this.deleteConfig(),
-			this.deleteSession(),
+			this.deleteSeatKey(),
+			this.deleteProfile(),
 		]);
 	}
 
@@ -100,14 +104,54 @@ export default class Room {
 		});
 	}
 
-	readSession(): Promise<PlayerProfile | undefined> {
+	async fetchSeatKey(): Promise<string> {
+		let seatKey = '';
+		try {
+			seatKey = await this.readSeatKey();
+		} catch (error) {
+			// Ignore
+		}
+
+		if (seatKey) {
+			return seatKey;
+		}
+
+		seatKey = randstr(16);
+		await this.writeSeatKey(seatKey);
+
+		return seatKey;
+	}
+
+	async fetchProfile(seat: number): Promise<Player> {
+		if (this.profile) {
+			return this.profile;
+		}
+
+		const seatKey = await this.fetchSeatKey();
+		return new Promise((resolve, reject) => {
+			client.get({
+				url: `room/${this.id}/player/${seat}/seat?seatKey=${seatKey}`,
+				success: (res) => {
+					if (res.statusCode === 200) {
+						this.profile = res.data as Player;
+						resolve(res.data as Player);
+					} else {
+						reject(new RequestError(res.statusCode, res.data as string));
+					}
+				},
+				fail: reject,
+			});
+		});
+	}
+
+	readProfile(): Promise<Player | undefined> {
 		if (this.profile) {
 			return Promise.resolve(this.profile);
 		}
 
 		return new Promise((resolve, reject) => {
 			wx.getStorage({
-				key: `room-${this.id}-session`,
+				key: `room-${this.id}-profile`,
 				success: (res) => {
 					this.profile = res.data;
 					resolve(this.profile);
@@ -117,22 +161,62 @@ export default class Room {
 		});
 	}
 
-	saveSession(profile: PlayerProfile): Promise<void> {
-		this.profile = profile;
+	saveProfile(): Promise<void> {
+		if (!this.profile) {
+			return Promise.reject(new Error('No profile exists'));
+		}
+
 		return new Promise((resolve, reject) => {
 			wx.setStorage({
-				key: `room-${this.id}-session`,
-				data: profile,
+				key: `room-${this.id}-profile`,
+				data: this.profile,
 				success: () => resolve(),
 				fail: reject,
 			});
 		});
 	}
 
-	deleteSession(): Promise<void> {
+	deleteProfile(): Promise<void> {
 		return new Promise((resolve, reject) => {
 			wx.removeStorage({
-				key: `room-${this.id}-session`,
+				key: `room-${this.id}-profile`,
+				success: () => resolve(),
+				fail: reject,
+			});
+		});
+	}
+
+	protected readSeatKey(): Promise<string> {
+		return new Promise((resolve, reject) => {
+			wx.getStorage({
+				key: `${this.id}-seatKey`,
+				success(res) {
+					if (res && typeof res.data === 'string') {
+						resolve(res.data);
+					} else {
+						resolve('');
+					}
+				},
+				fail: reject,
+			});
+		});
+	}
+
+	protected writeSeatKey(seatKey: string): Promise<void> {
+		return new Promise((resolve, reject) => {
+			wx.setStorage({
+				key: `${this.id}-seatKey`,
+				data: seatKey,
+				success: () => resolve(),
+				fail: reject,
+			});
+		});
+	}
+
+	protected deleteSeatKey(): Promise<void> {
+		return new Promise((resolve, reject) => {
+			wx.removeStorage({
+				key: `${this.id}-seatKey`,
 				success: () => resolve(),
 				fail: reject,
 			});

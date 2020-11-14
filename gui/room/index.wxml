@@ -14,6 +14,7 @@
 				<TeamLabel class="header" team="{{item.team}}" />
 				<RoleIcon wx:for="{{item.roles}}" role="{{item}}" />
 			</view>
+			<RoleViewer />
 		</block>
 		<view class="button-area" wx:if="{{state != 0}}">
 			<button bindtap="goBack">返回</button>
