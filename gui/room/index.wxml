@@ -1,19 +1,21 @@
 <view class="container">
 	<include src="../header.wxml" />
-		<view class="room-info" wx:if="{{id > 0}}">
-			<text>房间号 {{id}}</text>
-		</view>
-		<block wx:if="{{id === -1}}">
+		<block wx:if="{{state <= 0}}">
+			<view class="message">加载中……</view>
+		</block>
+		<block wx:elif="{{state == 1}}">
 			<view class="message">房间已失效</view>
 		</block>
-		<view wx:elif="{{id === 0}}" class="message">加载中……</view>
 		<block wx:else>
+			<view class="room-info">
+				<text>房间号 {{id}}</text>
+			</view>
 			<view class="box team" wx:for="{{teams}}">
 				<TeamLabel class="header" team="{{item.team}}" />
 				<RoleIcon wx:for="{{item.roles}}" role="{{item}}" />
 			</view>
 		</block>
-		<view class="button-area">
+		<view class="button-area" wx:if="{{state != 0}}">
 			<button bindtap="goBack">返回</button>
 			<button open-type="share" wx:if="{{id > 0}}">邀请好友</button>
 		</view>

@@ -1,28 +1,37 @@
 import TeamProfile from '../../base/TeamProfile';
 import { lobby } from '../../base/Lobby';
 
+const enum PageState {
+	Loading,
+	Expired,
+	Loaded,
+	Seated,
+}
+
 Page({
 	data: {
+		state: PageState.Loading,
 		id: 0,
 		key: '',
 		teams: [] as TeamProfile[],
 	},
 
-	onLoad(options) {
+	async onLoad(options) {
 		if (options.id) {
 			const id = parseInt(options.id, 10);
-			lobby.enterRoom(id);
+			await lobby.enterRoom(id);
 		}
 
 		const room = lobby.getCurrentRoom();
 		const config = room?.getConfig();
 		if (!config) {
+			this.setData({ state: PageState.Expired });
 			return;
 		}
 
 		const teams = TeamProfile.fromRoles(config.roles);
-
 		this.setData({
+			state: PageState.Loaded,
 			id: config.id,
 			key: config.salt,
 			teams,
