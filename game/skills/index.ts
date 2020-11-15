@@ -1,4 +1,3 @@
-
 import Unskilled from './Unskilled';
 import TargetlessSkill from './TargetlessSkill';
 import SinglePlayerSkill from './SinglePlayerSkill';
@@ -8,8 +7,9 @@ import SeerSkill from './SeerSkill';
 import WitchSkill from './WitchSkill';
 import AlphaWolfSkill from './AlphaWolfSkill';
 import MysticWolfSkill from './MysticWolfSkill';
+import Skill from '../Skill';
 
-const skills = [
+const skills: (new () => Skill)[] = [
 	// Unknown
 	Unskilled,
 
