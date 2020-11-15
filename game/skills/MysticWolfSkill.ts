@@ -1,5 +1,4 @@
-import BoardObject from '../BoardObject';
-import Card from '../Card';
+import Board from '../Board';
 import Player from '../Player';
 import SinglePlayerSkill from './SinglePlayerSkill';
 
@@ -15,27 +14,35 @@ class MysticWolfSkill extends SinglePlayerSkill {
 		return this.state > State.Forecast;
 	}
 
-	selectPlayer(all: BoardObject[], target: BoardObject, selected: boolean): boolean {
+	selectPlayer(board: Board, target: Player): boolean {
 		if (this.state === State.Forecast) {
-			return super.selectPlayer(all, target, selected);
+			return super.selectPlayer(board, target);
 		}
 		return false;
 	}
 
-	validate(players: Player[], cards: Card[]): boolean {
+	validate(board: Board): boolean {
 		if (this.state === State.MeetWolves) {
+			const cards = board.getSelectedCards();
+			const players = board.getSelectedPlayers();
 			return players.length === 0 && cards.length === 0;
 		}
 		if (this.state === State.Forecast) {
-			return super.validate(players, cards);
+			return super.validate(board);
 		}
 		return false;
 	}
 
-	addLog(players: Player[], cards: Card[]): void {
+	addLog(board: Board): void {
 		if (this.state === State.Forecast) {
-			super.addLog(players, cards);
+			super.addLog(board);
 		}
+	}
+
+	invoke(board: Board): void {
+		this.addLog(board);
+		this.state++;
+		this.used = true;
 	}
 }
 

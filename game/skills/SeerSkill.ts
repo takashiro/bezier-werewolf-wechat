@@ -1,35 +1,37 @@
-import BoardObject from '../BoardObject';
+import Board from '../Board';
 import Card from '../Card';
 import Player from '../Player';
 import Skill from '../Skill';
 
 class SeerSkill extends Skill {
-	selectPlayer(all: BoardObject[], target: BoardObject, selected: boolean): boolean {
-		if (selected) {
-			for (const player of all) {
-				player.setSelected(false);
-			}
-			target.setSelected(true);
-		} else {
-			target.setSelected(false);
-		}
+	selectPlayer(board: Board, target: Player): boolean {
+		board.resetSelectedPlayers();
+		target.setSelected(true);
 		return true;
 	}
 
-	selectCard(all: BoardObject[], target: BoardObject, selected: boolean): boolean {
-		if (selected) {
-			const prev = all.filter((card) => card.isSelected());
-			if (prev.length >= 2) {
-				return false;
-			}
-			target.setSelected(true);
-		} else {
-			target.setSelected(false);
-		}
+	unselectPlayer(board: Board, target: Player): boolean {
+		target.setSelected(false);
 		return true;
 	}
 
-	validate(players: Player[], cards: Card[]): boolean {
+	selectCard(board: Board, target: Card): boolean {
+		const prev = board.getSelectedCards();
+		if (prev.length >= 2) {
+			return false;
+		}
+		target.setSelected(true);
+		return true;
+	}
+
+	unelectCard(board: Board, target: Card): boolean {
+		target.setSelected(false);
+		return true;
+	}
+
+	validate(board: Board): boolean {
+		const cards = board.getSelectedCards();
+		const players = board.getSelectedPlayers();
 		if ((players.length === 1 && cards.length === 0)
 			|| (players.length === 0 && cards.length === 2)) {
 			return true;
@@ -37,9 +39,6 @@ class SeerSkill extends Skill {
 
 		this.message = '请选择1名玩家或2张牌';
 		return false;
-	}
-
-	addLog(players: Player[], cards: Card[]): void {
 	}
 }
 

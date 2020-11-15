@@ -1,4 +1,4 @@
-import BoardObject from '../BoardObject';
+import Board from '../Board';
 import Player from '../Player';
 import Card from '../Card';
 import Skill from '../Skill';
@@ -16,53 +16,63 @@ class WitchSkill extends Skill {
 		return this.state === State.PlayerSelected;
 	}
 
-	selectCard(all: BoardObject[], target: BoardObject, selected: boolean): boolean {
+	selectCard(board: Board, target: Card): boolean {
 		if (this.state !== State.Init) {
 			return false;
 		}
 
-		if (selected) {
-			for (const card of all) {
-				card.setSelected(false);
-			}
-			target.setSelected(true);
-		} else {
-			target.setSelected(false);
-		}
+		board.resetSelectedCards();
+		target.setSelected(true);
 		return true;
 	}
 
-	selectPlayer(all: BoardObject[], target: BoardObject, selected: boolean): boolean {
+	unselectCard(board: Board, target: Card): boolean {
+		if (this.state !== State.Init) {
+			return false;
+		}
+
+		target.setSelected(false);
+		return true;
+	}
+
+	selectPlayer(board: Board, target: Player): boolean {
 		if (this.state !== State.CardSelected) {
 			return false;
 		}
 
-		if (selected) {
-			for (const player of all) {
-				player.setSelected(false);
-			}
-			target.setSelected(true);
-		} else {
-			target.setSelected(false);
-		}
+		board.resetSelectedPlayers();
+		target.setSelected(true);
 		return true;
 	}
 
-	validate(players: Player[], cards: Card[]): boolean {
+	unselectPlayer(board: Board, target: Player): boolean {
+		if (this.state !== State.CardSelected) {
+			return false;
+		}
+
+		target.setSelected(false);
+		return true;
+	}
+
+	validate(board: Board): boolean {
 		if (this.state === State.Init) {
+			const cards = board.getSelectedCards();
 			return cards.length === 1;
 		}
 		if (this.state === State.CardSelected) {
+			const players = board.getSelectedPlayers();
 			return players.length === 1;
 		}
 		return false;
 	}
 
-	addLog(players: Player[], cards: Card[]): void {
-		if (players && players[0]) {
-			this.logs.push(`你选择了${players[0].getSeat()}号`);
-		} else if (cards && cards[0]) {
-			this.logs.push(`你选择了第${cards[0].getPos() + 1}张牌`);
+	addLog(board: Board): void {
+		if (this.state === State.Init) {
+			const [card] = board.getSelectedCards();
+			this.logs.push(`你选择了第${card.getPos() + 1}张牌`);
+		} else if (this.state === State.CardSelected) {
+			const [player] = board.getSelectedPlayers();
+			this.logs.push(`你选择了${player.getSeat()}号`);
 		}
 	}
 }

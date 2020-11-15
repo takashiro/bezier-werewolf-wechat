@@ -12,9 +12,6 @@ class TargetlessSkill extends Skill {
 	selectPlayer(): boolean {
 		return false;
 	}
-
-	addLog(): void {
-	}
 }
 
 export default TargetlessSkill;
