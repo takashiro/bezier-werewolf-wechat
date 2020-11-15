@@ -14,6 +14,7 @@ Component({
 	data: {
 		key: '',
 		name: '',
+		description: '',
 	},
 	lifetimes: {
 		attached() {
@@ -25,6 +26,7 @@ Component({
 			this.setData({
 				key: item.key,
 				name: item.name,
+				description: item.description,
 			});
 		},
 	},
