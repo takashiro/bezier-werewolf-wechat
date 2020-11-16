@@ -30,7 +30,6 @@
 			"tab"
 		],
 		"max-len": "off",
-		"no-await-in-loop": "off",
 		"no-continue": "off",
 		"no-plusplus": "off",
 		"no-param-reassign": "off",

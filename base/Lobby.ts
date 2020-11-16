@@ -54,7 +54,7 @@ export default class Lobby {
 		delete this.currentRoom;
 
 		const room = new Room(id);
-		if (this.hasRoom(room)) {
+		if (await this.hasRoom(room)) {
 			try {
 				await room.readConfig();
 				this.setCurrentRoom(room);
@@ -79,7 +79,7 @@ export default class Lobby {
 	}
 
 	async saveRoom(room: Room): Promise<void> {
-		this.expiryMap[room.getId()] = new Date().getUTCMilliseconds() + 3600 * 1000;
+		this.expiryMap[room.getId()] = new Date().getTime() + 3600 * 1000;
 		await room.saveConfig();
 		await this.saveExpiryMap();
 	}
@@ -87,7 +87,7 @@ export default class Lobby {
 	async filterExpiryMap(): Promise<ExpiryMap> {
 		await this.readExpiryMap();
 
-		const now = new Date().getUTCMilliseconds();
+		const now = new Date().getTime();
 		const roomIds = Object.keys(this.expiryMap);
 
 		let modified = false;
@@ -101,7 +101,7 @@ export default class Lobby {
 					continue;
 				}
 				const room = new Room(id);
-				await room.delete();
+				room.delete();
 			}
 		}
 
