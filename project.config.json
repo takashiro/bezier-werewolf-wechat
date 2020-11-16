@@ -21,6 +21,10 @@
       {
         "type": "file",
         "value": "jest.config.js"
+      },
+      {
+        "type": "file",
+        "value": "logo.jpg"
       }
     ]
   },
