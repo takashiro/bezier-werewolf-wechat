@@ -1,4 +1,4 @@
-One Night Ultimate Werewolf (WeChat App)
+One Night Ultimate Werewolf (WeChat App) ![Node.js CI](https://github.com/takashiro/bezier-werewolf-wechat/workflows/Node.js%20CI/badge.svg)
 ==========
 
 | Example Page |        https://onuw.takashiro.cn      |
