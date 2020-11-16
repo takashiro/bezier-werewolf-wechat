@@ -6,7 +6,7 @@ One Night Ultimate Werewolf (WeChat App)
 | Author       |           Kazuichi Takashiro          |
 
 
-![Wechat Mini-Program](https://raw.githubusercontent.com/takashiro/asmodee-werewolf-wechat/dev/logo.jpg)
+![Wechat Mini-Program](https://raw.githubusercontent.com/takashiro/bezier-werewolf-wechat/dev/logo.jpg)
 
 License
 -------
