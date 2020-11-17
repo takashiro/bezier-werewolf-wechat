@@ -22,9 +22,6 @@ Component({
 	lifetimes: {
 		attached() {
 			const { role } = this.properties;
-			if (!role) {
-				return;
-			}
 			const item = new RoleItem(role);
 			this.setData({
 				key: item.key,

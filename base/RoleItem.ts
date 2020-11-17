@@ -127,6 +127,7 @@ export default class RoleItem {
 			this.description = item.description;
 			this.skills = item.skills;
 		} else {
+			this.key = 'unknown';
 			this.name = '未知';
 			this.description = '';
 			this.skills = [];
