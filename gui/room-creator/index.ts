@@ -26,6 +26,7 @@ Page({
 
 	handleRoleChange(e: RoleChangeEvent): void {
 		roleConfig.set(e.detail.role, e.detail.num);
+		this.refreshSettings();
 	},
 
 	handleReturn(): void {

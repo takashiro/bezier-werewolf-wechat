@@ -39,7 +39,6 @@ Component({
 			}
 
 			const selected = !this.data.selected;
-			this.setData({ selected });
 			this.triggerEvent('numberchange', {
 				role: this.data.role,
 				num: selected ? 1 : 0,
