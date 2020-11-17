@@ -1,0 +1,8 @@
+<view>
+	<RoleIcon class="icon"
+		role="{{role}}"
+		selectable="true"
+		selected="{{selected}}"
+		bindnumberchange="handleClick"
+	/>
+</view>
