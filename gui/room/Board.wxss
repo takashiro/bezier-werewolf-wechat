@@ -1,0 +1,32 @@
+.box {
+	margin: 0 auto;
+}
+
+.box .header {
+	display: block;
+	text-align: center;
+	margin: 20px 0;
+}
+
+.player-list {
+	text-align: center;
+}
+
+.player-list .player {
+	display: inline-block;
+	margin: 0 1px;
+}
+
+.player-list .player .seat-number {
+	display: block;
+	text-align: center;
+}
+
+.card-list {
+	text-align: center;
+}
+
+.card-list .card {
+	display: inline-block;
+	margin: 0 1px;
+}

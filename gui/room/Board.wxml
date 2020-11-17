@@ -1,0 +1,21 @@
+<view class="box">
+	<text class="header">在场玩家</text>
+	<view class="player-list">
+		<Player class="player" wx:for="{{players}}" wx:key="seat"
+			seat="{{item.seat}}"
+			role="{{item.role}}"
+			bindclick="togglePlayer"
+		/>
+	</view>
+</view>
+
+<view class="box">
+	<text class="header">未使用的身份牌</text>
+	<view class="card-list">
+		<Card class="card" wx:for="{{cards}}" wx:key="pos"
+			pos="{{item.pos}}"
+			role="{item.role}}"
+			bindclick="toggleCard"
+		/>
+	</view>
+</view>

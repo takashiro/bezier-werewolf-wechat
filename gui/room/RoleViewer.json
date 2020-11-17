@@ -1,6 +1,7 @@
 {
 	"component": true,
 	"usingComponents": {
-		"RoleCard": "../common/RoleCard"
+		"RoleCard": "../common/RoleCard",
+		"Board": "./Board"
 	}
 }
