@@ -26,16 +26,24 @@ export default class Board {
 		return this.cards;
 	}
 
-	getPlayers(): Player[] {
-		return this.players;
-	}
-
 	getSelectedCards(): Card[] {
 		return this.cards.filter((card) => card.isSelected());
 	}
 
+	getCard(pos: number): Card | undefined {
+		return this.cards[pos];
+	}
+
+	getPlayers(): Player[] {
+		return this.players;
+	}
+
 	getSelectedPlayers(): Player[] {
 		return this.players.filter((player) => player.isSelected());
+	}
+
+	getPlayer(seat: number): Player | undefined {
+		return this.players[seat - 1];
 	}
 
 	resetSelectedCards(): void {
