@@ -1,4 +1,3 @@
-import Board from '../Board';
 import Player from '../Player';
 import Skill from '../Skill';
 
@@ -7,13 +6,13 @@ class SinglePlayerSkill extends Skill {
 		return false;
 	}
 
-	selectPlayer(board: Board, target: Player): boolean {
-		board.resetSelectedPlayers();
+	selectPlayer(target: Player): boolean {
+		this.board.resetSelectedPlayers();
 		target.setSelected(true);
 		return true;
 	}
 
-	unselectPlayer(board: Board, target: Player): boolean {
+	unselectPlayer(target: Player): boolean {
 		if (!target.isSelected()) {
 			return false;
 		}
@@ -21,9 +20,9 @@ class SinglePlayerSkill extends Skill {
 		return true;
 	}
 
-	validate(board: Board): boolean {
-		const cards = board.getSelectedCards();
-		const players = board.getSelectedPlayers();
+	validate(): boolean {
+		const cards = this.board.getSelectedCards();
+		const players = this.board.getSelectedPlayers();
 		if (cards.length <= 0 && players.length === 1) {
 			return true;
 		}
@@ -32,8 +31,8 @@ class SinglePlayerSkill extends Skill {
 		return false;
 	}
 
-	addLog(board: Board): void {
-		const [player] = board.getSelectedPlayers();
+	addLog(): void {
+		const [player] = this.board.getSelectedPlayers();
 		this.logs.push(`你选择了${player.getSeat()}号`);
 	}
 }

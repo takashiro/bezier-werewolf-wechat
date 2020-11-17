@@ -1,22 +1,21 @@
-import Board from '../Board';
 import Card from '../Card';
 import Player from '../Player';
 import Skill from '../Skill';
 
 class SeerSkill extends Skill {
-	selectPlayer(board: Board, target: Player): boolean {
-		board.resetSelectedPlayers();
+	selectPlayer(target: Player): boolean {
+		this.board.resetSelectedPlayers();
 		target.setSelected(true);
 		return true;
 	}
 
-	unselectPlayer(board: Board, target: Player): boolean {
+	unselectPlayer(target: Player): boolean {
 		target.setSelected(false);
 		return true;
 	}
 
-	selectCard(board: Board, target: Card): boolean {
-		const prev = board.getSelectedCards();
+	selectCard(target: Card): boolean {
+		const prev = this.board.getSelectedCards();
 		if (prev.length >= 2) {
 			return false;
 		}
@@ -24,14 +23,14 @@ class SeerSkill extends Skill {
 		return true;
 	}
 
-	unelectCard(board: Board, target: Card): boolean {
+	unelectCard(target: Card): boolean {
 		target.setSelected(false);
 		return true;
 	}
 
-	validate(board: Board): boolean {
-		const cards = board.getSelectedCards();
-		const players = board.getSelectedPlayers();
+	validate(): boolean {
+		const cards = this.board.getSelectedCards();
+		const players = this.board.getSelectedPlayers();
 		if ((players.length === 1 && cards.length === 0)
 			|| (players.length === 0 && cards.length === 2)) {
 			return true;

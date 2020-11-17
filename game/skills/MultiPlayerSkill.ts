@@ -5,9 +5,8 @@ import Skill from '../Skill';
 class MultiPlayerSkill extends Skill {
 	protected playerNum: number;
 
-	constructor(playerNum: number) {
-		super();
-
+	constructor(board: Board, playerNum: number) {
+		super(board);
 		this.playerNum = playerNum;
 	}
 
@@ -15,8 +14,8 @@ class MultiPlayerSkill extends Skill {
 		return false;
 	}
 
-	selectPlayer(board: Board, target: Player): boolean {
-		const prev = board.getSelectedPlayers();
+	selectPlayer(target: Player): boolean {
+		const prev = this.board.getSelectedPlayers();
 		if (prev.length >= this.playerNum) {
 			return false;
 		}
@@ -24,7 +23,7 @@ class MultiPlayerSkill extends Skill {
 		return true;
 	}
 
-	unselectPlayer(board: Board, target: Player): boolean {
+	unselectPlayer(target: Player): boolean {
 		if (!target.isSelected()) {
 			return false;
 		}
@@ -32,8 +31,8 @@ class MultiPlayerSkill extends Skill {
 		return true;
 	}
 
-	validate(board: Board): boolean {
-		const players = board.getSelectedPlayers();
+	validate(): boolean {
+		const players = this.board.getSelectedPlayers();
 		if (players.length === this.playerNum) {
 			return true;
 		}
@@ -42,8 +41,8 @@ class MultiPlayerSkill extends Skill {
 		return false;
 	}
 
-	addLog(board: Board): void {
-		const players = board.getSelectedPlayers();
+	addLog(): void {
+		const players = this.board.getSelectedPlayers();
 		const texts = players.map((player) => `${player.getSeat()}号`);
 		this.logs.push(texts.length > 0 ? `你选择了${texts.join('和')}` : '');
 	}

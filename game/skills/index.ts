@@ -1,5 +1,7 @@
 import { Role } from '@bezier/werewolf-core';
+
 import Skill from '../Skill';
+import Board from '../Board';
 
 import Unskilled from './Unskilled';
 import TargetlessSkill from './TargetlessSkill';
@@ -11,7 +13,7 @@ import WitchSkill from './WitchSkill';
 import AlphaWolfSkill from './AlphaWolfSkill';
 import MysticWolfSkill from './MysticWolfSkill';
 
-const skillMap = new Map<Role, new() => Skill>();
+const skillMap = new Map<Role, new(board: Board) => Skill>();
 skillMap.set(Role.Unknown, Unskilled);
 skillMap.set(Role.Werewolf, TargetlessSkill);
 skillMap.set(Role.Villager, Unskilled);

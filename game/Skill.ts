@@ -3,49 +3,55 @@ import Card from './Card';
 import Player from './Player';
 
 export default abstract class Skill {
+	protected board: Board;
+
 	protected used = false;
 
 	protected logs: string[] = [];
 
 	protected message?: string;
 
+	constructor(board: Board) {
+		this.board = board;
+	}
+
 	isUsed(): boolean {
 		return this.used;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-	selectCard(board: Board, target: Card): boolean {
+	// eslint-disable-next-line class-methods-use-this
+	selectCard(target: Card): boolean {
 		target.setSelected(true);
 		return true;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-	unselectCard(board: Board, target: Card): boolean {
+	// eslint-disable-next-line class-methods-use-this
+	unselectCard(target: Card): boolean {
 		target.setSelected(false);
 		return true;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-	selectPlayer(board: Board, target: Player): boolean {
+	// eslint-disable-next-line class-methods-use-this
+	selectPlayer(target: Player): boolean {
 		target.setSelected(true);
 		return true;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this
-	unselectPlayer(board: Board, target: Player): boolean {
+	// eslint-disable-next-line class-methods-use-this
+	unselectPlayer(target: Player): boolean {
 		target.setSelected(false);
 		return true;
 	}
 
-	abstract validate(board: Board): boolean;
+	abstract validate(): boolean;
 
-	invoke(board: Board): void {
-		this.addLog(board);
+	invoke(): void {
+		this.addLog();
 		this.used = true;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, class-methods-use-this, @typescript-eslint/no-empty-function
-	addLog(board: Board): void {
+	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
+	addLog(): void {
 		// Do nothing by default
 	}
 
