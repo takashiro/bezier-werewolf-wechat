@@ -1,0 +1,9 @@
+<view class="player">
+	<text class="seat-number">{{seat}}号</text>
+	<RoleIcon class="icon"
+		role="{{role}}"
+		selectable="true"
+		selected="{{selected}}"
+		bindnumberchange="handleClick"
+	/>
+</view>
