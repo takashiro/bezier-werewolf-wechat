@@ -2,7 +2,9 @@ import Card from '../../Card';
 import Player from '../../Player';
 import Skill from '../../Skill';
 
-class SeerSkill extends Skill {
+class Seer extends Skill {
+	protected buttonLabel = '预知未来';
+
 	selectPlayer(target: Player): boolean {
 		this.board.resetSelectedPlayers();
 		target.setSelected(true);
@@ -41,4 +43,4 @@ class SeerSkill extends Skill {
 	}
 }
 
-export default SeerSkill;
+export default Seer;
