@@ -6,9 +6,10 @@ import SinglePlayerSkill from '../SinglePlayerSkill';
 import TwoPlayerSkill from '../TwoPlayerSkill';
 import SingleCardSkill from '../SingleCardSkill';
 import SeerSkill from './SeerSkill';
+import Werewolf from './Werewolf';
 
 const col = new Collection('standard');
-col.add(Role.Werewolf, TargetlessSkill);
+col.add(Role.Werewolf, Werewolf);
 col.add(Role.Seer, SeerSkill);
 col.add(Role.Minion, TargetlessSkill);
 col.add(Role.Troublemaker, TwoPlayerSkill);

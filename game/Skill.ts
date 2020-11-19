@@ -11,8 +11,14 @@ export default abstract class Skill {
 
 	protected message?: string;
 
+	protected buttonLabel = '';
+
 	constructor(board: Board) {
 		this.board = board;
+	}
+
+	getButtonLabel(): string {
+		return this.buttonLabel;
 	}
 
 	isUsed(): boolean {
