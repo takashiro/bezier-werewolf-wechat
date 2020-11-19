@@ -1,6 +1,6 @@
-import Player from '../Player';
-import Card from '../Card';
-import Skill from '../Skill';
+import Player from '../../Player';
+import Card from '../../Card';
+import Skill from '../../Skill';
 
 const enum State {
 	Init,

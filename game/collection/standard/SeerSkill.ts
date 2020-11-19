@@ -1,6 +1,6 @@
-import Card from '../Card';
-import Player from '../Player';
-import Skill from '../Skill';
+import Card from '../../Card';
+import Player from '../../Player';
+import Skill from '../../Skill';
 
 class SeerSkill extends Skill {
 	selectPlayer(target: Player): boolean {

@@ -3,7 +3,7 @@ import { Role } from '@bezier/werewolf-core';
 import Card from './Card';
 import Player from './Player';
 import Skill from './Skill';
-import skillMap from './skills/index';
+import collection from './collection/index';
 
 interface BoardConfiguration {
 	role: Role;
@@ -12,16 +12,18 @@ interface BoardConfiguration {
 }
 
 export default class Board {
-	protected skill?: Skill;
+	protected skills: Skill[];
 
 	protected cards: Card[];
 
 	protected players: Player[];
 
 	constructor(config: BoardConfiguration) {
-		const SkillClass = skillMap.get(config.role);
-		if (SkillClass) {
-			this.skill = new SkillClass(this);
+		const SkillClasses = collection.get(config.role);
+		if (SkillClasses) {
+			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this));
+		} else {
+			this.skills = [];
 		}
 
 		this.cards = new Array(config.cardNum);
@@ -31,6 +33,14 @@ export default class Board {
 		this.players = new Array(config.playerNum);
 		for (let i = 0; i < this.players.length; i++) {
 			this.players[i] = new Player(i + 1);
+		}
+	}
+
+	getSkill(): Skill | undefined {
+		for (const skill of this.skills) {
+			if (!skill.isUsed()) {
+				return skill;
+			}
 		}
 	}
 
@@ -71,7 +81,8 @@ export default class Board {
 	}
 
 	togglePlayer(seat: number): boolean {
-		if (!this.skill || this.skill.isUsed()) {
+		const skill = this.getSkill();
+		if (!skill || skill.isUsed()) {
 			return false;
 		}
 
@@ -81,13 +92,14 @@ export default class Board {
 		}
 
 		if (player.isSelected()) {
-			return this.skill.unselectPlayer(player);
+			return skill.unselectPlayer(player);
 		}
-		return this.skill.selectPlayer(player);
+		return skill.selectPlayer(player);
 	}
 
 	toggleCard(pos: number): boolean {
-		if (!this.skill || this.skill.isUsed()) {
+		const skill = this.getSkill();
+		if (!skill || skill.isUsed()) {
 			return false;
 		}
 
@@ -97,8 +109,8 @@ export default class Board {
 		}
 
 		if (card.isSelected()) {
-			return this.skill.unselectCard(card);
+			return skill.unselectCard(card);
 		}
-		return this.skill.selectCard(card);
+		return skill.selectCard(card);
 	}
 }

@@ -1,20 +1,20 @@
-import Player from '../Player';
-import SinglePlayerSkill from './SinglePlayerSkill';
+import Player from '../../Player';
+import SinglePlayerSkill from '../SinglePlayerSkill';
 
 const enum State {
 	MeetWolves,
-	Infect,
+	Forecast,
 }
 
-class AlphaWolfSkill extends SinglePlayerSkill {
+class MysticWolfSkill extends SinglePlayerSkill {
 	protected state = State.MeetWolves;
 
 	isUsed(): boolean {
-		return this.state > State.Infect;
+		return this.state > State.Forecast;
 	}
 
 	selectPlayer(target: Player): boolean {
-		if (this.state === State.Infect) {
+		if (this.state === State.Forecast) {
 			return super.selectPlayer(target);
 		}
 		return false;
@@ -26,14 +26,14 @@ class AlphaWolfSkill extends SinglePlayerSkill {
 			const players = this.board.getSelectedPlayers();
 			return players.length === 0 && cards.length === 0;
 		}
-		if (this.state === State.Infect) {
+		if (this.state === State.Forecast) {
 			return super.validate();
 		}
 		return false;
 	}
 
 	addLog(): void {
-		if (this.state === State.Infect) {
+		if (this.state === State.Forecast) {
 			super.addLog();
 		}
 	}
@@ -45,4 +45,4 @@ class AlphaWolfSkill extends SinglePlayerSkill {
 	}
 }
 
-export default AlphaWolfSkill;
+export default MysticWolfSkill;
