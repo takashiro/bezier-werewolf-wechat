@@ -85,7 +85,11 @@ export default class Lobby {
 	}
 
 	async filterExpiryMap(): Promise<ExpiryMap> {
-		await this.readExpiryMap();
+		try {
+			await this.readExpiryMap();
+		} catch (error) {
+			// Ignore
+		}
 
 		const now = new Date().getTime();
 		const roomIds = Object.keys(this.expiryMap);
@@ -106,7 +110,11 @@ export default class Lobby {
 		}
 
 		if (modified) {
-			await this.saveExpiryMap();
+			try {
+				await this.saveExpiryMap();
+			} catch (error) {
+				// Ingore
+			}
 		}
 
 		return this.expiryMap;
