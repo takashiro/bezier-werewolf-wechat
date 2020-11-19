@@ -71,7 +71,7 @@ export default class Board {
 	}
 
 	togglePlayer(seat: number): boolean {
-		if (!this.skill) {
+		if (!this.skill || this.skill.isUsed()) {
 			return false;
 		}
 
@@ -87,7 +87,7 @@ export default class Board {
 	}
 
 	toggleCard(pos: number): boolean {
-		if (!this.skill) {
+		if (!this.skill || this.skill.isUsed()) {
 			return false;
 		}
 

@@ -25,7 +25,7 @@ Component({
 	},
 
 	lifetimes: {
-		async created() {
+		async attached() {
 			const room = lobby.getCurrentRoom();
 			if (!room) {
 				return;
