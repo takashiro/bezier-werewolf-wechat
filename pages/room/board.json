@@ -1,6 +1,0 @@
-{
-	"component": true,
-	"usingComponents": {
-		"RoleButton": "../role-button"
-	}
-}
