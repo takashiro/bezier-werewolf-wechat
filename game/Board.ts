@@ -7,6 +7,7 @@ import collection from './collection/index';
 
 interface BoardConfiguration {
 	role: Role;
+	seat: number;
 	cardNum: number;
 	playerNum: number;
 }
@@ -19,13 +20,6 @@ export default class Board {
 	protected players: Player[];
 
 	constructor(config: BoardConfiguration) {
-		const SkillClasses = collection.get(config.role);
-		if (SkillClasses) {
-			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this));
-		} else {
-			this.skills = [];
-		}
-
 		this.cards = new Array(config.cardNum);
 		for (let i = 0; i < this.cards.length; i++) {
 			this.cards[i] = new Card(i);
@@ -33,6 +27,14 @@ export default class Board {
 		this.players = new Array(config.playerNum);
 		for (let i = 0; i < this.players.length; i++) {
 			this.players[i] = new Player(i + 1);
+		}
+
+		const self = this.getPlayer(config.seat);
+		const SkillClasses = collection.get(config.role);
+		if (self && SkillClasses) {
+			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this, self));
+		} else {
+			this.skills = [];
 		}
 	}
 

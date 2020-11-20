@@ -1,9 +1,10 @@
 import Board from '../Board';
+import Player from '../Player';
 import MultiPlayerSkill from './MultiPlayerSkill';
 
 class TwoPlayerSkill extends MultiPlayerSkill {
-	constructor(board: Board) {
-		super(board, 2);
+	constructor(board: Board, self: Player) {
+		super(board, self, 2);
 	}
 }
 

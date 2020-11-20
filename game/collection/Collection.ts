@@ -1,8 +1,9 @@
 import { Role } from '@bezier/werewolf-core';
 import Board from '../Board';
+import Player from '../Player';
 import Skill from '../Skill';
 
-export type SkillConstructor = new(board: Board) => Skill;
+export type SkillConstructor = new(board: Board, self: Player) => Skill;
 export type SkillMap = Map<Role, SkillConstructor[]>;
 
 export default class Collection {

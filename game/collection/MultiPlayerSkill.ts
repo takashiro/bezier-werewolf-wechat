@@ -5,8 +5,8 @@ import Skill from '../Skill';
 class MultiPlayerSkill extends Skill {
 	protected playerNum: number;
 
-	constructor(board: Board, playerNum: number) {
-		super(board);
+	constructor(board: Board, self: Player, playerNum: number) {
+		super(board, self);
 		this.playerNum = playerNum;
 	}
 

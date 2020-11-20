@@ -1,9 +1,12 @@
+import { client } from '../base/Client';
 import Board from './Board';
 import Card from './Card';
 import Player from './Player';
 
 export default abstract class Skill {
 	protected board: Board;
+
+	protected owner: Player;
 
 	protected used = false;
 
@@ -13,8 +16,9 @@ export default abstract class Skill {
 
 	protected buttonLabel = '';
 
-	constructor(board: Board) {
+	constructor(board: Board, self: Player) {
 		this.board = board;
+		this.owner = self;
 	}
 
 	getButtonLabel(): string {
