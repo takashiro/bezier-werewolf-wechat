@@ -10,11 +10,9 @@ Component({
 	 * Component properties
 	 */
 	properties: {
-		role: {
-			type: Number,
-			value: 0,
+		role: Number,
+		seat: Number,
 		},
-	},
 
 	/**
 	 * Component initial data
@@ -31,10 +29,12 @@ Component({
 				return;
 			}
 
-			const { role } = this.data;
+			const { role, seat } = this.data;
 			const config = await room.readConfig();
 			board = new Board({
+				roomId: room.getId(),
 				role,
+				seat,
 				cardNum: 3,
 				playerNum: config.roles.length - 3,
 			});
