@@ -8,6 +8,6 @@ export default class Vote extends SinglePlayerSkill {
 		this.used = true;
 		this.addLog();
 		this.board.resetSelection();
-		return false;
+		return true;
 	}
 }

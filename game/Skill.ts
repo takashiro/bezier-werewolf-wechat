@@ -62,6 +62,10 @@ export default abstract class Skill {
 		return updated;
 	}
 
+	skip(): void {
+		this.used = true;
+	}
+
 	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function
 	addLog(): void {
 		// Do nothing by default

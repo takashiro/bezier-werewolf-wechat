@@ -7,6 +7,7 @@ import Player from '../../game/Player';
 let board: Board;
 
 const errorMap = new Map<number, string>();
+errorMap.set(409, '你已经投过票');
 errorMap.set(425, '请等待其他玩家完成夜间行动');
 
 Component({
@@ -101,7 +102,12 @@ Component({
 					title,
 					icon: 'none',
 				});
-				return;
+				if (error.statusCode === 409) {
+					board.resetSelection();
+					skill.skip();
+				} else {
+					return;
+				}
 			}
 
 			this.refreshAll();
