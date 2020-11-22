@@ -144,7 +144,7 @@ export default class Room {
 		});
 	}
 
-	readProfile(): Promise<Player | undefined> {
+	readProfile(): Promise<Player> {
 		if (this.profile) {
 			return Promise.resolve(this.profile);
 		}
