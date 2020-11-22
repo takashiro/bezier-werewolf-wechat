@@ -6,6 +6,9 @@ class Seer extends Skill {
 	protected buttonLabel = '预知未来';
 
 	selectPlayer(target: Player): boolean {
+		if (target === this.owner) {
+			return false;
+		}
 		this.board.resetSelectedPlayers();
 		target.setSelected(true);
 		return true;
