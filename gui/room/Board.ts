@@ -6,6 +6,9 @@ import Player from '../../game/Player';
 
 let board: Board;
 
+const errorMap = new Map<number, string>();
+errorMap.set(425, '请等待其他玩家完成夜间行动');
+
 Component({
 	/**
 	 * Component properties
@@ -93,8 +96,9 @@ Component({
 			try {
 				await skill.invoke();
 			} catch (error) {
+				const title = errorMap.get(error.statusCode) || error.message;
 				wx.showToast({
-					title: error.message,
+					title,
 					icon: 'none',
 				});
 				return;

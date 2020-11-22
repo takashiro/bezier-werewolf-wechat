@@ -10,8 +10,10 @@ import { client } from '../base/Client';
 import Card from './Card';
 import Player from './Player';
 import Skill from './Skill';
+
 import collection from './collection/index';
 import WakeUp from './collection/WakeUp';
+import Vote from './collection/Vote';
 
 export default class Board {
 	protected room: Room;
@@ -42,8 +44,9 @@ export default class Board {
 
 		const self = await this.room.readProfile();
 		const me = this.getPlayer(self.seat);
-		const SkillClasses = collection.get(self.role) || [WakeUp];
 		if (me) {
+			const SkillClasses = collection.get(self.role) || [WakeUp];
+			SkillClasses.push(Vote);
 			me.setRole(self.role);
 			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this, me));
 		} else {
@@ -132,6 +135,35 @@ export default class Board {
 			return skill.unselectCard(card);
 		}
 		return skill.selectCard(card);
+	}
+
+	async vote(): Promise<void> {
+		const targets = this.getSelectedPlayers();
+		if (targets.length <= 0) {
+			return;
+		}
+
+		const room = await this.room.readConfig();
+		const self = await this.room.readProfile();
+		const seatKey = await this.room.fetchSeatKey();
+
+		const data = {
+			target: targets[0].getSeat(),
+		};
+		return new Promise((resolve, reject) => {
+			client.post({
+				url: `room/${room.id}/player/${self.seat}/lynch?seatKey=${seatKey}`,
+				data,
+				success: (res) => {
+					if (res.statusCode === 200) {
+						resolve();
+					} else {
+						reject(new RequestError(res.statusCode, res.data as string));
+					}
+				},
+				fail: reject,
+			});
+		});
 	}
 
 	async invokeSkill(): Promise<boolean> {
