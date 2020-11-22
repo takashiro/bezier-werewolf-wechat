@@ -11,6 +11,7 @@ import Card from './Card';
 import Player from './Player';
 import Skill from './Skill';
 import collection from './collection/index';
+import WakeUp from './collection/WakeUp';
 
 export default class Board {
 	protected room: Room;
@@ -41,8 +42,8 @@ export default class Board {
 
 		const self = await this.room.readProfile();
 		const me = this.getPlayer(self.seat);
-		const SkillClasses = collection.get(self.role);
-		if (me && SkillClasses) {
+		const SkillClasses = collection.get(self.role) || [WakeUp];
+		if (me) {
 			me.setRole(self.role);
 			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this, me));
 		} else {
