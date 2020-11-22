@@ -21,3 +21,7 @@
 		/>
 	</view>
 </view>
+
+<view class="button-area">
+	<button wx:if="{{skillLabel}}" bindtap="invokeSkill">{{skillLabel}}</button>
+</view>

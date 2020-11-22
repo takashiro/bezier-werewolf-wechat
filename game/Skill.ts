@@ -1,4 +1,3 @@
-import { client } from '../base/Client';
 import Board from './Board';
 import Card from './Card';
 import Player from './Player';
@@ -55,9 +54,12 @@ export default abstract class Skill {
 
 	abstract validate(): boolean;
 
-	invoke(): void {
-		this.addLog();
+	async invoke(): Promise<boolean> {
+		const updated = await this.board.invokeSkill();
 		this.used = true;
+		this.addLog();
+		this.board.resetSelection();
+		return updated;
 	}
 
 	// eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-empty-function

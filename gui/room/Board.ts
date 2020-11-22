@@ -1,4 +1,5 @@
 import { lobby } from '../../base/Lobby';
+
 import Board from '../../game/Board';
 import Card from '../../game/Card';
 import Player from '../../game/Player';
@@ -10,14 +11,13 @@ Component({
 	 * Component properties
 	 */
 	properties: {
-		role: Number,
-		seat: Number,
-		},
+	},
 
 	/**
 	 * Component initial data
 	 */
 	data: {
+		skillLabel: '',
 		cards: [] as Card[],
 		players: [] as Player[],
 	},
@@ -29,19 +29,9 @@ Component({
 				return;
 			}
 
-			const { role, seat } = this.data;
-			const config = await room.readConfig();
-			board = new Board({
-				roomId: room.getId(),
-				role,
-				seat,
-				cardNum: 3,
-				playerNum: config.roles.length - 3,
-			});
-			this.setData({
-				cards: board.getCards(),
-				players: board.getPlayers(),
-			});
+			board = new Board(room);
+			await board.prepare();
+			this.refreshAll();
 		},
 	},
 
@@ -56,7 +46,7 @@ Component({
 			}
 		},
 
-		// Nonesense? It's just updated anyway.
+		// Nonesense? It just updates everything anyway.
 		refreshPlayers(): void {
 			this.setData({
 				players: board.getPlayers(),
@@ -74,6 +64,43 @@ Component({
 			this.setData({
 				cards: board.getCards(),
 			});
+		},
+
+		refreshAll(): void {
+			const skill = board.getSkill();
+			this.setData({
+				skillLabel: skill ? skill.getButtonLabel() : '',
+				cards: board.getCards(),
+				players: board.getPlayers(),
+			});
+		},
+
+		async invokeSkill(): Promise<void> {
+			const skill = board.getSkill();
+			if (!skill) {
+				return;
+			}
+
+			if (!skill.validate()) {
+				const message = skill.getMessage();
+				wx.showToast({
+					title: message || '技能目标不合法',
+					icon: 'none',
+				});
+				return;
+			}
+
+			try {
+				await skill.invoke();
+			} catch (error) {
+				wx.showToast({
+					title: error.message,
+					icon: 'none',
+				});
+				return;
+			}
+
+			this.refreshAll();
 		},
 	},
 });
