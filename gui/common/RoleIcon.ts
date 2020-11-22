@@ -1,3 +1,4 @@
+import { Role } from '@bezier/werewolf-core';
 import RoleItem from '../../base/RoleItem';
 
 Component({
@@ -19,9 +20,8 @@ Component({
 		key: '',
 		name: '',
 	},
-	lifetimes: {
-		attached() {
-			const { role } = this.properties;
+	observers: {
+		role(role: Role): void {
 			const item = new RoleItem(role);
 			this.setData({
 				key: item.key,

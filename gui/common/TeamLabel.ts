@@ -1,3 +1,4 @@
+import { Team } from '@bezier/werewolf-core';
 import TeamItem from '../../base/TeamItem';
 
 Component({
@@ -11,12 +12,8 @@ Component({
 	data: {
 	},
 
-	lifetimes: {
-		attached() {
-			const { team } = this.properties;
-			if (!team) {
-				return;
-			}
+	observers: {
+		team(team: Team): void {
 			const item = new TeamItem(team);
 			this.setData({
 				key: item.key,
