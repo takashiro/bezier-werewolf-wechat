@@ -1,8 +1,10 @@
-import { Room as RoomConfig } from '@bezier/werewolf-core';
+import {
+	GameConfig,
+	Room as RoomConfig,
+} from '@bezier/werewolf-core';
 
-import { client } from './Client';
 import Room from './Room';
-import RoomOptions from './RoomOptions';
+import { client } from './Client';
 
 type ExpiryMap = Record<string, number>;
 
@@ -26,7 +28,7 @@ export default class Lobby {
 		return this.currentRoom;
 	}
 
-	async createRoom(options: RoomOptions): Promise<number> {
+	async createRoom(options: GameConfig): Promise<number> {
 		delete this.currentRoom;
 		return new Promise((resolve, reject) => {
 			client.post({
