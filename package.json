@@ -38,6 +38,6 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "@bezier/werewolf-core": "^0.1.1"
+    "@bezier/werewolf-core": "^0.1.2"
   }
 }

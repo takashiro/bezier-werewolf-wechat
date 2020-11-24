@@ -3,6 +3,7 @@ import { lobby } from '../../base/Lobby';
 import Board from '../../game/Board';
 import Card from '../../game/Card';
 import Player from '../../game/Player';
+import VoteGroup from '../../game/VoteGroup';
 
 let board: Board;
 
@@ -24,6 +25,9 @@ Component({
 		skillLabel: '',
 		cards: [] as Card[],
 		players: [] as Player[],
+		voteProgress: 0,
+		voteLimit: 0,
+		voteGroups: [] as VoteGroup[],
 	},
 
 	lifetimes: {
@@ -72,10 +76,12 @@ Component({
 
 		refreshAll(): void {
 			const skill = board.getSkill();
+			const players = board.getPlayers();
 			this.setData({
 				skillLabel: skill ? skill.getButtonLabel() : '',
 				cards: board.getCards(),
-				players: board.getPlayers(),
+				players,
+				voteLimit: players.length,
 			});
 		},
 
@@ -111,6 +117,27 @@ Component({
 			}
 
 			this.refreshAll();
+		},
+
+		async refreshVotes(): Promise<void> {
+			try {
+				const {
+					progress,
+					limit,
+					items,
+				} = await board.refreshResult();
+				if (progress !== undefined && limit !== undefined) {
+					this.setData({
+						voteProgress: progress,
+						voteLimit: limit,
+					});
+				}
+				this.setData({
+					voteItems: items,
+				});
+			} catch (error) {
+				// Ignore
+			}
 		},
 	},
 });

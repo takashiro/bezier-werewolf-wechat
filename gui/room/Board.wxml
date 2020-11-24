@@ -25,3 +25,33 @@
 <view class="button-area" wx:if="{{skillLabel}}">
 	<button bindtap="invokeSkill">{{skillLabel}}</button>
 </view>
+<view class="box" wx:elif="{{voteItems.length > 0}}">
+	<text class="header">投票结果</text>
+	<view class="vote-list">
+		<view class="vote-group" wx:for="{{voteItems}}" wx:for-item="group">
+			<view class="from">
+				<Player class="player" wx:for="{{group.from}}" wx:key="{{item.seat}}"
+					seat="{{item.seat}}"
+					role="{{item.role}}"
+				/>
+			</view>
+			<view class="arrow">投给</view>
+			<view class="to">
+				<Player class="player"
+					seat="{{group.to.seat}}"
+					role="{{group.to.role}}"
+				/>
+			</view>
+		</view>
+	</view>
+</view>
+<block wx:elif="{{voteProgress < voteLimit}}">
+	<view class="button-area">
+		<button class="refresh-vote-button" bindtap="refreshVotes" wx:if="{{voteProgress <= 0}}">查看投票结果</button>
+		<button class="refresh-vote-button" bindtap="refreshVotes" wx:else>刷新投票结果</button>
+	</view>
+
+	<view class="box vote" wx:if="{{voteProgress > 0}}">
+		<text>投票进度：{{voteProgress}} / {{voteLimit}}</text>
+	</view>
+</block>

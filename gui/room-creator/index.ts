@@ -68,7 +68,10 @@ Page({
 
 		let status = 100;
 		try {
-			status = await lobby.createRoom({ roles });
+			status = await lobby.createRoom({
+				cardNum: 3,
+				roles,
+			});
 		} catch (error) {
 			wx.hideLoading();
 			wx.showToast({

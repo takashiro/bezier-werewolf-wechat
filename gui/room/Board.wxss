@@ -17,11 +17,6 @@
 	margin: 0 1px;
 }
 
-.player-list .player .seat-number {
-	display: block;
-	text-align: center;
-}
-
 .card-list {
 	text-align: center;
 }
@@ -29,4 +24,38 @@
 .card-list .card {
 	display: inline-block;
 	margin: 0 1px;
+}
+
+.box.vote {
+	text-align: center;
+}
+
+.refresh-vote-button {
+	padding: 0 0.8em;
+}
+
+.vote-group {
+	display: flex;
+	flex-direction: row;
+	margin: 20px 10px;
+}
+
+.vote-group .from {
+	flex: 1 1 auto;
+	text-align: center;
+}
+
+.vote-group .from .player {
+	display: inline-block;
+}
+
+.vote-group .arrow {
+	width: 4em;
+}
+
+.vote-group .arrow,
+.vote-group .to {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }

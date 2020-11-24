@@ -93,6 +93,7 @@ describe('Write room configuration', () => {
 	const config = {
 		id: 12,
 		salt: 'ui87',
+		cardNum: 3,
 		playerNum: 1,
 		roles: [1],
 	};

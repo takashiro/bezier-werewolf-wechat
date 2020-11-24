@@ -1,0 +1,5 @@
+
+.player .seat-number {
+	display: block;
+	text-align: center;
+}

@@ -1,6 +1,8 @@
 import {
 	Selection,
 	Vision,
+	LynchResult,
+	LynchVote,
 } from '@bezier/werewolf-core';
 
 import Room from '../base/Room';
@@ -14,6 +16,8 @@ import Skill from './Skill';
 import collection from './collection/index';
 import WakeUp from './collection/WakeUp';
 import Vote from './collection/Vote';
+import VoteBulletin from './VoteBulletin';
+import VoteGroup from './VoteGroup';
 
 export default class Board {
 	protected room: Room;
@@ -23,6 +27,8 @@ export default class Board {
 	protected cards: Card[] = [];
 
 	protected players: Player[] = [];
+
+	protected result?: LynchResult;
 
 	constructor(room: Room) {
 		this.room = room;
@@ -171,6 +177,35 @@ export default class Board {
 		return this.update(vision);
 	}
 
+	async refreshResult(): Promise<VoteBulletin> {
+		const res = await this.fetchVotes();
+		if (res.cards || res.players) {
+			this.update(res);
+		}
+
+		const {
+			progress,
+			limit,
+			players,
+		} = res;
+		const items: VoteGroup[] = [];
+		if (players) {
+			const map = this.countVotes(players);
+			for (const [to, from] of map) {
+				items.push({
+					from,
+					to,
+				});
+			}
+			items.sort((a, b) => b.from.length - a.from.length);
+		}
+		return {
+			progress,
+			limit,
+			items,
+		};
+	}
+
 	protected async sendSkillTargets(): Promise<Vision> {
 		const room = await this.room.readConfig();
 		const self = await this.room.readProfile();
@@ -222,5 +257,45 @@ export default class Board {
 			}
 		}
 		return updated;
+	}
+
+	protected async fetchVotes(): Promise<LynchResult> {
+		const room = await this.room.readConfig();
+		const self = await this.room.readProfile();
+		const seatKey = await this.room.fetchSeatKey();
+
+		return new Promise((resolve, reject) => {
+			client.get({
+				url: `room/${room.id}/player/${self.seat}/lynch?seatKey=${seatKey}`,
+				success: (res) => {
+					if (res.statusCode === 200) {
+						resolve(res.data as LynchResult);
+					} else {
+						reject(new RequestError(res.statusCode, res.data as string));
+					}
+				},
+				fail: reject,
+			});
+		});
+	}
+
+	protected countVotes(votes: LynchVote[]): Map<Player, Player[]> {
+		votes.sort((a, b) => a.seat - b.seat);
+		const map = new Map<Player, Player[]>();
+		for (const vote of votes) {
+			const from = this.getPlayer(vote.seat);
+			const to = this.getPlayer(vote.target);
+			if (!from || !to) {
+				continue;
+			}
+
+			const votes = map.get(to);
+			if (votes) {
+				votes.push(from);
+			} else {
+				map.set(to, [from]);
+			}
+		}
+		return map;
 	}
 }
