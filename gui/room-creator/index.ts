@@ -55,9 +55,10 @@ Page({
 			return;
 		}
 
-		if (roles.length <= 0) {
+		if (roles.length < 5) {
 			wx.showToast({
-				title: '请选择角色。',
+				title: '请选择至少5名角色。',
+				icon: 'none',
 			});
 			return;
 		}
