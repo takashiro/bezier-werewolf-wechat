@@ -120,7 +120,7 @@ export default class RoleItem {
 			this.name = item.name;
 			this.description = item.description;
 		} else {
-			this.key = 'unknown';
+			this.key = 'Unknown';
 			this.name = '未知';
 			this.description = '';
 		}
