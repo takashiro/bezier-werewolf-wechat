@@ -54,7 +54,6 @@ Component({
 			}
 		},
 
-		// Nonesense? It just updates everything anyway.
 		refreshPlayers(): void {
 			this.setData({
 				players: board.getPlayers(),
@@ -126,15 +125,23 @@ Component({
 					limit,
 					items,
 				} = await board.refreshResult();
+				let done = false;
 				if (progress !== undefined && limit !== undefined) {
 					this.setData({
 						voteProgress: progress,
 						voteLimit: limit,
 					});
+					done = progress >= limit;
+				} else {
+					done = true;
 				}
 				this.setData({
 					voteItems: items,
 				});
+				if (done) {
+					this.refreshCards();
+					this.refreshPlayers();
+				}
 			} catch (error) {
 				// Ignore
 			}

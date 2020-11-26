@@ -15,7 +15,7 @@
 	<view class="card-list">
 		<Card class="card" wx:for="{{cards}}" wx:key="pos"
 			pos="{{item.pos}}"
-			role="{item.role}}"
+			role="{{item.role}}"
 			selected="{{item.selected}}"
 			bindclick="toggleCard"
 		/>
