@@ -46,7 +46,7 @@ Page({
 	onShareAppMessage() {
 		return {
 			title: `一夜终极狼人房间 ${this.data.id}`,
-			path: `/page/room/index?id=${this.data.id}`,
+			path: `/gui/room/index?id=${this.data.id}`,
 		};
 	},
 });
