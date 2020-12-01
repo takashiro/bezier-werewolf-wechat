@@ -48,7 +48,7 @@
 <block wx:elif="{{voteProgress < voteLimit}}">
 	<view class="button-area">
 		<button class="refresh-vote-button" bindtap="refreshVotes" wx:if="{{voteProgress <= 0}}">查看投票结果</button>
-		<button class="refresh-vote-button" bindtap="refreshVotes" wx:else>刷新投票结果</button>
+		<button class="refresh-vote-button" bindtap="refreshVotes" wx:else>刷新</button>
 	</view>
 
 	<view class="box vote" wx:if="{{voteProgress > 0}}">
