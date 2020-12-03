@@ -4,7 +4,7 @@ const teamNames = [
 	'其他角色',
 	'狼人阵营',
 	'神民阵营',
-	'皮匠阵营',
+	'其他角色',
 ];
 
 export default class TeamItem {
