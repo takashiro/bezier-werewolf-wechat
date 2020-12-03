@@ -68,6 +68,6 @@ export const selectors: TeamSelector[] = [
 		},
 	),
 	new TeamSelector(
-		Team.Tanner,
+		Team.Other,
 	),
 ];

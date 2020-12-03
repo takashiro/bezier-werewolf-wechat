@@ -153,8 +153,13 @@ export default class Room {
 			wx.getStorage({
 				key: `room-${this.id}-profile`,
 				success: (res) => {
-					this.profile = res.data;
-					resolve(this.profile);
+					if (res.data) {
+						const player: Player = res.data;
+						this.profile = res.data;
+						resolve(player);
+					} else {
+						reject(new Error(res.errMsg || res.data));
+					}
 				},
 				fail: reject,
 			});
