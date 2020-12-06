@@ -1,7 +1,7 @@
 import Player from '../../Player';
-import TwoPlayerSkill from '../TwoPlayerSkill';
+import DoublePlayerSkill from '../DoublePlayerSkill';
 
-export default class Troublemaker extends TwoPlayerSkill {
+export default class Troublemaker extends DoublePlayerSkill {
 	protected buttonLabel = '交换身份';
 
 	selectPlayer(target: Player): boolean {
