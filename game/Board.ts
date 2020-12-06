@@ -37,13 +37,13 @@ export default class Board {
 	async prepare(): Promise<void> {
 		const config = await this.room.readConfig();
 
-		const cardNum = 3;
+		const { cardNum } = config;
 		this.cards = new Array(cardNum);
 		for (let i = 0; i < this.cards.length; i++) {
 			this.cards[i] = new Card(i);
 		}
 
-		this.players = new Array(config.roles.length - cardNum);
+		this.players = new Array(config.roles.length - 3);
 		for (let i = 0; i < this.players.length; i++) {
 			this.players[i] = new Player(i + 1);
 		}
