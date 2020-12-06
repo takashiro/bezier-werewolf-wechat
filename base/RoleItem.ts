@@ -87,6 +87,11 @@ const itemList: RoleTuple[] = [
 		'疯狂学者',
 		'你喜欢做各种疯狂又刺激的实验。今晚你可以查看至多2名玩家的身份，若其中有狼人（或皮匠），你必须立刻停止研究，然后变身为同一阵营的狼人（或皮匠）。',
 	],
+	[
+		Role.Insomniac,
+		'失眠者',
+		'整个村庄都睡了，唯独留下你与黑夜对峙。你已经记不得这是第几个夜晚。由于你一夜未眠，天亮前你会再次查看自己的身份牌。',
+	],
 ];
 
 interface RoleMeta {
@@ -125,5 +130,9 @@ export default class RoleItem {
 			this.name = '未知';
 			this.description = '';
 		}
+	}
+
+	static list(): Role[] {
+		return Array(...itemMap.keys());
 	}
 }

@@ -4,7 +4,9 @@ import {
 	Teamship,
 } from '@bezier/werewolf-core';
 
-const roleList = Object.values(Role).filter((role) => !Number.isNaN(role) && role <= Role.ParanormalInvestigator) as Role[];
+import RoleItem from './RoleItem';
+
+const roleList = RoleItem.list();
 
 interface RoleLimit {
 	role: Role;

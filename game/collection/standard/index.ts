@@ -8,6 +8,7 @@ import Troublemaker from './Troublemaker';
 import Robber from './Robber';
 import Drunk from './Drunk';
 import Mason from './Mason';
+import Insomniac from './Insomniac';
 
 const col = new Collection('standard');
 col.add(Role.Werewolf, Werewolf);
@@ -17,5 +18,6 @@ col.add(Role.Troublemaker, Troublemaker);
 col.add(Role.Robber, Robber);
 col.add(Role.Drunk, Drunk);
 col.add(Role.Mason, Mason);
+col.add(Role.Insomniac, Insomniac);
 
 export default col;
