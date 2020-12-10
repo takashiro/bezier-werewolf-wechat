@@ -11,5 +11,7 @@
 		"game/**/*.js": true,
 		"gui/**/*.js": true,
 		"util/**/*.js": true
-	}
+	},
+	"javascript.preferences.quoteStyle": "single",
+	"typescript.preferences.quoteStyle": "single"
 }
