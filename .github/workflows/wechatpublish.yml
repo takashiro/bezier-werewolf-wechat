@@ -19,6 +19,7 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm test
-      - uses: takashiro/publish-wechat-miniprogram@canary
+      - uses: takashiro/publish-wechat-miniprogram@v0
         env:
+          CI: true
           WECHAT_UPLOAD_KEY: ${{secrets.WECHAT_UPLOAD_KEY}}

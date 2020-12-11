@@ -6,4 +6,8 @@ module.exports = {
 			tsconfig: 'test/tsconfig.json',
 		},
 	},
+	testMatch: [
+		'**/test/**/*.spec.ts',
+	],
+	testPathIgnorePatterns: process.env.CI === 'true' ? ['/e2e/'] : [],
 };
