@@ -22,5 +22,3 @@ jobs:
       - uses: takashiro/publish-wechat-miniprogram@v1
         with:
           upload-key: ${{ secrets.WECHAT_UPLOAD_KEY }}
-        env:
-          CI: true

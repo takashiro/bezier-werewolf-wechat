@@ -5,9 +5,10 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc --incremental",
-    "test": "npm run lint && npm run jest",
+    "test": "npm run lint && npm run jest-unit",
     "lint": "eslint --ext=ts .",
-    "jest": "jest"
+    "jest-unit": "jest --config=test/unit/jest.config.js",
+    "jest-e2e": "jest --config=test/e2e/jest.config.js --runInBand"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 import wx from '../wx';
-import { client } from '../../base/Client';
+import { client } from '../../../base/Client';
 
 const rootUrl = 'https://onuw.takashiro.cn/api';
 const { request } = wx;

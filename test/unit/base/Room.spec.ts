@@ -1,5 +1,5 @@
 import wx from '../wx';
-import Room from '../../base/Room';
+import Room from '../../../base/Room';
 
 const {
 	request,

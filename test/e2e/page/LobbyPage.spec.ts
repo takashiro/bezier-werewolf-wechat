@@ -10,7 +10,9 @@ beforeAll(async () => {
 });
 
 afterAll(() => {
-	program.disconnect();
+	if (program) {
+		program.disconnect();
+	}
 });
 
 it('renders create button', async () => {
