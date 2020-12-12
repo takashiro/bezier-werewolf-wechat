@@ -15,6 +15,17 @@ afterAll(() => {
 	}
 });
 
+it('opens home page', async () => {
+	const page = await program.currentPage();
+	expect(page.path).toBe('gui/index');
+});
+
+it('waits for rendering', async () => {
+	const page = await program.currentPage();
+	await page.waitFor('.creator');
+	await page.waitFor('.entrance');
+});
+
 it('renders create button', async () => {
 	const page = await program.currentPage();
 	const creator = await page.$('.creator');
