@@ -31,8 +31,10 @@ jobs:
         npm test
 
   e2e:
+    needs: build
 
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, macos-latest]
 
