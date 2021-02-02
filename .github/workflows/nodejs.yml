@@ -62,9 +62,9 @@ jobs:
         smtp-sender: ${{ secrets.SMTP_SENDER }}
         smtp-receiver: ${{ secrets.SMTP_RECEIVER }}
     - name: Pack NPM modules
-      run: wxdev build-npm --project=${{ github.workspace }}
+      run: wxdev build-npm --project ${{ github.workspace }}
     - name: Load the project
-      run: wxdev auto --project=${{ github.workspace }} --auto-port=8888
+      run: wxdev auto --project ${{ github.workspace }} --auto-port 8888
     - name: Wait for loading
       run: sleep 30
       shell: bash
