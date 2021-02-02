@@ -70,7 +70,6 @@ Page({
 		let status = 100;
 		try {
 			status = await lobby.createRoom({
-				cardNum: 3,
 				roles,
 			});
 		} catch (error) {
