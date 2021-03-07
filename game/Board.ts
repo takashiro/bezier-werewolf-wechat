@@ -217,10 +217,11 @@ export default class Board {
 			cards: selectedCards.length > 0 ? selectedCards.map((card) => card.getPos()) : undefined,
 			players: selectedPlayers.length > 0 ? selectedPlayers.map((player) => player.getSeat()) : undefined,
 		};
+		const skillIndex = this.skills.findIndex((skill) => !skill.isUsed());
 
 		return new Promise((resolve, reject) => {
 			client.post({
-				url: `room/${room.id}/player/${self.seat}/skill?seatKey=${seatKey}`,
+				url: `room/${room.id}/player/${self.seat}/skill/${skillIndex}?seatKey=${seatKey}`,
 				data,
 				success: (res) => {
 					if (res.statusCode === 200) {
