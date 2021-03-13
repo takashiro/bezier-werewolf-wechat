@@ -9,6 +9,7 @@ import { InputElement } from 'miniprogram-automator/out/Element';
 import MiniProgram from 'miniprogram-automator/out/MiniProgram';
 
 import RoomPage from './Room';
+import waitUntil from './util/waitUntil';
 
 const post = bent('json', 'POST', 'https://onuw.takashiro.cn/api');
 
@@ -54,7 +55,10 @@ export default class Lobby {
 		const button = await entrance.$('button');
 		await button.tap();
 
-		await page.waitFor(500);
+		await waitUntil(async () => {
+			const next = await this.program.currentPage();
+			return next.path === 'gui/room/index';
+		});
 		return new RoomPage(await this.program.currentPage());
 	}
 }
