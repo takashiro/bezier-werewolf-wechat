@@ -1,12 +1,31 @@
 {
 	"configurations": [
 		{
-			"name": "Debug Test",
+			"name": "Unit Test",
 			"type": "node",
 			"request": "launch",
 			"runtimeArgs": [
 				"--inspect-brk",
 				"${workspaceFolder}/node_modules/jest/bin/jest.js",
+				"--config=test/unit/jest.config.js",
+				"--runInBand",
+				"--coverage=false",
+				"--no-cache",
+				"${fileBasenameNoExtension}"
+			],
+			"disableOptimisticBPs": true,
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "neverOpen",
+			"port": 9229
+		},
+		{
+			"name": "E2E Test",
+			"type": "node",
+			"request": "launch",
+			"runtimeArgs": [
+				"--inspect-brk",
+				"${workspaceFolder}/node_modules/jest/bin/jest.js",
+				"--config=test/e2e/jest.config.js",
 				"--runInBand",
 				"--coverage=false",
 				"--no-cache",
