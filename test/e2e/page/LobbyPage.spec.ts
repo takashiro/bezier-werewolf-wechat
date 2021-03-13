@@ -1,13 +1,16 @@
 import automator from 'miniprogram-automator';
 import MiniProgram from 'miniprogram-automator/out/MiniProgram';
+import checkHttp from '../util/checkHttp';
+import waitUntil from '../util/waitUntil';
 
 let program: MiniProgram;
 
 beforeAll(async () => {
+	await waitUntil(() => checkHttp('http://127.0.0.1:8888', 426), 60 * 1000, 5000);
 	program = await automator.connect({
 		wsEndpoint: 'ws://127.0.0.1:8888',
 	});
-});
+}, 60 * 1000);
 
 afterAll(() => {
 	if (program) {

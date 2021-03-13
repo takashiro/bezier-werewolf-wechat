@@ -9,6 +9,7 @@ import { InputElement } from 'miniprogram-automator/out/Element';
 import MiniProgram from 'miniprogram-automator/out/MiniProgram';
 
 import RoomPage from './Room';
+import checkHttp from './util/checkHttp';
 import waitUntil from './util/waitUntil';
 
 const post = bent('json', 'POST', 'https://onuw.takashiro.cn/api');
@@ -22,12 +23,17 @@ export default class Lobby {
 		this.wsEndpoint = wsEndpoint;
 	}
 
-	async start(): Promise<void> {
-		if (!this.program) {
-			this.program = await automator.connect({
-				wsEndpoint: this.wsEndpoint,
-			});
+	async start(timeout = 60 * 1000): Promise<void> {
+		if (this.program) {
+			return;
 		}
+
+		const link = this.wsEndpoint.replace(/^ws:\/\//, 'http://');
+		await waitUntil(() => checkHttp(link, 426), timeout, 1000);
+
+		this.program = await automator.connect({
+			wsEndpoint: this.wsEndpoint,
+		});
 	}
 
 	async quit(): Promise<void> {

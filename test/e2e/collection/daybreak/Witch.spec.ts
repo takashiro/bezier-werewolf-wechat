@@ -10,7 +10,7 @@ let board: GameBoard;
 
 beforeAll(async () => {
 	await lobby.start();
-});
+}, 60000);
 
 afterAll(async () => {
 	await lobby.quit();
