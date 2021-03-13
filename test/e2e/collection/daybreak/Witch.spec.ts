@@ -1,4 +1,5 @@
 import { Role } from '@bezier/werewolf-core';
+import waitUntil from '../../util/waitUntil';
 
 import GameBoard from '../../GameBoard';
 import { lobby } from '../../Lobby';
@@ -48,7 +49,7 @@ it('chooses one center card', async () => {
 });
 
 it('sees a prince', async () => {
-	await room.waitFor(async () => {
+	await waitUntil(async () => {
 		const cards = await board.getCards();
 		const text = await cards[1].text();
 		return text === '王子';
@@ -64,7 +65,7 @@ it('chooses one player', async () => {
 });
 
 it('exchanges the player with the prince', async () => {
-	await room.waitFor(async () => {
+	await waitUntil(async () => {
 		const players = await board.getPlayers();
 		const text = await players[2].text();
 		return text === '王子';

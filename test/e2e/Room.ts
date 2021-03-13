@@ -3,8 +3,6 @@ import Page from 'miniprogram-automator/out/Page';
 
 import GameBoard from './GameBoard';
 
-type Condition = () => void;
-
 export default class Room {
 	protected readonly page: Page;
 
@@ -33,7 +31,7 @@ export default class Room {
 		await exit.tap();
 	}
 
-	async waitFor(condition: string | number | Condition): Promise<void> {
+	async waitFor(condition: string | number): Promise<void> {
 		await this.page.waitFor(condition);
 	}
 }
