@@ -4,7 +4,8 @@
   "description": "WeChat Miniprogram of One Night Ultimate Werewolf",
   "main": "app.js",
   "scripts": {
-    "build": "tsc --incremental",
+    "build": "tsc",
+    "debug": "tsc --incremental",
     "test": "npm run lint && npm run jest-unit",
     "lint": "eslint --ext=ts .",
     "jest-unit": "jest --config=test/unit/jest.config.js",

@@ -11,6 +11,7 @@
 				"--runInBand",
 				"--coverage=false",
 				"--no-cache",
+				"--timeout=999999",
 				"${fileBasenameNoExtension}"
 			],
 			"disableOptimisticBPs": true,
@@ -29,6 +30,7 @@
 				"--runInBand",
 				"--coverage=false",
 				"--no-cache",
+				"--timeout=999999",
 				"${fileBasenameNoExtension}"
 			],
 			"disableOptimisticBPs": true,
