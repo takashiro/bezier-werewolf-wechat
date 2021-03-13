@@ -2,19 +2,16 @@ import {
 	Role,
 	Room,
 } from '@bezier/werewolf-core';
-import bent from 'bent';
 
 import automator from 'miniprogram-automator';
 import { InputElement } from 'miniprogram-automator/out/Element';
 import Page from 'miniprogram-automator/out/Page';
 import MiniProgram from 'miniprogram-automator/out/MiniProgram';
 
-import { config } from './ServerConfig';
+import { client } from './Client';
 import RoomPage from './Room';
 import checkHttp from './util/checkHttp';
 import waitUntil from './util/waitUntil';
-
-const post = bent('json', 'POST', config.baseUrl);
 
 export default class Lobby {
 	protected wsEndpoint: string;
@@ -51,10 +48,10 @@ export default class Lobby {
 
 	async prepare(): Promise<void> {
 		const pages = await this.program.pageStack();
-		if (pages.length > 1) {
-			await this.program.reLaunch('gui/index');
+		if (pages.length > 1 || pages.length <= 0 || pages[0].path !== 'gui/index') {
+			await this.program.reLaunch('/gui/index');
 		}
-		const [page] = pages;
+		const [page] = await this.program.pageStack();
 		await page.waitFor('.creator');
 		await page.waitFor('.entrance');
 	}
@@ -68,10 +65,10 @@ export default class Lobby {
 			throw new Error('No program is connected.');
 		}
 
-		const room: Room = await post('/room', {
+		const room = await client.postJson('/room', {
 			random: false,
 			roles,
-		});
+		}) as Room;
 
 		const page = await this.program.currentPage();
 		await page.waitFor('.creator');

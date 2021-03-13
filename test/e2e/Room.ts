@@ -1,10 +1,10 @@
-import bent from 'bent';
 import { Room as MetaRoom } from '@bezier/werewolf-core';
 import { InputElement } from 'miniprogram-automator/out/Element';
 import Page from 'miniprogram-automator/out/Page';
 
 import GameBoard from './GameBoard';
-import { config } from './ServerConfig';
+import { client } from './Client';
+import ServerPlayer from './ServerPlayer';
 
 export default class Room {
 	protected readonly id: number;
@@ -20,12 +20,15 @@ export default class Room {
 	}
 
 	getBaseUrl(): string {
-		return `${config.baseUrl}/room/${this.id}`;
+		return `/room/${this.id}`;
+	}
+
+	createPlayer(seat: number): ServerPlayer {
+		return new ServerPlayer(this.id, seat);
 	}
 
 	async delete(): Promise<void> {
-		const del = bent('json', 'DELETE', config.baseUrl);
-		await del(`${this.getBaseUrl()}?ownerKey=${encodeURIComponent(this.ownerKey)}`);
+		await client.delete(`${this.getBaseUrl()}?ownerKey=${encodeURIComponent(this.ownerKey)}`);
 	}
 
 	async takeSeat(seat: number): Promise<void> {
