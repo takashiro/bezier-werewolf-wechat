@@ -9,12 +9,16 @@ let room: Room;
 let board: GameBoard;
 
 beforeAll(async () => {
-	await lobby.start();
+	await lobby.connect();
 }, 60000);
 
 afterAll(async () => {
-	await lobby.quit();
+	await lobby.disconnect();
 });
+
+it('returns to lobby', async () => {
+	await lobby.prepare();
+}, 60000);
 
 it('enters the room', async () => {
 	room = await lobby.createRoom([

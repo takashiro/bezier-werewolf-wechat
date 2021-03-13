@@ -6,6 +6,7 @@ import bent from 'bent';
 
 import automator from 'miniprogram-automator';
 import { InputElement } from 'miniprogram-automator/out/Element';
+import Page from 'miniprogram-automator/out/Page';
 import MiniProgram from 'miniprogram-automator/out/MiniProgram';
 
 import RoomPage from './Room';
@@ -17,29 +18,48 @@ const post = bent('json', 'POST', 'https://onuw.takashiro.cn/api');
 export default class Lobby {
 	protected wsEndpoint: string;
 
+	protected timeout: number;
+
 	protected program?: MiniProgram;
 
-	constructor(wsEndpoint: string) {
+	constructor(wsEndpoint: string, timeout = 60000) {
 		this.wsEndpoint = wsEndpoint;
+		this.timeout = timeout;
 	}
 
-	async start(timeout = 60 * 1000): Promise<void> {
+	async connect(): Promise<void> {
 		if (this.program) {
 			return;
 		}
 
 		const link = this.wsEndpoint.replace(/^ws:\/\//, 'http://');
-		await waitUntil(() => checkHttp(link, 426), timeout, 1000);
+		await waitUntil(() => checkHttp(link, 426), this.timeout, 1000);
 
 		this.program = await automator.connect({
 			wsEndpoint: this.wsEndpoint,
 		});
 	}
 
-	async quit(): Promise<void> {
-		if (this.program) {
-			this.program.disconnect();
+	async disconnect(): Promise<void> {
+		if (!this.program) {
+			return;
 		}
+		this.program.disconnect();
+		delete this.program;
+	}
+
+	async prepare(): Promise<void> {
+		const pages = await this.program.pageStack();
+		if (pages.length > 1) {
+			await this.program.reLaunch('gui/index');
+		}
+		const [page] = pages;
+		await page.waitFor('.creator');
+		await page.waitFor('.entrance');
+	}
+
+	async getCurrentPage(): Promise<Page | undefined> {
+		return this.program?.currentPage();
 	}
 
 	async createRoom(roles: Role[]): Promise<RoomPage> {
