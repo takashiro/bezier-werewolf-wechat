@@ -1,6 +1,7 @@
 import Element from 'miniprogram-automator/out/Element';
 import Card from './Card';
 import Player from './Player';
+import waitUntil from './util/waitUntil';
 
 export default class GameBoard {
 	protected readonly board: Element;
@@ -17,6 +18,18 @@ export default class GameBoard {
 	async getPlayers(): Promise<Player[]> {
 		const players: Element[] = await this.board.$$('.player-list player');
 		return players.map((player) => new Player(player));
+	}
+
+	async getButtonText(): Promise<string | undefined> {
+		const button = await this.board.$('.button-area button');
+		return button ? button.text() : undefined;
+	}
+
+	async waitForButton(buttonText: string): Promise<void> {
+		await waitUntil(async () => {
+			const text = await this.getButtonText();
+			return text === buttonText;
+		});
 	}
 
 	async submit(): Promise<void> {
