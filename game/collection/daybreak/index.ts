@@ -8,8 +8,7 @@ import ApprenticeSeer from './ApprenticeSeer';
 import MysticWolf from './MysticWolf';
 import ParanormalInvestigator from './ParanormalInvestigator';
 import VillageIdiot from './VillageIdiot';
-import WitchView from './WitchView';
-import WitchExchange from './WitchExchange';
+import Witch from './Witch';
 
 const col = new Collection('daybreak');
 col.add(Role.AlphaWolf, Werewolf, AlphaWolf);
@@ -17,6 +16,6 @@ col.add(Role.ApprenticeSeer, ApprenticeSeer);
 col.add(Role.MysticWolf, Werewolf, MysticWolf);
 col.add(Role.ParanormalInvestigator, ParanormalInvestigator, ParanormalInvestigator);
 col.add(Role.VillageIdiot, VillageIdiot);
-col.add(Role.Witch, WitchView, WitchExchange);
+col.add(Role.Witch, Witch);
 
 export default col;
