@@ -9,11 +9,12 @@ import { InputElement } from 'miniprogram-automator/out/Element';
 import Page from 'miniprogram-automator/out/Page';
 import MiniProgram from 'miniprogram-automator/out/MiniProgram';
 
+import { config } from './ServerConfig';
 import RoomPage from './Room';
 import checkHttp from './util/checkHttp';
 import waitUntil from './util/waitUntil';
 
-const post = bent('json', 'POST', 'https://onuw.takashiro.cn/api');
+const post = bent('json', 'POST', config.baseUrl);
 
 export default class Lobby {
 	protected wsEndpoint: string;
@@ -85,7 +86,7 @@ export default class Lobby {
 			const next = await this.program.currentPage();
 			return next.path === 'gui/room/index';
 		});
-		return new RoomPage(await this.program.currentPage());
+		return new RoomPage(room, await this.program.currentPage());
 	}
 }
 
