@@ -5,6 +5,7 @@
     "target": "ES5",
     "removeComments": true,
     "downlevelIteration": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "lib": [
       "ES2019"

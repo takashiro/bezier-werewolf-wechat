@@ -1,4 +1,4 @@
-import * as automator from 'miniprogram-automator';
+import automator from 'miniprogram-automator';
 import MiniProgram from 'miniprogram-automator/out/MiniProgram';
 
 let program: MiniProgram;
