@@ -82,9 +82,9 @@ it('simulates other players', async () => {
 
 	await wolf.vote(3);
 	await villager.vote(2);
-});
+}, 60000);
 
-it('waits for infection button', async () => {
+it('waits for vote button', async () => {
 	await board.waitForButton('投票');
 });
 
