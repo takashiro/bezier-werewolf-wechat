@@ -1,3 +1,4 @@
+import { Selection } from '@bezier/werewolf-core';
 import { client } from './Client';
 
 export default class ServerPlayer {
@@ -18,8 +19,8 @@ export default class ServerPlayer {
 		await client.get(`${this.baseUrl}/seat?seatKey=${this.seat}`);
 	}
 
-	async invokeSkill(index = 0): Promise<void> {
-		await client.post(`${this.baseUrl}/skill/${index}?seatKey=${this.seat}`);
+	async invokeSkill(index = 0, sel?: Selection): Promise<void> {
+		await client.post(`${this.baseUrl}/skill/${index}?seatKey=${this.seat}`, sel);
 	}
 
 	async vote(target: number): Promise<void> {
