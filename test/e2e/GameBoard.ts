@@ -36,4 +36,13 @@ export default class GameBoard {
 		const button = await this.board.$('.button-area button');
 		await button.tap();
 	}
+
+	async waitForVoteResult(): Promise<void> {
+		await waitUntil(async () => {
+			const headers = await this.board.$$('view.box text.header');
+			const finalHeader = headers[headers.length - 1];
+			const headerText = await finalHeader?.text();
+			return headerText === '投票结果';
+		});
+	}
 }
