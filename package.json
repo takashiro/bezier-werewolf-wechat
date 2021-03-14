@@ -1,6 +1,6 @@
 {
   "name": "@bezier/werewolf-wechat",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "WeChat Miniprogram of One Night Ultimate Werewolf",
   "main": "app.js",
   "scripts": {
