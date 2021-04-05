@@ -32,6 +32,7 @@ export default class TeamProfile {
 
 		const profiles: TeamProfile[] = [];
 		for (const [team, members] of teamships) {
+			members.sort((a, b) => a - b);
 			profiles.push(new TeamProfile(team, members));
 		}
 

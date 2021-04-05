@@ -37,6 +37,13 @@ export default class TeamSelector {
 				maxNum,
 			});
 		}
+
+		this.selections.sort((a, b) => {
+			if (a.maxNum !== b.maxNum) {
+				return b.maxNum - a.maxNum;
+			}
+			return a.role - b.role;
+		});
 	}
 
 	update(items: IterableIterator<[Role, number]>): void {
