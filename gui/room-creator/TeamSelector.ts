@@ -4,9 +4,7 @@ import {
 	Teamship,
 } from '@bezier/werewolf-core';
 
-import RoleItem from './RoleItem';
-
-const roleList = RoleItem.list();
+import col from '../../game/collection/index';
 
 interface RoleLimit {
 	role: Role;
@@ -26,7 +24,7 @@ export default class TeamSelector {
 		this.team = team;
 		this.selections = [];
 
-		for (const role of roleList) {
+		for (const role of col.getRoles()) {
 			if (Teamship.get(role) !== team) {
 				continue;
 			}

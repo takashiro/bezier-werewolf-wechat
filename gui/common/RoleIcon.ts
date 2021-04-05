@@ -1,5 +1,5 @@
 import { Role } from '@bezier/werewolf-core';
-import RoleItem from '../../base/RoleItem';
+import col from '../../game/collection/index';
 
 Component({
 	properties: {
@@ -22,7 +22,7 @@ Component({
 	},
 	observers: {
 		role(role: Role): void {
-			const item = new RoleItem(role);
+			const item = col.describe(role);
 			this.setData({
 				key: item.key,
 				name: item.name,

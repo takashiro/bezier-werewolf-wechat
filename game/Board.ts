@@ -51,7 +51,7 @@ export default class Board {
 		const self = await this.room.readProfile();
 		const me = this.getPlayer(self.seat);
 		if (me) {
-			const GiftSkillClasses = collection.get(self.role) || [WakeUp];
+			const GiftSkillClasses = collection.getSkills(self.role) || [WakeUp];
 			const SkillClasses = [...GiftSkillClasses, Vote];
 			me.setRole(self.role);
 			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this, me));

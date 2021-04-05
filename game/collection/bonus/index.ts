@@ -1,13 +1,16 @@
-import { Role } from '@bezier/werewolf-core';
 import Collection from '../Collection';
 
-import ApprenticeTanner from './ApprenticeTanner';
-import Beholder from './Beholder';
-import Squire from './Squire';
+import apprenticeTanner from './ApprenticeTanner';
+import beholder from './Beholder';
+import cursed from './Cursed';
+import prince from './Prince';
+import squire from './Squire';
 
 const col = new Collection('bonus');
-col.add(Role.ApprenticeTanner, ApprenticeTanner);
-col.add(Role.Beholder, Beholder);
-col.add(Role.Squire, Squire);
+col.add(apprenticeTanner);
+col.add(beholder);
+col.add(cursed);
+col.add(prince);
+col.add(squire);
 
 export default col;

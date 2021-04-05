@@ -1,8 +1,11 @@
+import { Role } from '@bezier/werewolf-core';
+
 import Card from '../../Card';
 import Player from '../../Player';
 import Skill from '../../Skill';
+import CollectionEntry from '../CollectionEntry';
 
-export default class Witch extends Skill {
+export class Witch extends Skill {
 	protected buttonLabel = '查看';
 
 	protected selectedCard?: Card;
@@ -71,3 +74,12 @@ export default class Witch extends Skill {
 		}
 	}
 }
+
+const witch: CollectionEntry = {
+	role: Role.Witch,
+	name: '女巫',
+	description: '今晚你又炼制出了一瓶变身药水，跃跃欲试。现在你可以查看一张未使用的身份牌，然后将它和任意一名玩家交换。',
+	skills: [Witch],
+};
+
+export default witch;

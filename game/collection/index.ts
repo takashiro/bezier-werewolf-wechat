@@ -12,8 +12,8 @@ const collections: Collection[] = [
 
 const all = new Collection('all');
 for (const col of collections) {
-	for (const [role, skills] of col.getEntries()) {
-		all.add(role, ...skills);
+	for (const entry of col.getEntries()) {
+		all.add(entry);
 	}
 }
 

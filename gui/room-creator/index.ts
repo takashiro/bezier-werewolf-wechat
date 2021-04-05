@@ -1,5 +1,5 @@
 import RoleConfig from '../../base/RoleConfig';
-import { selectors } from '../../base/TeamSelector';
+import { selectors } from './TeamSelector';
 import { lobby } from '../../base/Lobby';
 
 import RoleChangeEvent from './RoleChangeEvent';

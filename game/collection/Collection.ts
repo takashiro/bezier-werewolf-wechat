@@ -1,30 +1,56 @@
 import { Role } from '@bezier/werewolf-core';
-import Board from '../Board';
-import Player from '../Player';
-import Skill from '../Skill';
 
-export type SkillConstructor = new(board: Board, self: Player) => Skill;
-export type SkillMap = Map<Role, SkillConstructor[]>;
+import RoleItem from '../../base/RoleItem';
+import CollectionEntry, { SkillConstructor } from './CollectionEntry';
+
+export type CollectionMap = Map<Role, CollectionEntry>;
 
 export default class Collection {
 	protected name: string;
 
-	protected skills: SkillMap;
+	protected map: CollectionMap;
 
 	constructor(name: string) {
 		this.name = name;
-		this.skills = new Map();
+		this.map = new Map();
 	}
 
-	add(role: Role, ...skills: SkillConstructor[]): void {
-		this.skills.set(role, skills);
+	add(entry: CollectionEntry): void {
+		this.map.set(entry.role, entry);
 	}
 
-	get(role: Role): SkillConstructor[] | undefined {
-		return this.skills.get(role);
+	get(role: Role): CollectionEntry | undefined {
+		return this.map.get(role);
 	}
 
-	getEntries(): IterableIterator<[Role, SkillConstructor[]]> {
-		return this.skills.entries();
+	describe(role: Role): RoleItem {
+		const item = this.get(role);
+		if (!item) {
+			return {
+				key: 'Unknown',
+				value: Role.Unknown,
+				name: '未知',
+				description: '',
+			};
+		}
+
+		return {
+			key: Role[item.role],
+			value: item.role,
+			name: item.name,
+			description: item.description,
+		};
+	}
+
+	getSkills(role: Role): SkillConstructor[] | undefined {
+		return this.map.get(role)?.skills;
+	}
+
+	getRoles(): IterableIterator<Role> {
+		return this.map.keys();
+	}
+
+	getEntries(): IterableIterator<CollectionEntry> {
+		return this.map.values();
 	}
 }

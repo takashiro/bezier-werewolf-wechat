@@ -1,23 +1,28 @@
-import { Role } from '@bezier/werewolf-core';
 import Collection from '../Collection';
 
-import Werewolf from './Werewolf';
-import Seer from './Seer';
-import Minion from './Minion';
-import Troublemaker from './Troublemaker';
-import Robber from './Robber';
-import Drunk from './Drunk';
-import Mason from './Mason';
-import Insomniac from './Insomniac';
+import drunk from './Drunk';
+import hunter from './Hunter';
+import insomniac from './Insomniac';
+import mason from './Mason';
+import minion from './Minion';
+import robber from './Robber';
+import seer from './Seer';
+import tanner from './Tanner';
+import troublemaker from './Troublemaker';
+import villager from './Villager';
+import werewolf from './Werewolf';
 
 const col = new Collection('standard');
-col.add(Role.Werewolf, Werewolf);
-col.add(Role.Seer, Seer);
-col.add(Role.Minion, Minion);
-col.add(Role.Troublemaker, Troublemaker);
-col.add(Role.Robber, Robber);
-col.add(Role.Drunk, Drunk);
-col.add(Role.Mason, Mason);
-col.add(Role.Insomniac, Insomniac);
+col.add(drunk);
+col.add(hunter);
+col.add(insomniac);
+col.add(mason);
+col.add(minion);
+col.add(robber);
+col.add(seer);
+col.add(tanner);
+col.add(troublemaker);
+col.add(villager);
+col.add(werewolf);
 
 export default col;

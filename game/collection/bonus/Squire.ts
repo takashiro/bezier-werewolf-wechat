@@ -1,5 +1,17 @@
+import { Role } from '@bezier/werewolf-core';
+
+import CollectionEntry from '../CollectionEntry';
 import TargetlessSkill from '../TargetlessSkill';
 
-export default class Squire extends TargetlessSkill {
+export class Squire extends TargetlessSkill {
 	protected buttonLabel = '暗中观察';
 }
+
+const squire: CollectionEntry = {
+	role: Role.Squire,
+	name: '狼孩',
+	description: '你被狼人抚养长大，早已习惯了夜间活动，但因为年龄太小，没能参与今晚的行动。可这又如何？你还是偷偷跟了过去。现在你可以查看所有狼人，并确认他们的身份牌是否改变。',
+	skills: [Squire],
+};
+
+export default squire;
