@@ -14,6 +14,11 @@
 			],
 			"options": {
 				"cwd": "/Applications/wechatwebdevtools.app/Contents/MacOS"
+			},
+			"windows": {
+				"options": {
+					"cwd": "C:\\Program Files (x86)\\Tencent\\微信web开发者工具"
+				}
 			}
 		}
 	]
