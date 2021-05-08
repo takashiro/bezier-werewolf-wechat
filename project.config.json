@@ -29,7 +29,7 @@
     ]
   },
   "compileType": "miniprogram",
-  "libVersion": "2.12.1",
+  "libVersion": "2.16.1",
   "projectname": "bezier-werewolf-wechat",
   "scripts": {
     "beforeCompile": "npm run build",
