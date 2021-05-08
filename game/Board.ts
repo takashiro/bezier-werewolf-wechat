@@ -14,7 +14,7 @@ import Player from './Player';
 import Skill from './Skill';
 
 import collection from './collection/index';
-import WakeUp from './collection/WakeUp';
+import Sleep from './collection/Sleep';
 import Vote from './collection/Vote';
 import VoteBulletin from './VoteBulletin';
 import VoteGroup from './VoteGroup';
@@ -51,7 +51,7 @@ export default class Board {
 		const self = await this.room.readProfile();
 		const me = this.getPlayer(self.seat);
 		if (me) {
-			const GiftSkillClasses = collection.getSkills(self.role) || [WakeUp];
+			const GiftSkillClasses = collection.getSkills(self.role) || [Sleep];
 			const SkillClasses = [...GiftSkillClasses, Vote];
 			me.setRole(self.role);
 			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this, me));
