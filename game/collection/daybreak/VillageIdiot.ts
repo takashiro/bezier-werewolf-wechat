@@ -8,8 +8,11 @@ export class VillageIdiot extends SinglePlayerSkill {
 	protected buttonLabel = '捣乱';
 
 	selectPlayer(target: Player): boolean {
-		const distance = Math.abs(target.getSeat() - this.owner.getSeat());
-		return distance <= 1;
+		const distance = this.board.getDistance(this.owner, target);
+		if (distance > 1) {
+			return false;
+		}
+		return super.selectPlayer(target);
 	}
 }
 

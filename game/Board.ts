@@ -121,6 +121,12 @@ export default class Board {
 		return this.players[seat - 1];
 	}
 
+	getDistance(a: Player, b: Player): number {
+		const dist1 = Math.abs(a.getSeat() - b.getSeat());
+		const dist2 = this.players.length - dist1;
+		return Math.min(dist1, dist2);
+	}
+
 	resetSelectedCards(): void {
 		for (const card of this.cards) {
 			card.setSelected(false);
