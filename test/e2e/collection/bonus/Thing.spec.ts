@@ -114,7 +114,6 @@ describe('As a Thing', () => {
 	});
 });
 
-
 describe('As a Hunter', () => {
 	let thing: ServerPlayer;
 	let prince: ServerPlayer;
