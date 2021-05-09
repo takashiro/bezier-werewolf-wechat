@@ -36,11 +36,12 @@ it('takes Seat 1', async () => {
 
 it('opens a game board', async () => {
 	board = await room.getBoard();
+	await board.start();
+	await board.ready();
 });
 
 it('is a troublemaker', async () => {
-	const [player] = await board.getPlayers();
-	expect(await player.text()).toBe('捣蛋鬼');
+	await board.waitForPlayer(1, '捣蛋鬼');
 });
 
 it('exchanges 2 players', async () => {
@@ -64,14 +65,17 @@ it('simulates other players', async () => {
 	await prince.vote(2);
 }, 60000);
 
+it('enters day phase', async () => {
+	await board.waitForButton('进入白天');
+	await board.submit();
+});
+
 it('waits for vote button', async () => {
 	await board.waitForButton('投票');
 });
 
 it('votes for player 2', async () => {
-	const players = await board.getPlayers();
-	const target = players[1];
-	await target.tap();
+	await board.tapPlayer(2);
 	await board.submit();
 });
 

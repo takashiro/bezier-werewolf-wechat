@@ -15,6 +15,7 @@ import Skill from './Skill';
 
 import collection from './collection/index';
 import Sleep from './collection/Sleep';
+import WakeUp from './collection/WakeUp';
 import Vote from './collection/Vote';
 import VoteBulletin from './VoteBulletin';
 import VoteGroup from './VoteGroup';
@@ -35,6 +36,8 @@ export default class Board {
 	}
 
 	async prepare(): Promise<void> {
+		const vision = await this.fetchBoard();
+
 		const config = await this.room.readConfig();
 
 		const { cardNum } = config;
@@ -52,12 +55,38 @@ export default class Board {
 		const me = this.getPlayer(self.seat);
 		if (me) {
 			const GiftSkillClasses = collection.getSkills(self.role) || [Sleep];
-			const SkillClasses = [...GiftSkillClasses, Vote];
+			const SkillClasses = [...GiftSkillClasses, WakeUp, Vote];
 			me.setRole(self.role);
 			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this, me));
 		} else {
 			this.skills = [];
 		}
+
+		this.update(vision);
+	}
+
+	async updateBoard(): Promise<boolean> {
+		const vision = await this.fetchBoard();
+		return this.update(vision);
+	}
+
+	protected async fetchBoard(): Promise<Vision> {
+		const room = await this.room.readConfig();
+		const self = await this.room.readProfile();
+		const seatKey = await this.room.fetchSeatKey();
+		return new Promise((resolve, reject) => {
+			client.get({
+				url: `/room/${room.id}/player/${self.seat}/board?seatKey=${seatKey}`,
+				success(res) {
+					if (res.statusCode === 200) {
+						resolve(res.data as Vision);
+					} else {
+						reject(new RequestError(res.statusCode, res.data as string));
+					}
+				},
+				fail: reject,
+			});
+		});
 	}
 
 	getSkill(): Skill | undefined {

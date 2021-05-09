@@ -36,16 +36,17 @@ it('takes Seat 1', async () => {
 
 it('opens a game board', async () => {
 	board = await room.getBoard();
+	await board.start();
+	await board.ready();
 });
 
 it('is a werewolf', async () => {
-	const [player] = await board.getPlayers();
-	expect(await player.text()).toBe('狼人');
+	await board.waitForPlayer(1, '狼人');
 });
 
 it('meets other werewolves', async () => {
 	await board.submit();
-	await board.waitForButton('投票');
+	await board.waitForButton('进入白天');
 
 	const players = await board.getPlayers();
 	expect(await players[0].text()).toBe('狼人');
@@ -66,10 +67,14 @@ it('simulates other players', async () => {
 	await wolf.vote(2);
 }, 60000);
 
+it('enters day phase', async () => {
+	await board.waitForButton('进入白天');
+	await board.submit();
+});
+
 it('votes for player 2', async () => {
-	const players = await board.getPlayers();
-	const target = players[1];
-	await target.tap();
+	await board.waitForButton('投票');
+	await board.tapPlayer(2);
 	await board.submit();
 });
 

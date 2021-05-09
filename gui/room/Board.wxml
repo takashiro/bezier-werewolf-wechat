@@ -1,4 +1,6 @@
-<view class="box">
+<button class="night-button" bindtap="enterNight" wx:if="{{players.length <= 0}}">开始</button>
+
+<view class="box" wx:if="{{players.length > 0}}">
 	<text class="header">在场玩家</text>
 	<view class="player-list">
 		<Player class="player" wx:for="{{players}}" wx:key="seat"
@@ -10,7 +12,7 @@
 	</view>
 </view>
 
-<view class="box">
+<view class="box" wx:if="{{cards.length > 0}}">
 	<text class="header">未使用的身份牌</text>
 	<view class="card-list">
 		<Card class="card" wx:for="{{cards}}" wx:key="pos"

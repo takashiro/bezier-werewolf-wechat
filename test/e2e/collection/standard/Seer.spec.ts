@@ -38,11 +38,12 @@ describe('Sees 2 Cards', () => {
 
 	it('opens a game board', async () => {
 		board = await room.getBoard();
+		await board.start();
+		await board.ready();
 	});
 
 	it('is a seer', async () => {
-		const [player] = await board.getPlayers();
-		expect(await player.text()).toBe('预言家');
+		await board.waitForPlayer(1, '预言家');
 	});
 
 	it('chooses 2 center cards', async () => {
@@ -75,14 +76,17 @@ describe('Sees 2 Cards', () => {
 		await prince.vote(2);
 	}, 60000);
 
+	it('enters day phase', async () => {
+		await board.waitForButton('进入白天');
+		await board.submit();
+	});
+
 	it('waits for vote button', async () => {
 		await board.waitForButton('投票');
 	});
 
 	it('votes for player 2', async () => {
-		const players = await board.getPlayers();
-		const target = players[1];
-		await target.tap();
+		await board.tapPlayer(2);
 		await board.submit();
 	});
 
@@ -119,11 +123,12 @@ describe('Sees 1 Player', () => {
 
 	it('opens a game board', async () => {
 		board = await room.getBoard();
+		await board.start();
+		await board.ready();
 	});
 
 	it('is a seer', async () => {
-		const [player] = await board.getPlayers();
-		expect(await player.text()).toBe('预言家');
+		await board.waitForPlayer(1, '预言家');
 	});
 
 	it('chooses player 2', async () => {
@@ -134,11 +139,7 @@ describe('Sees 1 Player', () => {
 	});
 
 	it('sees a hunter', async () => {
-		await waitUntil(async () => {
-			const players = await board.getPlayers();
-			const text = await players[1].text();
-			return text === '猎人';
-		});
+		await board.waitForPlayer(2, '猎人');
 	});
 
 	it('simulates other players', async () => {
@@ -154,14 +155,17 @@ describe('Sees 1 Player', () => {
 		await prince.vote(2);
 	}, 60000);
 
+	it('enters day phase', async () => {
+		await board.waitForButton('进入白天');
+		await board.submit();
+	});
+
 	it('waits for vote button', async () => {
 		await board.waitForButton('投票');
 	});
 
 	it('votes for player 2', async () => {
-		const players = await board.getPlayers();
-		const target = players[1];
-		await target.tap();
+		await board.tapPlayer(2);
 		await board.submit();
 	});
 

@@ -1,4 +1,5 @@
 import { lobby } from '../../base/Lobby';
+import RequestError from '../../base/RequestError';
 
 import Board from '../../game/Board';
 import Card from '../../game/Card';
@@ -10,6 +11,14 @@ let board: Board;
 const errorMap = new Map<number, string>();
 errorMap.set(409, '你已经投过票');
 errorMap.set(425, '请等待其他玩家完成夜间行动');
+
+function showError(error: RequestError): void {
+	const title = errorMap.get(error.statusCode) || error.message;
+	wx.showToast({
+		title,
+		icon: 'none',
+	});
+}
 
 Component({
 	/**
@@ -38,8 +47,6 @@ Component({
 			}
 
 			board = new Board(room);
-			await board.prepare();
-			this.refreshAll();
 		},
 	},
 
@@ -47,6 +54,15 @@ Component({
 	 * Component methods
 	 */
 	methods: {
+		async enterNight(): Promise<void> {
+			try {
+				await board.prepare();
+				this.refreshAll();
+			} catch (error) {
+				showError(error);
+			}
+		},
+
 		togglePlayer(e: WechatMiniprogram.CustomEvent): void {
 			const { seat } = e.detail;
 			if (board.togglePlayer(seat)) {
@@ -102,11 +118,7 @@ Component({
 			try {
 				await skill.invoke();
 			} catch (error) {
-				const title = errorMap.get(error.statusCode) || error.message;
-				wx.showToast({
-					title,
-					icon: 'none',
-				});
+				showError(error);
 				if (error.statusCode === 409) {
 					board.resetSelection();
 					skill.skip();

@@ -1,5 +1,4 @@
 import { Role } from '@bezier/werewolf-core';
-import waitUntil from '../../util/waitUntil';
 
 import GameBoard from '../../GameBoard';
 import { lobby } from '../../Lobby';
@@ -8,6 +7,8 @@ import ServerPlayer from '../../ServerPlayer';
 
 let room: Room;
 let board: GameBoard;
+let robber: ServerPlayer;
+let prince: ServerPlayer;
 
 beforeAll(async () => {
 	await lobby.connect();
@@ -30,27 +31,16 @@ it('enters the room', async () => {
 		Role.Robber,
 		Role.Prince,
 	]);
+
+	robber = room.createPlayer(2);
+	prince = room.createPlayer(3);
 });
 
 it('takes Seat 1', async () => {
 	await room.takeSeat(1);
 });
 
-it('opens a game board', async () => {
-	board = await room.getBoard();
-});
-
-it('is an insomniac', async () => {
-	const [player] = await board.getPlayers();
-	expect(await player.text()).toBe('失眠者');
-});
-
-let robber: ServerPlayer;
-let prince: ServerPlayer;
 it('simulates other players', async () => {
-	robber = room.createPlayer(2);
-	prince = room.createPlayer(3);
-
 	await robber.takeSeat();
 	await prince.takeSeat();
 
@@ -60,16 +50,23 @@ it('simulates other players', async () => {
 	await prince.invokeSkill();
 }, 60000);
 
+it('opens a game board', async () => {
+	board = await room.getBoard();
+	await board.start();
+	await board.ready();
+});
+
+it('is an insomniac', async () => {
+	const player = await board.getPlayer(1);
+	expect(await player.text()).toBe('失眠者');
+});
+
 it('sees his role again', async () => {
 	await board.submit();
 });
 
 it('sees a robber', async () => {
-	await waitUntil(async () => {
-		const [player] = await board.getPlayers();
-		const text = await player.text();
-		return text === '盗贼';
-	});
+	await board.waitForPlayer(1, '盗贼');
 });
 
 it('simulates votes of other players', async () => {
@@ -77,14 +74,17 @@ it('simulates votes of other players', async () => {
 	await prince.vote(2);
 });
 
+it('enters day phase', async () => {
+	await board.waitForButton('进入白天');
+	await board.submit();
+});
+
 it('waits for vote button', async () => {
 	await board.waitForButton('投票');
 });
 
 it('votes for player 3', async () => {
-	const players = await board.getPlayers();
-	const target = players[2];
-	await target.tap();
+	await board.tapPlayer(3);
 	await board.submit();
 });
 

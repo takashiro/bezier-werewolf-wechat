@@ -1,5 +1,4 @@
 import { Role } from '@bezier/werewolf-core';
-import waitUntil from '../../util/waitUntil';
 
 import GameBoard from '../../GameBoard';
 import { lobby } from '../../Lobby';
@@ -37,11 +36,12 @@ it('takes Seat 1', async () => {
 
 it('opens a game board', async () => {
 	board = await room.getBoard();
+	await board.start();
+	await board.ready();
 });
 
 it('is an alpha wolf', async () => {
-	const [player] = await board.getPlayers();
-	expect(await player.text()).toBe('狼王');
+	await board.waitForPlayer(1, '狼王');
 });
 
 it('shows 4 cards', async () => {
@@ -52,11 +52,7 @@ it('shows 4 cards', async () => {
 it('meets other werewolves', async () => {
 	await board.waitForButton('碰面');
 	await board.submit();
-	await waitUntil(async () => {
-		const players = await board.getPlayers();
-		const text = await players[1].text();
-		return text === '狼人';
-	});
+	await board.waitForPlayer(2, '狼人');
 });
 
 it('waits for infection button', async () => {
@@ -84,13 +80,17 @@ it('simulates other players', async () => {
 	await villager.vote(2);
 }, 60000);
 
+it('enters day phase', async () => {
+	await board.waitForButton('进入白天');
+	await board.submit();
+});
+
 it('waits for vote button', async () => {
 	await board.waitForButton('投票');
 });
 
 it('votes for player 3', async () => {
-	const players = await board.getPlayers();
-	const target = players[2];
+	const target = await board.getPlayer(3);
 	expect(await target.text()).toBe('未知');
 	await target.tap();
 	await board.submit();
@@ -103,8 +103,7 @@ it('views vote results', async () => {
 });
 
 it('checks infected people', async () => {
-	const players = await board.getPlayers();
-	const target = players[2];
+	const target = await board.getPlayer(3);
 	expect(await target.text()).toBe('狼人');
 });
 

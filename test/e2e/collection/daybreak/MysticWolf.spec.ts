@@ -1,5 +1,4 @@
 import { Role } from '@bezier/werewolf-core';
-import waitUntil from '../../util/waitUntil';
 
 import GameBoard from '../../GameBoard';
 import { lobby } from '../../Lobby';
@@ -38,21 +37,18 @@ it('takes Seat 4', async () => {
 
 it('opens a game board', async () => {
 	board = await room.getBoard();
+	await board.start();
+	await board.ready();
 });
 
 it('is a mystic wolf', async () => {
-	const players = await board.getPlayers();
-	expect(await players[3].text()).toBe('狼先知');
+	await board.waitForPlayer(4, '狼先知');
 });
 
 it('meets other werewolves', async () => {
 	await board.waitForButton('碰面');
 	await board.submit();
-	await waitUntil(async () => {
-		const players = await board.getPlayers();
-		const text = await players[1].text();
-		return text === '狼人';
-	});
+	await board.waitForPlayer(2, '狼人');
 });
 
 it('waits for forcasting button', async () => {
@@ -68,11 +64,7 @@ it('chooses player 1', async () => {
 });
 
 it('sees the prince', async () => {
-	await waitUntil(async () => {
-		const players = await board.getPlayers();
-		const text = await players[0].text();
-		return text === '王子';
-	});
+	await board.waitForPlayer(1, '王子');
 });
 
 it('simulates other players', async () => {
@@ -93,13 +85,17 @@ it('simulates other players', async () => {
 	await hunter.vote(2);
 }, 60000);
 
+it('enters day phase', async () => {
+	await board.waitForButton('进入白天');
+	await board.submit();
+});
+
 it('waits for vote button', async () => {
 	await board.waitForButton('投票');
 });
 
 it('votes for player 1', async () => {
-	const players = await board.getPlayers();
-	const target = players[0];
+	const target = await board.getPlayer(1);
 	expect(await target.text()).toBe('王子');
 	await target.tap();
 	await board.submit();

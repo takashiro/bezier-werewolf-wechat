@@ -1,5 +1,4 @@
 import { Role } from '@bezier/werewolf-core';
-import waitUntil from '../../util/waitUntil';
 
 import GameBoard from '../../GameBoard';
 import { lobby } from '../../Lobby';
@@ -37,11 +36,12 @@ it('takes Seat 1', async () => {
 
 it('opens a game board', async () => {
 	board = await room.getBoard();
+	await board.start();
+	await board.ready();
 });
 
 it('is a witch', async () => {
-	const [player] = await board.getPlayers();
-	expect(await player.text()).toBe('女巫');
+	await board.waitForPlayer(1, '女巫');
 });
 
 it('chooses one center card', async () => {
@@ -53,11 +53,7 @@ it('chooses one center card', async () => {
 });
 
 it('sees a werewolf', async () => {
-	await waitUntil(async () => {
-		const cards = await board.getCards();
-		const text = await cards[1].text();
-		return text === '狼人';
-	});
+	await board.waitForCard(1, '狼人');
 });
 
 it('chooses one player', async () => {
@@ -69,11 +65,7 @@ it('chooses one player', async () => {
 });
 
 it('exchanges the player with the prince', async () => {
-	await waitUntil(async () => {
-		const players = await board.getPlayers();
-		const text = await players[2].text();
-		return text === '狼人';
-	});
+	await board.waitForPlayer(3, '狼人');
 });
 
 it('simulates other players', async () => {
@@ -89,14 +81,17 @@ it('simulates other players', async () => {
 	await prince.vote(2);
 }, 60000);
 
+it('enters day phase', async () => {
+	await board.waitForButton('进入白天');
+	await board.submit();
+});
+
 it('waits for vote button', async () => {
 	await board.waitForButton('投票');
 });
 
 it('votes for player 2', async () => {
-	const players = await board.getPlayers();
-	const target = players[1];
-	await target.tap();
+	await board.tapPlayer(2);
 	await board.submit();
 });
 
