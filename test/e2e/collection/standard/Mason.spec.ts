@@ -45,6 +45,7 @@ it('is Mason', async () => {
 });
 
 it('meets the other Mason', async () => {
+	await board.waitForButton('巡逻');
 	await board.submit();
 	await board.waitForButton('进入白天');
 
