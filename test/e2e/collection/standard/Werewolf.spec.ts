@@ -45,6 +45,7 @@ it('is a werewolf', async () => {
 });
 
 it('meets other werewolves', async () => {
+	await board.waitForButton('碰面');
 	await board.submit();
 	await board.waitForButton('进入白天');
 
