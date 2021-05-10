@@ -33,6 +33,16 @@
 	color: white;
 	text-align: center;
 	display: block;
+	transform-origin: top left;
+	white-space: nowrap;
+}
+
+.role text.n5 {
+	transform: scaleX(0.9);
+}
+
+.role text.n6 {
+	transform: scaleX(0.75);
 }
 
 .role.selected .icon {

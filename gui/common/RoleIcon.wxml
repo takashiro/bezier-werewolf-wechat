@@ -3,5 +3,5 @@
 			<image class="background" src="/style/card-bg.png" />
 			<image class="content" src="/style/role/{{key}}.png" wx:if="{{key}}" />
 	</view>
-	<text>{{name}}</text>
+	<text class="n{{n}}">{{name}}</text>
 </view>

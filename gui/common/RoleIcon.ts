@@ -19,6 +19,7 @@ Component({
 	data: {
 		key: '',
 		name: '',
+		n: 0,
 	},
 	observers: {
 		role(role: Role): void {
@@ -26,6 +27,7 @@ Component({
 			this.setData({
 				key: item.key,
 				name: item.name,
+				n: item.name.length,
 			});
 		},
 	},
