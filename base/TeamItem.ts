@@ -3,7 +3,7 @@ import { Team } from '@bezier/werewolf-core';
 const teamNames = [
 	'其他角色',
 	'狼人阵营',
-	'神民阵营',
+	'村民阵营',
 	'其他角色',
 ];
 
