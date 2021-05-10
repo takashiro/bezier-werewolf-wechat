@@ -22,7 +22,7 @@ export class ParanormalInvestigator extends SinglePlayerSkill {
 const paranormalInvestigator: CollectionEntry = {
 	role: Role.ParanormalInvestigator,
 	name: '超自然研究员',
-	description: '你喜欢做各种疯狂又刺激的实验。今晚你可以查看至多2名玩家的身份，若其中有狼人（或皮匠），你必须立刻停止研究，然后变身为同一阵营的狼人（或皮匠）。',
+	description: '你喜欢研究各种超自然现象，紧张又刺激。今晚你可以依次查看至多2名玩家的身份牌，若看到狼人（或皮匠），你必须立刻停止研究，然后你变为狼人（或皮匠）。',
 	skills: [ParanormalInvestigator, ParanormalInvestigator],
 };
 
