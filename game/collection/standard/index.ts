@@ -1,5 +1,6 @@
 import Collection from '../Collection';
 
+import doppelganger from './Doppelganger';
 import drunk from './Drunk';
 import hunter from './Hunter';
 import insomniac from './Insomniac';
@@ -13,6 +14,7 @@ import villager from './Villager';
 import werewolf from './Werewolf';
 
 const col = new Collection('standard');
+col.add(doppelganger);
 col.add(drunk);
 col.add(hunter);
 col.add(insomniac);

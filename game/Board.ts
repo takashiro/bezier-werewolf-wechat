@@ -3,6 +3,7 @@ import {
 	Vision,
 	LynchResult,
 	LynchVote,
+	Role,
 } from '@bezier/werewolf-core';
 
 import Room from '../base/Room';
@@ -29,6 +30,8 @@ export default class Board {
 
 	protected players: Player[] = [];
 
+	protected me?: Player;
+
 	protected result?: LynchResult;
 
 	constructor(room: Room) {
@@ -54,15 +57,33 @@ export default class Board {
 		const self = await this.room.readProfile();
 		const me = this.getPlayer(self.seat);
 		if (me) {
+			me.setRole(self.role);
+			this.me = me;
+
 			const GiftSkillClasses = collection.getSkills(self.role) || [Sleep];
 			const SkillClasses = [...GiftSkillClasses, WakeUp, Vote];
-			me.setRole(self.role);
 			this.skills = SkillClasses.map((SkillClass) => new SkillClass(this, me));
 		} else {
 			this.skills = [];
 		}
 
 		this.update(vision);
+	}
+
+	addSkills(role: Role): void {
+		const { me } = this;
+		if (!me) {
+			return;
+		}
+
+		const SkillClasses = collection.getSkills(role);
+		if (!SkillClasses || SkillClasses.length <= 0) {
+			return;
+		}
+
+		const pos = this.skills.findIndex((skill) => !skill.isUsed());
+		const skills = SkillClasses.map((SkillClass) => new SkillClass(this, me));
+		this.skills.splice(pos, 0, ...skills);
 	}
 
 	async updateBoard(): Promise<boolean> {
