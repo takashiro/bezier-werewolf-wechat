@@ -26,13 +26,14 @@ view.header image {
 
 view.footer {
 	color: #ccc;
-	font-size: 9pt;
+	font-size: 8pt;
 	text-align: right;
-	padding: 5vh 3vh;
+	padding: 2em 0 3em 0;
 }
 
 view.footer text {
 	display: block;
+	margin: 0 2em;
 }
 
 view.button-area {
