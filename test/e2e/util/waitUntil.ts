@@ -1,10 +1,18 @@
 type Condition = () => boolean | Promise<boolean>;
 
-export default function waitUntil(condition: Condition, timeout = 30 * 1000, frequency = 200): Promise<void> {
+const defaultTimeout = process.env.CI ? 30000 : 5000;
+
+export default function waitUntil(condition: Condition, timeout = defaultTimeout, frequency = 200): Promise<void> {
 	return new Promise((resolve, reject) => {
 		let timer: NodeJS.Timeout;
 		const checker = setInterval(async () => {
-			if (await condition()) {
+			let success = false;
+			try {
+				success = await condition();
+			} catch (error) {
+				// Ignore
+			}
+			if (success) {
 				clearInterval(checker);
 				if (timer) {
 					clearTimeout(timer);
