@@ -10,9 +10,9 @@
 			<view class="room-info">
 				<text>房间号 {{id}}</text>
 			</view>
-			<view class="box team" wx:for="{{teams}}">
+			<view class="box team" wx:for="{{teams}}" wx:key="index">
 				<TeamLabel class="header" team="{{item.team}}" />
-				<RoleIcon wx:for="{{item.roles}}" role="{{item}}" />
+				<RoleIcon wx:for="{{item.roles}}" wx:key="index" role="{{item}}" />
 			</view>
 			<RoleViewer />
 		</block>

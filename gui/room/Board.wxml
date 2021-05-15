@@ -30,9 +30,9 @@
 <view class="box" wx:elif="{{voteItems.length > 0}}">
 	<text class="header">投票结果</text>
 	<view class="vote-list">
-		<view class="vote-group" wx:for="{{voteItems}}" wx:for-item="group">
+		<view class="vote-group" wx:for="{{voteItems}}" wx:key="index" wx:for-item="group">
 			<view class="from">
-				<Player class="player" wx:for="{{group.from}}" wx:key="{{item.seat}}"
+				<Player class="player" wx:for="{{group.from}}" wx:key="seat"
 					seat="{{item.seat}}"
 					role="{{item.role}}"
 				/>
