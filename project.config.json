@@ -51,7 +51,7 @@
     "scopeDataCheck": false,
     "uglifyFileName": false,
     "checkInvalidKey": true,
-    "checkSiteMap": true,
+    "checkSiteMap": false,
     "uploadWithSourceMap": false,
     "compileHotReLoad": false,
     "useMultiFrameRuntime": true,
