@@ -37,7 +37,7 @@ view.footer text {
 }
 
 view.button-area {
-	margin: 0 10px;
+	margin: 20px 10px;
 	text-align: center;
 }
 

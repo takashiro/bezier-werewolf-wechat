@@ -21,6 +21,11 @@
 			</block>
 		</view>
 	</view>
+	<view class="tips">
+		<text>长按角色牌可查看技能介绍。</text>
+		<text>须选择角色数量=玩家数量+3，额外的3张牌作为被未使用的身份牌。</text>
+		<text>选择狼王时，无须额外为狼王技能增加狼人牌。游戏自动附加第4张未使用的牌（暗置的狼人牌，在最右侧）</text>
+	</view>
 	<view class="button-area">
 		<button bindtap="goBack">返回</button>
 		<button bindtap="createRoom">创建房间</button>

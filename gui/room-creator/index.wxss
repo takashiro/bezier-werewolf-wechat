@@ -21,3 +21,21 @@ view.role-list {
 view.role-list roleicon {
 	display: inline-block;
 }
+
+
+view.tips {
+	width: 86%;
+	margin: 1em auto;
+	font-size: 9pt;
+	padding-left: 2em;
+}
+
+view.tips > text {
+	display: block;
+	list-style: circle;
+	text-indent: -1.5em;
+}
+
+view.tips > text::before {
+	content: ' \1F43A ';
+}
