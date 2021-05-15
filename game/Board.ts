@@ -97,7 +97,7 @@ export default class Board {
 		const seatKey = await this.room.fetchSeatKey();
 		return new Promise((resolve, reject) => {
 			client.get({
-				url: `/room/${room.id}/player/${self.seat}/board?seatKey=${seatKey}`,
+				url: `room/${room.id}/player/${self.seat}/board?seatKey=${seatKey}`,
 				success(res) {
 					if (res.statusCode === 200) {
 						resolve(res.data as Vision);
