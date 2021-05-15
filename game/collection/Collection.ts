@@ -30,6 +30,7 @@ export default class Collection {
 				key: 'Unknown',
 				value: Role.Unknown,
 				name: '未知',
+				background: '',
 				description: '',
 			};
 		}
@@ -38,6 +39,7 @@ export default class Collection {
 			key: Role[item.role],
 			value: item.role,
 			name: item.name,
+			background: item.background,
 			description: item.description,
 		};
 	}

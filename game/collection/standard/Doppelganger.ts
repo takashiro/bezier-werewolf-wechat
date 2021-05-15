@@ -37,7 +37,8 @@ export class Doppelganger extends SinglePlayerSkill {
 const doppelganger: CollectionEntry = {
 	role: Role.Doppelganger,
 	name: '二重身',
-	description: '你们拥有同样的面容，同样的穿着打扮甚至同样的能力，你是世界上另一个你。今晚你选择一名玩家查看其身份牌，然后你成为同样的身份。若有夜间技能，按照座位顺序（由小到大）依次使用技能。',
+	background: '你们拥有同样的面容，同样的穿着打扮甚至同样的能力，你是世界上另一个你。',
+	description: '你查看一名玩家的身份牌，然后你成为同样的身份。若有夜间技能，你们按照座位顺序（由小到大）依次使用技能。',
 	skills: [Doppelganger],
 };
 

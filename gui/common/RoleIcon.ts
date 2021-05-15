@@ -19,6 +19,7 @@ Component({
 	data: {
 		key: '',
 		name: '',
+		description: '',
 		n: 0,
 	},
 	observers: {
@@ -27,6 +28,7 @@ Component({
 			this.setData({
 				key: item.key,
 				name: item.name,
+				description: item.description,
 				n: item.name.length,
 			});
 		},
@@ -41,6 +43,13 @@ Component({
 			this.triggerEvent('numberchange', {
 				role: this.data.role,
 				num: selected ? 1 : 0,
+			});
+		},
+		handleLongPress() {
+			wx.showModal({
+				title: this.data.name,
+				content: this.data.description,
+				showCancel: false,
 			});
 		},
 	},

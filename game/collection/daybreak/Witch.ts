@@ -78,7 +78,8 @@ export class Witch extends Skill {
 const witch: CollectionEntry = {
 	role: Role.Witch,
 	name: '女巫',
-	description: '今晚你又炼制出了一瓶变身药水，跃跃欲试。现在你可以查看一张未使用的身份牌，然后将它和任意一名玩家交换。',
+	background: '今晚你又炼制出了一瓶变身药水，跃跃欲试。',
+	description: '你可以查看一张未使用的身份牌，然后将它和任意一名玩家交换。',
 	skills: [Witch],
 };
 

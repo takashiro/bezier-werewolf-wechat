@@ -1,4 +1,4 @@
-<view class="role {{selected ? 'selected' : ''}}" bindtap="handleTap">
+<view class="role {{selected ? 'selected' : ''}}" bindtap="handleTap" bindlongpress="handleLongPress">
 	<view class="icon">
 			<image class="background" src="/style/card-bg.png" />
 			<image class="content" src="/style/role/{{key}}.png" wx:if="{{key}}" />

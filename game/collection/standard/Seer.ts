@@ -52,7 +52,8 @@ class Seer extends Skill {
 const seer: CollectionEntry = {
 	role: Role.Seer,
 	name: '预言家',
-	description: '你正要入睡时发现预言球有了异样 —— 村庄里似乎暗藏杀机。现在你可以查看1名其他玩家的身份或2张未使用的牌。',
+	background: '你正要入睡，预言球突然有些异样 —— 村庄里似乎暗藏杀机。',
+	description: '你可以查看1名其他玩家的身份牌或2张未使用的牌。',
 	skills: [Seer],
 };
 

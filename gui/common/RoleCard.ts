@@ -15,6 +15,7 @@ Component({
 	data: {
 		key: '',
 		name: '',
+		background: '',
 		description: '',
 	},
 	observers: {
@@ -23,6 +24,7 @@ Component({
 			this.setData({
 				key: item.key,
 				name: item.name,
+				background: item.background,
 				description: item.description,
 			});
 		},

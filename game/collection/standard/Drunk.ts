@@ -10,7 +10,8 @@ export class Drunk extends SingleCardSkill {
 const drunk: CollectionEntry = {
 	role: Role.Drunk,
 	name: '酒鬼',
-	description: '你昨晚在酒吧喝得尽兴，迷迷糊糊中似乎被人带走，早上醒来发现镜子中的你变了样。现在请选择1张未使用的牌，与自己的身份牌交换。你不能查看被交换牌。',
+	background: '你常常在酒吧喝得烂醉，你是谁又有什么关系呢？',
+	description: '你选择1张未使用的牌与自己的身份牌交换。你不能查看被交换的牌。',
 	skills: [Drunk],
 };
 

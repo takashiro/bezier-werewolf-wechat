@@ -9,6 +9,7 @@ export type SkillConstructor = new(board: Board, self: Player) => Skill;
 interface CollectionEntry {
 	role: Role;
 	name: string;
+	background: string;
 	description: string;
 	skills?: SkillConstructor[];
 }

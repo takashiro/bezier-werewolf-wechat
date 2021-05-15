@@ -19,7 +19,8 @@ export class Thing extends SinglePlayerSkill {
 const thing: CollectionEntry = {
 	role: Role.Thing,
 	name: '东西',
-	description: '你可以碰一下你左边或右边的玩家，让其知道你是东西。',
+	background: '“昨晚上好像有什么东西碰了我一下。”你是制造灵异事件的神秘存在。',
+	description: '你可以选择你左边或右边的玩家，该玩家将看到身边有你（无法看到交换后的身份）。',
 	skills: [Thing],
 };
 

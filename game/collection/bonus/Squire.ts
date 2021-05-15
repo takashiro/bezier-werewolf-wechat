@@ -10,7 +10,8 @@ export class Squire extends TargetlessSkill {
 const squire: CollectionEntry = {
 	role: Role.Squire,
 	name: '狼孩',
-	description: '你被狼人抚养长大，早已习惯了夜间活动，但因为年龄太小，没能参与今晚的行动。可这又如何？你还是偷偷跟了过去。现在你可以查看所有狼人，并确认他们的身份牌是否改变。',
+	background: '你被狼人抚养长大，早已习惯了夜间活动，但因为年龄太小，没能参与今晚的行动。可这又如何？你还是偷偷跟了过去。',
+	description: '你可以查看所有抽到狼人的玩家，并查看其身份牌。',
 	skills: [Squire],
 };
 

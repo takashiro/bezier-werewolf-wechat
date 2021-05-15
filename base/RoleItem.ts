@@ -4,6 +4,7 @@ interface RoleItem {
 	readonly key: string;
 	readonly value: Role;
 	readonly name: string;
+	readonly background: string;
 	readonly description: string;
 }
 

@@ -9,7 +9,8 @@ export class Insomniac extends TargetlessSkill {
 const insomniac: CollectionEntry = {
 	role: Role.Insomniac,
 	name: '失眠者',
-	description: '整个村庄都睡了，唯独留下你与黑夜对峙。你已经记不得这是第几个夜晚。由于你一夜未眠，天亮前你会再次查看自己的身份牌。',
+	background: '整个村庄都睡了，唯独留下你与黑夜对峙。你已经记不得这是第几个不眠的夜晚。',
+	description: '天亮前你再次查看自己的身份牌。',
 	skills: [Insomniac],
 };
 

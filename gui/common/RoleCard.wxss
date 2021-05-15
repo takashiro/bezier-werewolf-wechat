@@ -22,8 +22,16 @@
 	height: 100%;
 }
 
+.background {
+	display: block;
+	font-size: 8pt;
+	width: 80%;
+	margin: 0.5em auto;
+	color: gainsboro;
+}
+
 .description {
 	display: block;
-	width: 82%;
+	width: 80%;
 	margin: 0 auto;
 }

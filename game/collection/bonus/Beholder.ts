@@ -9,7 +9,8 @@ export class Beholder extends TargetlessSkill {
 const beholder: CollectionEntry = {
 	role: Role.Beholder,
 	name: '旁观者',
-	description: '你拥有第三只眼睛，可以看到别人看不见的东西，小时候也因此被村里的小孩欺负过，所以总是用长发遮住额头。今晚你可以确认预言家的身份牌。',
+	background: '你拥有第三只眼睛，可以看到不寻常的现象。',
+	description: '你可以查看抽到预言家的玩家，并查看其身份牌。',
 	skills: [Beholder],
 };
 

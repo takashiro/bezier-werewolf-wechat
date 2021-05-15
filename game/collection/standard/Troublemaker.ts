@@ -18,7 +18,8 @@ export class Troublemaker extends DoublePlayerSkill {
 const troublemaker: CollectionEntry = {
 	role: Role.Troublemaker,
 	name: '捣蛋鬼',
-	description: '你不小心打翻了女巫的药水，药水洒到了两只人偶上。你意识到这两个人互换了身份。现在请选择两名玩家。',
+	background: '你不小心打翻了女巫的药水，村庄里将有两个人因你被互换身份。',
+	description: '你可以交换两名其他玩家的身份牌。',
 	skills: [Troublemaker],
 };
 

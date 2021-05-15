@@ -19,7 +19,8 @@ class MysticWolf extends SinglePlayerSkill {
 const mysticWolf: CollectionEntry = {
 	role: Role.MysticWolf,
 	name: '狼先知',
-	description: '你拥有神秘的预言能力，理所当然被选入今晚的狼队行动中。和队友碰面后，你还可以查看任意一名其他玩家的身份。',
+	background: '你拥有神秘的预言能力，理所当然被选入今晚的狼队行动中。',
+	description: '你可以查看抽到狼人牌的玩家，然后你可以查看任意一名其他玩家的身份。',
 	skills: [Werewolf, MysticWolf],
 };
 
