@@ -1,4 +1,4 @@
-<button class="night-button" bindtap="enterNight" wx:if="{{players.length <= 0}}">开始</button>
+<button class="button night-button" bindtap="enterNight" wx:if="{{players.length <= 0}}">开始</button>
 
 <view class="box" wx:if="{{players.length > 0}}">
 	<text class="header">在场玩家</text>
@@ -25,7 +25,7 @@
 </view>
 
 <view class="button-area" wx:if="{{skillLabel}}">
-	<button bindtap="invokeSkill">{{skillLabel}}</button>
+	<button class="button" bindtap="invokeSkill">{{skillLabel}}</button>
 </view>
 <view class="box" wx:elif="{{voteItems.length > 0}}">
 	<text class="header">投票结果</text>
@@ -49,8 +49,8 @@
 </view>
 <block wx:elif="{{voteProgress < voteLimit}}">
 	<view class="button-area">
-		<button class="refresh-vote-button" bindtap="refreshVotes" wx:if="{{voteProgress <= 0}}">投票结果</button>
-		<button class="refresh-vote-button" bindtap="refreshVotes" wx:else>刷新</button>
+		<button class="button refresh-vote-button" bindtap="refreshVotes" wx:if="{{voteProgress <= 0}}">投票结果</button>
+		<button class="button refresh-vote-button" bindtap="refreshVotes" wx:else>刷新</button>
 	</view>
 
 	<view class="box vote" wx:if="{{voteProgress > 0}}">

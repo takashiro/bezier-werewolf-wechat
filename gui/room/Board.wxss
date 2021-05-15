@@ -1,3 +1,10 @@
+.button {
+	width: 6em;
+	margin: 12px auto;
+	font-size: 11pt;
+	box-sizing: content-box;
+}
+
 .box {
 	margin: 0 auto;
 }

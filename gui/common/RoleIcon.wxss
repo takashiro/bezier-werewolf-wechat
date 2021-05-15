@@ -29,7 +29,7 @@
 	left: -6px;
 }
 
-.role text {
+.role .name {
 	color: white;
 	text-align: center;
 	display: block;
@@ -37,11 +37,11 @@
 	white-space: nowrap;
 }
 
-.role text.n5 {
+.role .name.n5 {
 	transform: scaleX(0.9);
 }
 
-.role text.n6 {
+.role .name.n6 {
 	transform: scaleX(0.75);
 }
 
