@@ -13,7 +13,7 @@
 </view>
 
 <view class="box" wx:if="{{cards.length > 0}}">
-	<text class="header">未使用的身份牌</text>
+	<text class="header">中央牌堆</text>
 	<view class="card-list">
 		<Card class="card" wx:for="{{cards}}" wx:key="pos"
 			pos="{{item.pos}}"

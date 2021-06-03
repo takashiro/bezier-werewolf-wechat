@@ -19,7 +19,7 @@ const robber: CollectionEntry = {
 	role: Role.Robber,
 	name: '盗贼',
 	background: '你趁着夜色潜入一户人家，正准备下手，神秘事件发生了。',
-	description: '你选择1名玩家，与之交换身份并查看你的新身份牌。',
+	description: '你选择1名其他玩家，与之交换身份并查看你的新身份牌。',
 	skills: [Robber],
 };
 
